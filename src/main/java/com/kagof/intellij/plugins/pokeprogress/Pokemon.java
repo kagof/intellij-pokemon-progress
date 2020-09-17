@@ -19,6 +19,11 @@ public enum Pokemon {
     BLASTOISE(9, "blastoise", -19, -9, PokemonType.WATER),
     PIKACHU(25, "pikachu", -16, -11, PokemonType.ELECTRIC),
     EEVEE(133, "eevee", -16, -11, PokemonType.NORMAL),
+    ARTICUNO(144, "articuno", -18, -7, PokemonType.ICE, PokemonType.FLYING),
+    ZAPDOS(145, "zapdos", -16, -7, PokemonType.ELECTRIC, PokemonType.FLYING),
+    MOLTRES(146, "moltres", -15, -6, PokemonType.FIRE, PokemonType.FLYING),
+    MEWTWO(150, "mewtwo", -16, -7, PokemonType.PSYCHIC),
+    MEW(151, "mew", -16, -10, PokemonType.PSYCHIC),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
@@ -57,6 +62,7 @@ public enum Pokemon {
         }
         this.icon = IconLoader.getIcon(RESOURCE_PATH + name + ".gif");
         this.iconR = IconLoader.getIcon(RESOURCE_PATH + name + "_r.gif");
+
         this.types = ImmutableList.copyOf(types);
         this.xShift = xShift;
         this.yShift = yShift;

@@ -20,6 +20,11 @@ This is a plugin for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/),
 * ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/blastoise.gif) #9 Blastoise
 * ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/pikachu.gif) #25 Pikachu
 * ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/eevee.gif) #133 Eevee
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/articuno.gif) #144 Articuno
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zapdos.gif) #145 Zapdos
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/moltres.gif) #146 Moltres
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mewtwo.gif) #150 Mewtwo
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mew.gif) #151 Mew
 
 ### Generation VII
 
@@ -42,7 +47,7 @@ This is a plugin for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/),
 ### Sprites
 
 * [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
-    * Blastoise, Bulbasaur, Charizard, Charmander, Pikachu, Squirtle, Venusaur
+    * Bulbasaur, Venusaur, Charmander, Charizard, Squirtle, Blastoise, Pikachu, Eevee, Articuno, Zapdos, Moltres, Mewtwo, Mew
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
