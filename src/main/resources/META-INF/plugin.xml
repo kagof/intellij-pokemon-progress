@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>com.kagof.pokeprogress</id>
+    <name>Pokemon Progress</name>
+    <vendor email="karl.goffin@gmail.com"
+            url="https://github.com/kagof">Kagof
+    </vendor>
+
+    <description><![CDATA[
+    <img src="https://raw.githubusercontent.com/kagof/intellij-pokemon-progress/master/eg/example.gif">
+    <br>
+    Replaces your IDE's progress bars with random Pokémon.
+    <br>
+    See the <a href="https://github.com/kagof/intellij-pokemon-progress">Github Repository</a>
+    ]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+    <application-components>
+        <component>
+            <implementation-class>
+                com.kagof.intellij.plugins.pokeprogress.PokemonProgressApplicationComponent
+            </implementation-class>
+        </component>
+    </application-components>
+</idea-plugin>
