@@ -25,6 +25,18 @@ This is a plugin for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/),
 
 * ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mimikyu.gif) #778 Mimikyu
 
+### Generation VIII
+
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/grookey.gif) #810 Grookey
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rillaboom.gif) #812 Rillaboom
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/scorbunny.gif) #813 Scorbunny
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/cinderace.gif) #815 Cinderace
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sobble.gif) #816 Sobble
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/intelleon.gif) #818 Intelleon
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wooloo.gif) #831 Wooloo
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian.gif) #888 Zacian
+* ![](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta.gif) #889 Zamazenta
+
 ## Acknowledgements
 
 ### Sprites
@@ -33,6 +45,8 @@ This is a plugin for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/),
     * Blastoise, Bulbasaur, Charizard, Charmander, Pikachu, Squirtle, Venusaur
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
+* [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
+    * Grookey, Rillaboom, Scorbunny, Cinderace, Sobble, Intelleon, Wooloo, Zacian, Zamazenta
 
 ### Code
 
@@ -44,3 +58,4 @@ This is a plugin for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/),
 * Gif editing done with [ImageMagick](https://imagemagick.org/script/index.php) (using [this](./editSprite.sh) script)
 * Types, names, numbers, & info mainly gathered from [Bulbapedia](https://bulbapedia.bulbagarden.net)
 * Type colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
+* The Pokémon Company, for creating Pokémon

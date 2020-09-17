@@ -20,7 +20,17 @@ public enum Pokemon {
     PIKACHU(25, "pikachu", -16, -11, PokemonType.ELECTRIC),
     EEVEE(133, "eevee", -16, -11, PokemonType.NORMAL),
     // Gen VII
-    MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY);
+    MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
+    // Gen VIII
+    GROOKEY(810, "grookey", -15, -7, PokemonType.GRASS),
+    RILLABOOM(812, "rillaboom", -15, -6, PokemonType.GRASS),
+    SCORBUNNY(813, "scorbunny", -16, -7, PokemonType.FIRE),
+    CINDERACE(815, "cinderace", -16, -7, PokemonType.FIRE),
+    SOBBLE(816, "sobble", -16, -6, PokemonType.WATER),
+    INTELLEON(818, "intelleon", -16, -6, PokemonType.WATER),
+    WOOLOO(831, "wooloo", -12, -5, PokemonType.NORMAL),
+    ZACIAN(888, "zacian", -10, -6, PokemonType.FAIRY, PokemonType.STEEL),
+    ZAMAZENTA(889, "zamazenta", -7, -7, PokemonType.FIGHTING, PokemonType.STEEL);
 
     private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
     private static final Random RANDOM = new Random();
@@ -37,6 +47,10 @@ public enum Pokemon {
     private final int xShift;
     private final int yShift;
 
+    public static Pokemon randomPokemon() {
+        return Pokemon.values()[RANDOM.nextInt(Pokemon.values().length)];
+    }
+
     Pokemon(final int number, final String name, final int xShift, final int yShift, final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
@@ -48,10 +62,6 @@ public enum Pokemon {
         this.yShift = yShift;
         this.name = StringUtil.capitalizeWords(name, true);
         this.number = number;
-    }
-
-    public static Pokemon randomPokemon() {
-        return Pokemon.values()[RANDOM.nextInt(Pokemon.values().length)];
     }
 
     public List<PokemonType> getTypes() {
