@@ -70,6 +70,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
 
     @Override
     protected void paintDeterminate(final Graphics g, final JComponent c) {
+        resetPositionAndVelocity();
         paint(g, c, true);
     }
 
@@ -216,6 +217,11 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
                 velocity = v + 1;
             }
         }
+    }
+
+    private void resetPositionAndVelocity() {
+        velocity = 1;
+        pos = 0;
     }
 
     private static Paint getTypePaint(final Pokemon pokemon, final int height) {
