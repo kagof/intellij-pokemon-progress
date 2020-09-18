@@ -104,7 +104,13 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
             return;
         }
 
-        int amountFull = determinate ? getAmountFull(border, barRectWidth, barRectHeight) : pos;
+
+        int amountFull;
+        if (Pokemon.DEBUGGING) {
+            amountFull = barRectWidth / 2;
+        } else {
+            amountFull = determinate ? getAmountFull(border, barRectWidth, barRectHeight) : pos;
+        }
 
         Container parent = c.getParent();
         Color background = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();

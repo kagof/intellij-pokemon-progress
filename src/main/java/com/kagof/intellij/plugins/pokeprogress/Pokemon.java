@@ -41,6 +41,10 @@ public enum Pokemon {
     ZACIAN(888, "zacian", -10, -6, PokemonType.FAIRY, PokemonType.STEEL),
     ZAMAZENTA(889, "zamazenta", -7, -7, PokemonType.FIGHTING, PokemonType.STEEL);
 
+    // For convenience's sake, these can be used when testing positioning & sizing of new sprites
+    static final boolean DEBUGGING = false;
+    private static final Pokemon TARGET = null;
+
     private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
     private static final Random RANDOM = new Random();
 
@@ -56,8 +60,9 @@ public enum Pokemon {
     private final int xShift;
     private final int yShift;
 
+    @SuppressWarnings("ConstantConditions")
     public static Pokemon randomPokemon() {
-        return Pokemon.values()[RANDOM.nextInt(Pokemon.values().length)];
+        return TARGET == null ? Pokemon.values()[RANDOM.nextInt(Pokemon.values().length)] : TARGET;
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final PokemonType... types) {
