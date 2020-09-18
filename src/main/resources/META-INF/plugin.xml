@@ -6,9 +6,10 @@
     </vendor>
 
     <description><![CDATA[
+    Replaces your IDE's progress bars with random Pokémon.
+    <br>
     <img src="https://raw.githubusercontent.com/kagof/intellij-pokemon-progress/master/eg/example.gif">
     <br>
-    Replaces your IDE's progress bars with random Pokémon.
     <br>
     See the <a href="https://github.com/kagof/intellij-pokemon-progress">Github Repository</a>
     ]]></description>

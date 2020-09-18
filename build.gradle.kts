@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.kagof"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -21,7 +21,8 @@ intellij {
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
       <ul>
-      <li><b>1.0.0</b> Initial release</li>
+      <li><b><a href="https://github.com/kagof/intellij-pokemon-progress/releases/tag/1.0.1">1.0.1</a></b> minor bugfix, backwards compatibility with IntelliJ 2019.3.x</li>
+      <li><b><a href="https://github.com/kagof/intellij-pokemon-progress/releases/tag/1.0.0">1.0.0</a></b> Initial release</li>
       </ul>
       """)
 }
