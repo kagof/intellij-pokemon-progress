@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.ComponentUI;
@@ -182,12 +183,12 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final Shape previousClip = graphics2D.getClip();
 
         graphics2D.setClip(clip);
-        (velocity >= 0 ? pokemon.getIcon() : pokemon.getIconR())
-            .paintIcon(progressBar,
-                graphics2D,
-                amountFull + (velocity >= 0 ? JBUI.scale(pokemon.getXShift())
-                    : JBUI.scale(-pokemon.getIconR().getIconWidth() - pokemon.getXShift())),
-                JBUI.scale(pokemon.getYShift()));
+        final Icon icon = velocity >= 0 ? pokemon.getIcon() : pokemon.getIconR();
+        icon.paintIcon(progressBar,
+            graphics2D,
+            amountFull + (velocity >= 0 ? JBUI.scale(pokemon.getXShift())
+                : JBUI.scale(-icon.getIconWidth() - pokemon.getXShift())),
+            JBUI.scale(pokemon.getYShift()));
 
         graphics2D.setClip(previousClip);
     }

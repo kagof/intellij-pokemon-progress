@@ -2,6 +2,7 @@ package com.kagof.intellij.plugins.pokeprogress;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 
@@ -11,7 +12,7 @@ import com.intellij.openapi.util.text.StringUtil;
 
 public enum Pokemon {
     // Gen I
-    BULBASAUR(1, "bulbasaur", -16, -12, PokemonType.GRASS, PokemonType.POISON),
+    BULBASAUR(1, "bulbasaur", -16, -11, PokemonType.GRASS, PokemonType.POISON),
     VENUSAUR(3, "venusaur", -14, -7, PokemonType.GRASS, PokemonType.POISON),
     CHARMANDER(4, "charmander", -20, -11, PokemonType.FIRE),
     CHARIZARD(6, "charizard", -16, -8, PokemonType.FIRE, PokemonType.FLYING),
@@ -40,8 +41,8 @@ public enum Pokemon {
     private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
     private static final Random RANDOM = new Random();
 
-    private final Icon icon;
-    private final Icon iconR;
+    private final Supplier<Icon> icon;
+    private final Supplier<Icon> iconR;
 
     private final List<PokemonType> types;
 
@@ -60,14 +61,15 @@ public enum Pokemon {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
         }
-        this.icon = IconLoader.getIcon(RESOURCE_PATH + name + ".gif");
-        this.iconR = IconLoader.getIcon(RESOURCE_PATH + name + "_r.gif");
 
         this.types = ImmutableList.copyOf(types);
         this.xShift = xShift;
         this.yShift = yShift;
-        this.name = StringUtil.capitalizeWords(name, true);
+        this.name = name;
         this.number = number;
+
+        this.icon = () -> IconLoader.getIcon(RESOURCE_PATH + name + ".gif");
+        this.iconR = () -> IconLoader.getIcon(RESOURCE_PATH + name + "_r.gif");
     }
 
     public List<PokemonType> getTypes() {
@@ -75,11 +77,11 @@ public enum Pokemon {
     }
 
     public Icon getIcon() {
-        return icon;
+        return icon.get();
     }
 
     public Icon getIconR() {
-        return iconR;
+        return iconR.get();
     }
 
     public int getXShift() {
@@ -99,6 +101,6 @@ public enum Pokemon {
     }
 
     public String getNameWithNumber() {
-        return name + " (#" + number + ")";
+        return StringUtil.capitalizeWords(name, true) + " (#" + number + ")";
     }
 }
