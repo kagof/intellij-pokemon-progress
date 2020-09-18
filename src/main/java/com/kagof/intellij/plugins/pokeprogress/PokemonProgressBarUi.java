@@ -26,7 +26,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 import com.intellij.openapi.ui.GraphicsConfig;
-import com.intellij.openapi.util.text.Strings;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.scale.JBUIScale;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
@@ -70,6 +70,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
 
     @Override
     protected void paintDeterminate(final Graphics g, final JComponent c) {
+        resetPositionAndVelocity();
         paint(g, c, true);
     }
 
@@ -160,7 +161,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void setToolTipText() {
-        if (Strings.isEmptyOrSpaces(progressBar.getToolTipText())) {
+        if (StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
             progressBar.setToolTipText(pokemon.getNameWithNumber());
         }
     }
@@ -216,6 +217,11 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
                 velocity = v + 1;
             }
         }
+    }
+
+    private void resetPositionAndVelocity() {
+        velocity = 1;
+        pos = 0;
     }
 
     private static Paint getTypePaint(final Pokemon pokemon, final int height) {
