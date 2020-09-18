@@ -18,16 +18,30 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Charizard (#6)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/charizard.gif) Charizard (#6) ![Charizard (#6)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/charizard_r.gif)
 * ![Squirtle (#7)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/squirtle.gif) Squirtle (#7) ![Squirtle (#7)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/squirtle_r.gif)
 * ![Blastoise (#9)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/blastoise.gif) Blastoise (#9) ![Blastoise (#9)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/blastoise_r.gif)
+* ![Butterfree (#12)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/butterfree.gif) Butterfree (#12) ![Butterfree (#12)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/butterfree_r.gif)
 * ![Pikachu (#25)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/pikachu.gif) Pikachu (#25) ![Pikachu (#25)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/pikachu_r.gif)
+* ![Meowth (#52)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meowth.gif) Meowth (#52) ![Meowth (#52)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meowth_r.gif)
 * ![Slowpoke (#79)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/slowpoke.gif) Slowpoke (#79) ![Slowpoke (#79)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/slowpoke_r.gif)
+* ![Gengar (#94)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/gengar.gif) Gengar (#94) ![Gengar (#94)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/gengar_r.gif)
 * ![Koffing (#109)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/koffing.gif) Koffing (#109) ![Koffing (#109)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/koffing_r.gif)
 * ![Gyarados (#130)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/gyarados.gif) Gyarados (#130) ![Gyarados (#130)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/gyarados_r.gif)
 * ![Eevee (#133)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/eevee.gif) Eevee (#133) ![Eevee (#133)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/eevee_r.gif)
+* ![Snorlax (#143)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/snorlax.gif) Snorlax (#143) ![Snorlax (#143)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/snorlax_r.gif)
 * ![Articuno (#144)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/articuno.gif) Articuno (#144) ![Articuno (#144)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/articuno_r.gif)
 * ![Zapdos (#145)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zapdos.gif) Zapdos (#145) ![Zapdos (#145)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zapdos_r.gif)
 * ![Moltres (#146)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/moltres.gif) Moltres (#146) ![Moltres (#146)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/moltres_r.gif)
 * ![Mewtwo (#150)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mewtwo.gif) Mewtwo (#150) ![Mewtwo (#150)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mewtwo_r.gif)
 * ![Mew (#151)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mew.gif) Mew (#151) ![Mew (#151)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mew_r.gif)
+
+### Generation II
+
+* ![Togepi (#175)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/togepi.gif) Togepi (#175) ![Togepi (#175)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/togepi_r.gif)
+* ![Wobbuffet (#202)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wobbuffet.gif) Wobbuffet (#202) ![Wobbuffet (#202)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wobbuffet_r.gif)
+
+### Generation III
+
+* ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
+* ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
 
 ### Generation VII
 
@@ -50,7 +64,9 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 ### Sprites
 
 * [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
-    * Bulbasaur, Venusaur, Charmander, Charizard, Squirtle, Blastoise, Pikachu, Slowpoke, Koffing, Gyarados, Eevee, Articuno, Zapdos, Moltres, Mewtwo, Mew
+    * Bulbasaur, Venusaur, Charmander, Charizard, Squirtle, Blastoise, Butterfree, Pikachu, Meowth, Slowpoke, Gengar, Koffing, Gyarados, Eevee, Snorlax, Articuno, Zapdos, Moltres, Mewtwo, Mew
+    * Togepi, Wobbuffet
+    * Wailmer, Wailord
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)

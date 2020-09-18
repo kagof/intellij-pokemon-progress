@@ -18,16 +18,26 @@ public enum Pokemon {
     CHARIZARD(6, "charizard", -16, -8, PokemonType.FIRE, PokemonType.FLYING),
     SQUIRTLE(7, "squirtle", -16, -12, PokemonType.WATER),
     BLASTOISE(9, "blastoise", -19, -9, PokemonType.WATER),
+    BUTTERFREE(12, "butterfree", -14, -9, PokemonType.BUG, PokemonType.FLYING),
     PIKACHU(25, "pikachu", -16, -11, PokemonType.ELECTRIC),
+    MEOWTH(52, "meowth", -18, -11, PokemonType.NORMAL),
     SLOWPOKE(79, "slowpoke", -17, -11, PokemonType.WATER, PokemonType.PSYCHIC),
+    GENGAR(94, "gengar", -16, -9, PokemonType.GHOST, PokemonType.POISON),
     KOFFING(109, "koffing", -16, -9, PokemonType.POISON),
     GYARADOS(130, "gyarados", -16, -7, PokemonType.WATER, PokemonType.FLYING),
     EEVEE(133, "eevee", -16, -11, PokemonType.NORMAL),
+    SNORLAX(143, "snorlax", -16, -7, PokemonType.NORMAL),
     ARTICUNO(144, "articuno", -18, -7, PokemonType.ICE, PokemonType.FLYING),
     ZAPDOS(145, "zapdos", -16, -7, PokemonType.ELECTRIC, PokemonType.FLYING),
     MOLTRES(146, "moltres", -15, -6, PokemonType.FIRE, PokemonType.FLYING),
     MEWTWO(150, "mewtwo", -16, -7, PokemonType.PSYCHIC),
     MEW(151, "mew", -16, -10, PokemonType.PSYCHIC),
+    // Gen II
+    TOGEPI(175, "togepi", -16, -11, PokemonType.FAIRY),
+    WOBBUFFET(202, "wobbuffet", -16, -10, PokemonType.PSYCHIC),
+    // Gen III
+    WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
+    WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
