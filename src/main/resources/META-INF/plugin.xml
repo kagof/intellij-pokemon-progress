@@ -1,9 +1,7 @@
 <idea-plugin>
     <id>com.kagof.pokeprogress</id>
     <name>Pokemon Progress</name>
-    <vendor email="karl.goffin@gmail.com"
-            url="https://github.com/kagof">Kagof
-    </vendor>
+    <vendor email="karl.goffin@gmail.com" url="https://github.com/kagof">Kagof</vendor>
 
     <description><![CDATA[
     Replaces your IDE's progress bars with random Pokémon.
