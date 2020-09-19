@@ -66,7 +66,7 @@ convert \
   -background none \
   -gravity center \
   -extent "${extent}x${extent}" \
-  "${path}/${spriteName}*.png" \
+  "${path}/${spriteName}_*.png" \
   "${path}/${spriteName}.gif"
 
 checkExitCode 'unable to convert sprite (run editSprite.sh --help for usage)'
@@ -79,7 +79,7 @@ convert \
   -background none \
   -gravity center \
   -extent "${extent2}x${extent2}" \
-  "${path}/${spriteName}*.png" \
+  "${path}/${spriteName}_*.png" \
   "${path}/${spriteName}@2x.gif"
 
 checkExitCode 'unable to convert @2x sprite (run editSprite.sh --help for usage)'
