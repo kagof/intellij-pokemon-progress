@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(dirname "$0")
-DEFAULT_RESIZE='32x32'
-DEFAULT_EXTENT='32x32'
+DEFAULT_RESIZE=32
+DEFAULT_EXTENT=32
 DEFAULT_DELAY='50'
 DEFAULT_PATH=${SCRIPT_DIR}'/src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites'
 
@@ -27,8 +27,8 @@ editSprite.sh --help
 
 editSprite.sh spriteName [resize] [extent] [delay] [path]
 
-  - spriteName: the name of the sprite. There should be matching spriteName_1.png, spriteName_2.png, ... files in the path, and a spriteName.gif will be created in the path.
-      NOTE: existing files named spriteName.gif or spriteName_r.gif in the path will be overwritten
+  - spriteName: the name of the sprite. There should be matching spriteName_1.png, spriteName_2.png, ... files in the path.
+      NOTE: existing files named spriteName.gif, spriteName_r.gif spriteName@2x.gif, spriteName_r@2x.gif in the path will be overwritten
   - resize: shrink/expand each image before conversion.
       DEFAULT: ${DEFAULT_RESIZE}
   - extent: expand the resulting gif post conversion, by padding the border with transparency.
@@ -52,7 +52,9 @@ fi
 
 spriteName=$1
 resize=${2:-${DEFAULT_RESIZE}}
+resize2=$(( 2 * resize ))
 extent=${3:-${DEFAULT_EXTENT}}
+extent2=$(( 2 * extent ))
 delay=${4:-${DEFAULT_DELAY}}
 path=${5:-${DEFAULT_PATH}}
 
@@ -60,14 +62,27 @@ path=${5:-${DEFAULT_PATH}}
 convert \
   -delay "$delay" \
   -dispose Background \
-  -resize "$resize" \
+  -resize "${resize}x${resize}" \
   -background none \
   -gravity center \
-  -extent "$extent" \
+  -extent "${extent}x${extent}" \
   "${path}/${spriteName}*.png" \
   "${path}/${spriteName}.gif"
 
 checkExitCode 'unable to convert sprite (run editSprite.sh --help for usage)'
+
+# create @2x gif
+convert \
+  -delay "$delay" \
+  -dispose Background \
+  -resize "${resize2}x${resize2}" \
+  -background none \
+  -gravity center \
+  -extent "${extent2}x${extent2}" \
+  "${path}/${spriteName}*.png" \
+  "${path}/${spriteName}@2x.gif"
+
+checkExitCode 'unable to convert @2x sprite (run editSprite.sh --help for usage)'
 
 # create reversed gif
 convert \
@@ -76,5 +91,13 @@ convert \
   "${path}/${spriteName}_r.gif"
 
 checkExitCode 'unable to create reversed sprite (run editSprite.sh --help for usage)'
+
+# create reversed @2x gif
+convert \
+  -flop \
+  "${path}/${spriteName}@2x.gif" \
+  "${path}/${spriteName}_r@2x.gif"
+
+checkExitCode 'unable to create reversed @2x sprite (run editSprite.sh --help for usage)'
 
 exit 0
