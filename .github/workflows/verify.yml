@@ -28,11 +28,14 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew buildPlugin
+      
     - name: Verify against IntelliJ builds
-      uses: thepieterdc/intellij-plugin-verifier-action@v1.1.2
+      uses: ChrisCarini/intellij-platform-plugin-verifier-action@v1.0.3
       with:
-        plugin: 'build/distributions/pokemon-progress-*'
-        versions: |
-          2019.3.5
-          2020.2.2
-          LATEST-EAP-SNAPSHOT
+        ide-versions: |
+          ideaIC:2019.3.5
+          ideaIU:2019.3.5
+          ideaIC:2020.2.2
+          ideaIU:2020.2.2
+          ideaIC:LATEST-EAP-SNAPSHOT
+          ideaIU:LATEST-EAP-SNAPSHOT
