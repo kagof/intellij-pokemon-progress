@@ -21,17 +21,16 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+
     </extensions>
+    <applicationListeners>
+        <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
+                  topic="com.intellij.ide.ui.LafManagerListener"/>
+        <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
+                  topic="com.intellij.ide.plugins.DynamicPluginListener"/>
+    </applicationListeners>
 
     <actions>
         <!-- Add your actions here -->
     </actions>
-    <application-components>
-        <component>
-            <implementation-class>
-                com.kagof.intellij.plugins.pokeprogress.PokemonProgressApplicationComponent
-            </implementation-class>
-        </component>
-    </application-components>
 </idea-plugin>
