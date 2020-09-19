@@ -1,6 +1,8 @@
 # IntelliJ Pokémon Progress Bar
-
-![Version](https://img.shields.io/jetbrains/plugin/v/15090-pokemon-progress) ![Downloads](https://img.shields.io/jetbrains/plugin/d/15090-pokemon-progress)
+[![Build](https://img.shields.io/github/workflow/status/kagof/intellij-pokemon-progress/Java%20CI%20with%20Gradle/master)](https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3)
+[![Version](https://img.shields.io/jetbrains/plugin/v/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions)
+[![Rating](https://img.shields.io/jetbrains/plugin/r/rating/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress)
 
 ![](eg/example.gif)
 

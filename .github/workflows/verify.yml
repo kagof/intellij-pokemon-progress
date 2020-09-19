@@ -30,6 +30,7 @@ jobs:
       run: ./gradlew buildPlugin
       
     - name: Verify against IntelliJ builds
+      id: verify
       uses: ChrisCarini/intellij-platform-plugin-verifier-action@v1.0.3
       with:
         ide-versions: |
@@ -39,3 +40,14 @@ jobs:
           ideaIU:2020.2.2
           ideaIC:LATEST-EAP-SNAPSHOT
           ideaIU:LATEST-EAP-SNAPSHOT
+          
+    - name: Sync master branch verification results to gist
+      id: sync
+      uses: Popsiclestick/gist-sync-action@v1.1
+      if: github.ref == 'refs/heads/master'
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gist_url: https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3
+        gist_title: IntelliJ Pokémon Progress Bar Verification Results
+        gist_description: Latest intellij-pokemon-progress master branch test results ${{ github.run_number }} (${{ github.sha }})
+        github_file: ${{ steps.verify.outputs.verification-output-log-filename }}
