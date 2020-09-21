@@ -35,6 +35,12 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 ### Generation II
 
+* ![Chikorita (#152)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chikorita.gif) Chikorita (#152) ![Chikorita (#152)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chikorita_r.gif)
+* ![Meganium (#154)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meganium.gif) Meganium (#154) ![Meganium (#154)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meganium_r.gif)
+* ![Cyndaquil (#155)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/cyndaquil.gif) Cyndaquil (#155) ![Cyndaquil (#155)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/cyndaquil_r.gif)
+* ![Typhlosion (#157)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/typhlosion.gif) Typhlosion (#157) ![Typhlosion (#157)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/typhlosion_r.gif)
+* ![Totodile (#158)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/totodile.gif) Totodile (#158) ![Totodile (#158)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/totodile_r.gif)
+* ![Feraligatr (#160)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/feraligatr.gif) Feraligatr (#160) ![Feraligatr (#160)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/feraligatr_r.gif)
 * ![Togepi (#175)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/togepi.gif) Togepi (#175) ![Togepi (#175)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/togepi_r.gif)
 * ![Wobbuffet (#202)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wobbuffet.gif) Wobbuffet (#202) ![Wobbuffet (#202)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wobbuffet_r.gif)
 

@@ -33,6 +33,12 @@ public enum Pokemon {
     MEWTWO(150, "mewtwo", -16, -7, PokemonType.PSYCHIC),
     MEW(151, "mew", -16, -10, PokemonType.PSYCHIC),
     // Gen II
+    CHIKORITA(152, "chikorita", -16, -10, PokemonType.GRASS),
+    MEGANIUM(154, "meganium", -16, -8, PokemonType.GRASS),
+    CYNDAQUIL(155, "cyndaquil", -16, -12, PokemonType.FIRE),
+    TYPHOLSION(157, "typhlosion", -13, -8, PokemonType.FIRE),
+    TOTODILE(158, "totodile", -16, -11, PokemonType.WATER),
+    FERALIGATR(160, "feraligatr", -16, -7, PokemonType.GRASS, PokemonType.FIRE, PokemonType.WATER),
     TOGEPI(175, "togepi", -16, -11, PokemonType.FAIRY),
     WOBBUFFET(202, "wobbuffet", -16, -10, PokemonType.PSYCHIC),
     // Gen III
