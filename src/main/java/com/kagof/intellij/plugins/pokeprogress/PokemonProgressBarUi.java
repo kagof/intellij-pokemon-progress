@@ -34,9 +34,7 @@ import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
 
 public class PokemonProgressBarUi extends BasicProgressBarUI {
-    private static final float ONE_SIXTH = 1f / 6;
-    private static final float FIVE_SIXTHS = 5f / 6;
-
+    private static final float ONE_HALF = 0.5f;
     private final Pokemon pokemon;
 
     private volatile int pos = 0;
@@ -234,20 +232,20 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static Paint getTypePaint(final Pokemon pokemon, final int height) {
         final List<PokemonType> types = pokemon.getTypes();
         final int numColors = types.size();
-        final float numColorsReciprocal = 1f / numColors;
         if (numColors == 1) {
             return getPaintSingleType(types.get(0), height);
         }
 
-        return new LinearGradientPaint(0, JBUI.scale(2), 0, (float) height - JBUI.scale(6),
+        final float numColorsReciprocal = 1f / (numColors - 1);
+        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
             ArrayUtils.toPrimitive(
-                IntStream.range(1, numColors + 1).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
+                IntStream.range(0, numColors).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
             types.stream().map(PokemonType::getColor).collect(Collectors.toList()).toArray(new Color[] {}));
     }
 
     private static Paint getPaintSingleType(final PokemonType type, final int height) {
-        return new LinearGradientPaint(0, JBUIScale.scale(2), 0, (float) height - JBUI.scale(6),
-            new float[] {ONE_SIXTH, FIVE_SIXTHS, 1},
+        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
+            new float[] {0f, ONE_HALF, 1f},
             new Color[] {type.getColorLight(), type.getColor(), type.getColorDark()});
     }
 
