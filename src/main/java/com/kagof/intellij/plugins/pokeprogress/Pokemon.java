@@ -1,8 +1,11 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 
@@ -63,14 +66,19 @@ public enum Pokemon {
     INTELLEON(818, "intelleon", -16, -6, PokemonType.WATER),
     WOOLOO(831, "wooloo", -12, -5, PokemonType.NORMAL),
     ZACIAN(888, "zacian", -10, -6, PokemonType.FAIRY, PokemonType.STEEL),
-    ZAMAZENTA(889, "zamazenta", -7, -7, PokemonType.FIGHTING, PokemonType.STEEL);
+    ZAMAZENTA(889, "zamazenta", -7, -7, PokemonType.FIGHTING, PokemonType.STEEL),
+
+    // Secret
+    MISSINGNO("???", "missingNo.", -16, -7, true, PokemonType.NORMAL);
 
     // For convenience's sake, these can be used when testing positioning & sizing of new sprites
     static final boolean DEBUGGING = false;
-    private static final Pokemon TARGET = null;
+    static final Pokemon TARGET = null;
 
     private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
-    private static final Random RANDOM = new Random();
+
+    public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values()).filter(p -> !p.secret)
+        .collect(Collectors.toMap(Pokemon::getNumber, Function.identity()));
 
     private final Supplier<Icon> icon;
     private final Supplier<Icon> iconR;
@@ -78,18 +86,21 @@ public enum Pokemon {
     private final List<PokemonType> types;
 
     private final String name;
-
-    private final int number;
+    private final String number;
 
     private final int xShift;
     private final int yShift;
+    private final boolean secret;
 
-    @SuppressWarnings("ConstantConditions")
-    public static Pokemon randomPokemon() {
-        return TARGET == null ? Pokemon.values()[RANDOM.nextInt(Pokemon.values().length)] : TARGET;
+    public static Pokemon getByNumber(final String number) {
+        return DEFAULT_POKEMON.get(number);
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final PokemonType... types) {
+        this(String.format("%03d", number), name, xShift, yShift, false, types);
+    }
+
+    Pokemon(final String number, final String name, final int xShift, final int yShift, final boolean secret, final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
         }
@@ -100,8 +111,10 @@ public enum Pokemon {
         this.name = name;
         this.number = number;
 
-        this.icon = () -> IconLoader.getIcon(RESOURCE_PATH + name + ".gif");
-        this.iconR = () -> IconLoader.getIcon(RESOURCE_PATH + name + "_r.gif");
+        icon = () -> IconLoader.getIcon(RESOURCE_PATH + name + ".gif");
+        iconR = () -> IconLoader.getIcon(RESOURCE_PATH + name + "_r.gif");
+
+        this.secret = secret;
     }
 
     public List<PokemonType> getTypes() {
@@ -128,8 +141,12 @@ public enum Pokemon {
         return name;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
+    }
+
+    public boolean isSecret() {
+        return secret;
     }
 
     public String getNameWithNumber() {

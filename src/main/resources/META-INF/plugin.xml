@@ -22,7 +22,10 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-
+        <applicationConfigurable parentId="appearance" instance="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressConfigurable"
+                                 id="org.intellij.sdk.settings.AppSettingsConfigurable"
+                                 displayName="Pokémon Progress"/>
+        <applicationService serviceImplementation="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState"/>
     </extensions>
     <applicationListeners>
         <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
@@ -30,7 +33,6 @@
         <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
                   topic="com.intellij.ide.plugins.DynamicPluginListener"/>
     </applicationListeners>
-
     <actions>
         <!-- Add your actions here -->
     </actions>

@@ -48,7 +48,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
     public static ComponentUI createUI(JComponent c) {
         c.setBorder(JBUI.Borders.empty().asUIResource());
-        return new PokemonProgressBarUi(Pokemon.randomPokemon());
+        return new PokemonProgressBarUi(PokemonPicker.get());
     }
 
     @Override
