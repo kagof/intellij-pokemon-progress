@@ -59,6 +59,10 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian.gif) Zacian (#888) ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian_r.gif)
 * ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta.gif) Zamazenta (#889) ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta_r.gif)
 
+## Contributing
+
+Contributions are very welcome on this project! Please see our [contributing guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md) to get started.
+
 ## Acknowledgements
 
 ### Sprites
