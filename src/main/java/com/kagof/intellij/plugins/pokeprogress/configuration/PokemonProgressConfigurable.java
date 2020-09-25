@@ -2,10 +2,7 @@ package com.kagof.intellij.plugins.pokeprogress.configuration;
 
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.Nullable;
-
 import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.util.NlsContexts;
 
 public class PokemonProgressConfigurable implements Configurable {
@@ -13,31 +10,35 @@ public class PokemonProgressConfigurable implements Configurable {
 
     @Override
     @NlsContexts.ConfigurableName
-    public  String getDisplayName() {
+    public String getDisplayName() {
         return "Pokémon Progress";
     }
 
     @Override
-    public @Nullable JComponent createComponent() {
+    public JComponent createComponent() {
         component = new PokemonProgressConfigurationComponent();
         return component.getPanel();
     }
 
     @Override
     public boolean isModified() {
-        PokemonProgressState state = PokemonProgressState.getInstance();
-        return !state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap());
+        final PokemonProgressState state = PokemonProgressState.getInstance();
+        return !state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
+            || state.drawSprites != component.getDrawSprites().isSelected()
+            || state.addToolTips != component.getAddToolTips().isSelected();
     }
 
     @Override
-    public void apply() throws ConfigurationException {
-        PokemonProgressState state = PokemonProgressState.getInstance();
+    public void apply() {
+        final PokemonProgressState state = PokemonProgressState.getInstance();
         state.pokemonNumbersEnabled = component.getEnabledNumberMap();
+        state.drawSprites = component.getDrawSprites().isSelected();
+        state.addToolTips = component.getAddToolTips().isSelected();
     }
 
     @Override
     public void reset() {
-        PokemonProgressState state = PokemonProgressState.getInstance();
+        final PokemonProgressState state = PokemonProgressState.getInstance();
         component.updateUi(state);
     }
 

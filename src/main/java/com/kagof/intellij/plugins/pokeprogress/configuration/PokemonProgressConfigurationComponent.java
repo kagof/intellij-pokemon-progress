@@ -2,8 +2,6 @@ package com.kagof.intellij.plugins.pokeprogress.configuration;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,12 +18,13 @@ import com.kagof.intellij.plugins.pokeprogress.Pokemon;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
+    private final JBCheckBox drawSprites = new JBCheckBox("Draw sprites");
+    private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
     private final Map<String, JBCheckBox> checkboxes = new HashMap<>();
     private final JButton selectAll = new JButton("Select all");
     private final JButton deselectAll = new JButton("Deselect all");
-    private final JLabel label = new JLabel("?/? selected");
+    private final JLabel label = new JLabel("?/? Pokémon selected");
     private final AtomicInteger numSelected = new AtomicInteger(0);
-
 
     public PokemonProgressConfigurationComponent() {
         createUi();
@@ -33,6 +32,16 @@ public class PokemonProgressConfigurationComponent {
 
     void createUi() {
         final FormBuilder formBuilder = FormBuilder.createFormBuilder();
+        formBuilder.addComponent(drawSprites);
+        drawSprites.setToolTipText("Not actually drawing the Pokémon icons can make your IDE look more professional");
+
+        formBuilder.addComponent(addToolTips);
+        addToolTips.setToolTipText("Whether or not to add a Pokémon tool tip (hover text) on the progress bars");
+
+        formBuilder.addSeparator();
+        formBuilder.addComponent(label);
+        formBuilder.addComponent(selectAll);
+        formBuilder.addComponent(deselectAll);
         selectAll.addActionListener(a -> {
             if (a.getID() == ActionEvent.ACTION_PERFORMED) {
                 checkboxes.values().forEach(c -> c.setSelected(true));
@@ -43,16 +52,13 @@ public class PokemonProgressConfigurationComponent {
                 checkboxes.values().forEach(c -> c.setSelected(false));
             }
         });
-        formBuilder.addComponent(label);
-        formBuilder.addComponent(selectAll);
-        formBuilder.addComponent(deselectAll);
 
         Pokemon.DEFAULT_POKEMON.values().stream().sorted().forEach(pokemon -> {
             final JBCheckBox checkBox = new JBCheckBox(pokemon.getNameWithNumber(), true);
             checkBox.addItemListener(c -> {
                 if (c.getStateChange() == ItemEvent.SELECTED) {
                     numSelected.incrementAndGet();
-                } else if (c.getStateChange() == ItemEvent.DESELECTED){
+                } else if (c.getStateChange() == ItemEvent.DESELECTED) {
                     numSelected.decrementAndGet();
                 }
                 refreshSelectAllButtons();
@@ -67,10 +73,12 @@ public class PokemonProgressConfigurationComponent {
 
     void updateUi(final PokemonProgressState state) {
         if (state != null) {
+            drawSprites.setSelected(state.drawSprites);
+            addToolTips.setSelected(state.addToolTips);
             state.pokemonNumbersEnabled
                 .forEach((pokemon, enabled) -> checkboxes.computeIfPresent(pokemon, (p, check) -> {
-                        check.setSelected(enabled);
-                        return check;
+                    check.setSelected(enabled);
+                    return check;
                 }));
         }
     }
@@ -83,11 +91,20 @@ public class PokemonProgressConfigurationComponent {
         return checkboxes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().isSelected()));
     }
 
+    public JBCheckBox getDrawSprites() {
+        return drawSprites;
+    }
+
+    public JBCheckBox getAddToolTips() {
+        return addToolTips;
+    }
+
     private void refreshSelectAllButtons() {
         final int i = numSelected.get();
+        final int size = checkboxes.size();
         deselectAll.setEnabled(i > 0);
-        selectAll.setEnabled(i < checkboxes.size());
-        label.setText(i + "/" + checkboxes.size() + " selected");
+        selectAll.setEnabled(i < size);
+        label.setText(i + "/" + size + " Pokémon selected");
     }
 
 }

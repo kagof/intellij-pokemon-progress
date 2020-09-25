@@ -32,6 +32,7 @@ import com.intellij.ui.scale.JBUIScale;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
+import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
 
 public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static final float ONE_HALF = 0.5f;
@@ -45,19 +46,19 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         this.pokemon = pokemon;
     }
 
-    @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
-    public static ComponentUI createUI(JComponent c) {
+    @SuppressWarnings( {"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
+    public static ComponentUI createUI(final JComponent c) {
         c.setBorder(JBUI.Borders.empty().asUIResource());
         return new PokemonProgressBarUi(PokemonPicker.get());
     }
 
     @Override
-    protected int getBoxLength(int availableLength, int otherDimension) {
+    protected int getBoxLength(final int availableLength, final int otherDimension) {
         return availableLength;
     }
 
     @Override
-    public Dimension getPreferredSize(JComponent c) {
+    public Dimension getPreferredSize(final JComponent c) {
         return new Dimension(super.getPreferredSize(c).width, JBUI.scale(20));
     }
 
@@ -85,33 +86,32 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         setToolTipText();
 
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
-        Graphics2D graphics2D = (Graphics2D) g;
+        final Graphics2D graphics2D = (Graphics2D) g;
 
-        Insets border = progressBar.getInsets(); // area for border
-        int width = progressBar.getWidth();
+        final Insets border = progressBar.getInsets(); // area for border
+        final int width = progressBar.getWidth();
         int height = progressBar.getPreferredSize().height;
 
         if (!isEven(c.getHeight() - height)) {
             height++;
         }
 
-        int barRectWidth = width - (border.right + border.left);
-        int barRectHeight = height - (border.top + border.bottom);
+        final int barRectWidth = width - (border.right + border.left);
+        final int barRectHeight = height - (border.top + border.bottom);
 
         if (barRectWidth <= 0 || barRectHeight <= 0) {
             return;
         }
 
-
-        int amountFull;
+        final int amountFull;
         if (Pokemon.DEBUGGING) {
             amountFull = barRectWidth / 2;
         } else {
             amountFull = determinate ? getAmountFull(border, barRectWidth, barRectHeight) : pos;
         }
 
-        Container parent = c.getParent();
-        Color background = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
+        final Container parent = c.getParent();
+        final Color background = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
 
         graphics2D.setColor(background);
         if (c.isOpaque()) {
@@ -166,7 +166,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void setToolTipText() {
-        if (StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
+        if (PokemonProgressState.getInstance().addToolTips && StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
             progressBar.setToolTipText(pokemon.getNameWithNumber());
         }
     }
@@ -184,6 +184,9 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void drawPokemonIcon(final int amountFull, final Graphics2D graphics2D, final Shape clip) {
+        if (!PokemonProgressState.getInstance().drawSprites) {
+            return;
+        }
         final Shape previousClip = graphics2D.getClip();
 
         graphics2D.setClip(clip);
@@ -203,8 +206,8 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void updatePosition() {
-        int v = velocity;
-        int p = pos;
+        final int v = velocity;
+        final int p = pos;
         if (velocity < 0) {
             if (pos <= 0) {
                 velocity = 1;

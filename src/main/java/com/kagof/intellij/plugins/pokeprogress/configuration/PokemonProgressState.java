@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.google.common.collect.ImmutableMap;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -19,7 +20,10 @@ import com.kagof.intellij.plugins.pokeprogress.Pokemon;
 )
 public class PokemonProgressState implements PersistentStateComponent<PokemonProgressState> {
 
-    public Map<String, Boolean> pokemonNumbersEnabled = Pokemon.DEFAULT_POKEMON.keySet().stream().collect(Collectors.toMap(Function.identity(), p -> true));
+    public Map<String, Boolean> pokemonNumbersEnabled = ImmutableMap
+        .copyOf(Pokemon.DEFAULT_POKEMON.keySet().stream().collect(Collectors.toMap(Function.identity(), p -> true)));
+    public boolean drawSprites = true;
+    public boolean addToolTips = true;
 
     public static PokemonProgressState getInstance() {
         return ServiceManager.getService(PokemonProgressState.class);
