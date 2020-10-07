@@ -4,13 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import javax.swing.Icon;
-
 import com.google.common.collect.ImmutableList;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.text.StringUtil;
 
 public enum Pokemon {
@@ -75,13 +71,8 @@ public enum Pokemon {
     static final boolean DEBUGGING = false;
     static final Pokemon TARGET = null;
 
-    private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
-
     public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values()).filter(p -> !p.secret)
         .collect(Collectors.toMap(Pokemon::getNumber, Function.identity()));
-
-    private final Supplier<Icon> icon;
-    private final Supplier<Icon> iconR;
 
     private final List<PokemonType> types;
 
@@ -111,22 +102,11 @@ public enum Pokemon {
         this.name = name;
         this.number = number;
 
-        icon = () -> IconLoader.getIcon(RESOURCE_PATH + name + ".gif");
-        iconR = () -> IconLoader.getIcon(RESOURCE_PATH + name + "_r.gif");
-
         this.secret = secret;
     }
 
     public List<PokemonType> getTypes() {
         return types;
-    }
-
-    public Icon getIcon() {
-        return icon.get();
-    }
-
-    public Icon getIconR() {
-        return iconR.get();
     }
 
     public int getXShift() {
