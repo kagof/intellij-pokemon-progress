@@ -85,6 +85,7 @@ Contributions are very welcome on this project! Please see our [contributing gui
     * Bulbasaur, Venusaur, Charmander, Charizard, Squirtle, Blastoise, Butterfree, Pikachu, Meowth, Slowpoke, Gengar, Koffing, Gyarados, Eevee, Snorlax, Articuno, Zapdos, Moltres, Mewtwo, Mew
     * Togepi, Wobbuffet
     * Wailmer, Wailord
+    * MissingNo.
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)

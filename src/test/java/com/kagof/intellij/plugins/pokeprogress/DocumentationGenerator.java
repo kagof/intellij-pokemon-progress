@@ -9,7 +9,9 @@ public class DocumentationGenerator {
     @Test
     public void printForReadme() {
         for (final Pokemon pokemon : Pokemon.values()) {
-            System.out.println(getReadmeString(pokemon));
+            if (!pokemon.isSecret()) {
+                System.out.println(getReadmeString(pokemon));
+            }
         }
     }
 
@@ -18,14 +20,15 @@ public class DocumentationGenerator {
         final StringBuilder stringBuilder = new StringBuilder();
         int i = 0;
         for (final Pokemon pokemon : Pokemon.values()) {
-            if (i == 0) {
-                stringBuilder.append("<br>\n    ");
+            if (!pokemon.isSecret()) {
+                if (i == 0) {
+                    stringBuilder.append("<br>\n    ");
+                }
+                i = (i + 1) % 10;
+                stringBuilder.append(getPluginXmlString(pokemon));
             }
-            i = (i + 1) % 10;
-            stringBuilder.append(getPluginXmlString(pokemon));
         }
-        System.out
-            .println(stringBuilder.toString().trim());
+        System.out.println(stringBuilder.toString().trim());
     }
 
     private String getReadmeString(final Pokemon pokemon) {
