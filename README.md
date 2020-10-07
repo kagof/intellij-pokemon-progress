@@ -82,8 +82,8 @@ Contributions are very welcome on this project! Please see our [contributing gui
 ### Sprites
 
 * [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
-    * Bulbasaur, Venusaur, Charmander, Charizard, Squirtle, Blastoise, Butterfree, Pikachu, Meowth, Slowpoke, Gengar, Koffing, Gyarados, Eevee, Snorlax, Articuno, Zapdos, Moltres, Mewtwo, Mew
-    * Togepi, Wobbuffet
+    * Bulbasaur, Venusaur, Charmander, Charizard, Squirtle, Blastoise, Butterfree, Pikachu, Nidoqueen, Nidoking, Jigglypuff, Meowth, Alakazam, Machamp, Slowpoke, Magnemite, Gengar, Koffing, Scyther, Gyarados, Eevee, Snorlax, Articuno, Zapdos, Moltres, Dragonite, Mewtwo, Mew
+    * Chikorita, Meganium, Cyndaquil, Typhlosion, Totodile, Feraligatr, Togepi, Wobbuffet
     * Wailmer, Wailord
     * MissingNo.
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
@@ -93,7 +93,7 @@ Contributions are very welcome on this project! Please see our [contributing gui
 
 ### Code
 
-* Much of the UI code (as well as the idea) was adapted from [Nyan Progess Bar](https://github.com/batya239/NyanProgressBar).
+* The code for the progress bar itself was adapted from [Nyan Progess Bar](https://github.com/batya239/NyanProgressBar).
 * This plugin is of course heavily dependent on JetBrains' IntelliJ SDK  
 
 ### Misc
@@ -101,4 +101,5 @@ Contributions are very welcome on this project! Please see our [contributing gui
 * Gif editing done with [ImageMagick](https://imagemagick.org/script/index.php) (using [this](./editSprite.sh) script)
 * Types, names, numbers, & info mainly gathered from [Bulbapedia](https://bulbapedia.bulbagarden.net)
 * Type colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
+* The idea for this plugin came from [KikiManjaro's Pokemon Trainer Progress Bar](https://plugins.jetbrains.com/plugin/14609-pokemon-trainer-progress-bar)
 * The Pokémon Company, for creating Pokémon
