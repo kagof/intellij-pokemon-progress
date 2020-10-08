@@ -18,7 +18,6 @@ checkExitCode() {
   fi
 }
 
-
 if ! command -v magick &>/dev/null; then
   echo "This script requires ImageMagick (https://imagemagick.org/script/index.php)"
   exit 1
@@ -30,13 +29,12 @@ fi
 
 spriteName=$1
 originalHeight=$2 # the height of the non-transparent part of the original PNG image
-newHeight=$3 # the height of the non-transparent part of the resulting GIF image
-percentage=$(bc -l <<< "2*100*${newHeight}/${originalHeight}")
+newHeight=$3      # the height of the non-transparent part of the resulting GIF image
+percentage=$(bc -l <<<"2*100*${newHeight}/${originalHeight}")
 extent=${4:-${DEFAULT_EXTENT}}
-extent2=$(( 2 * extent ))
+extent2=$((2 * extent))
 delay=${4:-${DEFAULT_DELAY}}
 path=${5:-${DEFAULT_PATH}}
-
 
 # create @2x gif
 convert \
@@ -46,7 +44,7 @@ convert \
   -background none \
   -gravity center \
   -extent "${extent2}x${extent2}" \
-  "${path}/${spriteName}*.png" \
+  "${path}/${spriteName}_*.png" \
   "${path}/${spriteName}@2x.gif"
 
 checkExitCode 'unable to create @2x sprite'

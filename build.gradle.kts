@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.kagof"
-version = "1.1.0"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -21,6 +21,18 @@ intellij {
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
     <ul>
+        <li><b><a href="https://github.com/kagof/intellij-pokemon-progress/releases/tag/1.2.0">1.2.0</a></b>
+            <ul>
+                <li>New Gen I: Nidoqueen, Nidoking, Jigglypuff, Alakazam, Machamp, Magnemite, Scyther, Dragonite</li>
+                <li>New Gen II: Chikorita, Meganium, Cyndaquil, Typhlosion, Totodile, Feraligatr</li>
+                <li>Makes chosen Pokémon configurable</li>
+                <li>Makes sprite drawing & tool tips configurable</li>
+                <li>Cleans up sprite loading</li>
+                <li>Losslessly compresses images</li>
+                <li>Fixes Mew sprite on Retina screens</li>
+                <li>Fixes colour gradients</li>
+            </ul>
+        </li>
         <li><b><a href="https://github.com/kagof/intellij-pokemon-progress/releases/tag/1.1.0">1.1.0</a></b>
             <ul>
                 <li>New Gen I: Butterfree, Meowth, Slowpoke, Gengar, Koffing, Gyarados, Snorlax, Articuno, Zapdos, Moltres, Mewtwo, Mew</li>

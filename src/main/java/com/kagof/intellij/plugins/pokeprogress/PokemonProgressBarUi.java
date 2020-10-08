@@ -32,11 +32,10 @@ import com.intellij.ui.scale.JBUIScale;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
+import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
 
 public class PokemonProgressBarUi extends BasicProgressBarUI {
-    private static final float ONE_SIXTH = 1f / 6;
-    private static final float FIVE_SIXTHS = 5f / 6;
-
+    private static final float ONE_HALF = 0.5f;
     private final Pokemon pokemon;
 
     private volatile int pos = 0;
@@ -47,19 +46,19 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         this.pokemon = pokemon;
     }
 
-    @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
-    public static ComponentUI createUI(JComponent c) {
+    @SuppressWarnings( {"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
+    public static ComponentUI createUI(final JComponent c) {
         c.setBorder(JBUI.Borders.empty().asUIResource());
-        return new PokemonProgressBarUi(Pokemon.randomPokemon());
+        return new PokemonProgressBarUi(PokemonPicker.get());
     }
 
     @Override
-    protected int getBoxLength(int availableLength, int otherDimension) {
+    protected int getBoxLength(final int availableLength, final int otherDimension) {
         return availableLength;
     }
 
     @Override
-    public Dimension getPreferredSize(JComponent c) {
+    public Dimension getPreferredSize(final JComponent c) {
         return new Dimension(super.getPreferredSize(c).width, JBUI.scale(20));
     }
 
@@ -87,33 +86,32 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         setToolTipText();
 
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
-        Graphics2D graphics2D = (Graphics2D) g;
+        final Graphics2D graphics2D = (Graphics2D) g;
 
-        Insets border = progressBar.getInsets(); // area for border
-        int width = progressBar.getWidth();
+        final Insets border = progressBar.getInsets(); // area for border
+        final int width = progressBar.getWidth();
         int height = progressBar.getPreferredSize().height;
 
         if (!isEven(c.getHeight() - height)) {
             height++;
         }
 
-        int barRectWidth = width - (border.right + border.left);
-        int barRectHeight = height - (border.top + border.bottom);
+        final int barRectWidth = width - (border.right + border.left);
+        final int barRectHeight = height - (border.top + border.bottom);
 
         if (barRectWidth <= 0 || barRectHeight <= 0) {
             return;
         }
 
-
-        int amountFull;
+        final int amountFull;
         if (Pokemon.DEBUGGING) {
             amountFull = barRectWidth / 2;
         } else {
             amountFull = determinate ? getAmountFull(border, barRectWidth, barRectHeight) : pos;
         }
 
-        Container parent = c.getParent();
-        Color background = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
+        final Container parent = c.getParent();
+        final Color background = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
 
         graphics2D.setColor(background);
         if (c.isOpaque()) {
@@ -168,7 +166,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void setToolTipText() {
-        if (StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
+        if (PokemonProgressState.getInstance().addToolTips && StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
             progressBar.setToolTipText(pokemon.getNameWithNumber());
         }
     }
@@ -186,10 +184,13 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void drawPokemonIcon(final int amountFull, final Graphics2D graphics2D, final Shape clip) {
+        if (!PokemonProgressState.getInstance().drawSprites) {
+            return;
+        }
         final Shape previousClip = graphics2D.getClip();
 
         graphics2D.setClip(clip);
-        final Icon icon = velocity >= 0 ? pokemon.getIcon() : pokemon.getIconR();
+        final Icon icon = velocity >= 0 ? PokemonResourceLoader.getIcon(pokemon) : PokemonResourceLoader.getReversedIcon(pokemon);
         icon.paintIcon(progressBar,
             graphics2D,
             amountFull + (velocity >= 0 ? JBUI.scale(pokemon.getXShift())
@@ -205,8 +206,8 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void updatePosition() {
-        int v = velocity;
-        int p = pos;
+        final int v = velocity;
+        final int p = pos;
         if (velocity < 0) {
             if (pos <= 0) {
                 velocity = 1;
@@ -234,20 +235,20 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static Paint getTypePaint(final Pokemon pokemon, final int height) {
         final List<PokemonType> types = pokemon.getTypes();
         final int numColors = types.size();
-        final float numColorsReciprocal = 1f / numColors;
         if (numColors == 1) {
             return getPaintSingleType(types.get(0), height);
         }
 
-        return new LinearGradientPaint(0, JBUI.scale(2), 0, (float) height - JBUI.scale(6),
+        final float numColorsReciprocal = 1f / (numColors - 1);
+        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
             ArrayUtils.toPrimitive(
-                IntStream.range(1, numColors + 1).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
+                IntStream.range(0, numColors).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
             types.stream().map(PokemonType::getColor).collect(Collectors.toList()).toArray(new Color[] {}));
     }
 
     private static Paint getPaintSingleType(final PokemonType type, final int height) {
-        return new LinearGradientPaint(0, JBUIScale.scale(2), 0, (float) height - JBUI.scale(6),
-            new float[] {ONE_SIXTH, FIVE_SIXTHS, 1},
+        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
+            new float[] {0f, ONE_HALF, 1f},
             new Color[] {type.getColorLight(), type.getColor(), type.getColorDark()});
     }
 
