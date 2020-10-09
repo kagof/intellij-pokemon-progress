@@ -56,6 +56,7 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 * ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
 * ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
+* ![Kyogre (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#384) ![Kyogre(#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
 
 ### Generation VII
 
