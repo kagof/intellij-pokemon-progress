@@ -51,6 +51,7 @@ public enum Pokemon {
     // Gen III
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
+    KYOGRE(384, "kyogre", -35, -35, PokemonType.WATER),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
