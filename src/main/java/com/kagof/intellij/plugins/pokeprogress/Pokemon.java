@@ -52,10 +52,10 @@ public enum Pokemon {
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
     KYOGRE(382, "kyogre", -35, -33, PokemonType.WATER),
-    GROUDON(383, "groudon", -35, -29, PokemonType.GROUND),
-    RAYQUAZA(384, "rayquaza", -31, -21, PokemonType.DRAGON, PokemonType.FLYING),
-    JIRACHI(385, "jirachi", -26, -28, PokemonType.STEEL, PokemonType.PSYCHIC),
-    DEOXYS(386, "deoxys", -35, -35, PokemonType.PSYCHIC),
+    GROUDON(383, "groudon", -35, -20, PokemonType.GROUND),
+    RAYQUAZA(384, "rayquaza", -16, -33, PokemonType.DRAGON, PokemonType.FLYING),
+    JIRACHI(385, "jirachi", -16, -11, PokemonType.STEEL, PokemonType.PSYCHIC),
+    DEOXYS(386, "deoxys", -16, -10, PokemonType.PSYCHIC),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
