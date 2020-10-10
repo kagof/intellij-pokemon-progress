@@ -56,7 +56,11 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 * ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
 * ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
-* ![Kyogre (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#384) ![Kyogre(#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
+* ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#382) ![Kyogre(#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
+* ![Groudon (#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon.gif) Groudon (#383) ![Groudon(#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon_r.gif)
+* ![Rayquaza (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza.gif) Rayquaza (#384) ![Rayquaza(#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza_r.gif)
+* ![Jirachi (#385)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jirachi.gif) Jirachi (#385) ![Jirachi(#385)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jirachi_r.gif)
+* ![Deoxys (#386)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/deoxys.gif) Deoxys (#386) ![Deoxys(#386)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/deoxys_r.gif)
 
 ### Generation VII
 
