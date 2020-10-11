@@ -56,7 +56,7 @@ public enum Pokemon {
     TORTERRA(389, "torterra", -14, -7, PokemonType.GRASS, PokemonType.GROUND),
     CHIMCHAR(390, "chimchar", -16, -10, PokemonType.FIRE),
     INFERNAPE(392, "infernape", -14, -7, PokemonType.FIRE, PokemonType.FIGHTING),
-    PIPLUP(393, "piplup", -16, -10, PokemonType.WATER),
+    PIPLUP(393, "piplup", -16, -8, PokemonType.WATER),
     EMPOLEON(395, "empoleon", -14, -7, PokemonType.WATER, PokemonType.STEEL),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
