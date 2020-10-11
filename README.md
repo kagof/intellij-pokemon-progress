@@ -57,6 +57,17 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
 * ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
 
+
+### Generation IV
+
+* ![Turtwig (#387)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/turtwig.gif) Turtwig (#387) ![Turtwig (#387)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/turtwig_r.gif)
+* ![Torterra (#389)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/torterra.gif) Torterra (#389) ![Torterra (#389)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/torterra_r.gif)
+* ![Chimchar (#390)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chimchar.gif) Chimchar (#390) ![Chimchar (#390)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chimchar_r.gif)
+* ![Infernape (#392)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/infernape.gif) Infernape (#392) ![Infernape (#392)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/infernape_r.gif)
+* ![Piplup (#393)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/piplup.gif) Piplup (#393) ![Piplup (#393)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/piplup_r.gif)
+* ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon.gif) Empoleon (#395) ![Empoleon (#396)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon_r.gif)
+
+
 ### Generation VII
 
 * ![Mimikyu (#778)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mimikyu.gif) Mimikyu (#778) ![Mimikyu (#778)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mimikyu_r.gif)
