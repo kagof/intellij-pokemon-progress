@@ -54,7 +54,7 @@ public enum Pokemon {
     KYOGRE(382, "kyogre", -35, -33, PokemonType.WATER),
     GROUDON(383, "groudon", -35, -20, PokemonType.GROUND),
     RAYQUAZA(384, "rayquaza", -16, -33, PokemonType.DRAGON, PokemonType.FLYING),
-    JIRACHI(385, "jirachi", -16, -11, PokemonType.STEEL, PokemonType.PSYCHIC),
+    JIRACHI(385, "jirachi", -17, -12, PokemonType.STEEL, PokemonType.PSYCHIC),
     DEOXYS(386, "deoxys", -16, -10, PokemonType.PSYCHIC),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
