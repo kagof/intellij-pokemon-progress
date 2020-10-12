@@ -55,7 +55,7 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Entei (#244)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/entei.gif) Entei (#244) ![Entei (#244)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/entei_r.gif)
 * ![Suicune (#245)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/suicune.gif) Suicune (#245) ![Suicune (#245)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/suicune_r.gif)
 * ![Lugia (#249)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/lugia.gif) Lugia (#249) ![Lugia (#249)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/lugia_r.gif)
-* ![Ho-oh (#250)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/ho-oh.gif) Ho-oh (#250) ![Ho-oh (#250)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/ho-oh_r.gif)
+* ![Ho-oh (#250)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/ho-Oh.gif) Ho-oh (#250) ![Ho-Oh (#250)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/ho-Oh_r.gif)
 * ![Celebi (#251)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/celebi.gif) Celebi (#251) ![Celebi (#251)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/celebi_r.gif)
 
 ### Generation III

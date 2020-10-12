@@ -51,8 +51,8 @@ public enum Pokemon {
     RAIKOU(243, "raikou", -16, -10, PokemonType.ELECTRIC),
     ENTEI(244, "entei", -16, -10, PokemonType.FIRE),
     SUICUNE(245, "suicune", -16, -10, PokemonType.WATER),
-    LUGIA(249, "lugia", -16, -10, PokemonType.PSYCHIC, PokemonType.FLYING),
-    HOOH(250, "ho-oh", -16, -10, PokemonType.FIRE, PokemonType.FLYING),
+    LUGIA(249, "lugia", -18, -10, PokemonType.PSYCHIC, PokemonType.FLYING),
+    HOOH(250, "ho-Oh", -18, -10, PokemonType.FIRE, PokemonType.FLYING),
     CELEBI(251, "celebi", -16, -10, PokemonType.PSYCHIC, PokemonType.GRASS),
     // Gen III
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
