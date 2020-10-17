@@ -48,6 +48,12 @@ public enum Pokemon {
     FERALIGATR(160, "feraligatr", -16, -7, PokemonType.WATER),
     TOGEPI(175, "togepi", -16, -11, PokemonType.FAIRY),
     WOBBUFFET(202, "wobbuffet", -16, -10, PokemonType.PSYCHIC),
+    RAIKOU(243, "raikou", -16, -10, PokemonType.ELECTRIC),
+    ENTEI(244, "entei", -16, -10, PokemonType.FIRE),
+    SUICUNE(245, "suicune", -16, -10, PokemonType.WATER),
+    LUGIA(249, "lugia", -18, -10, PokemonType.PSYCHIC, PokemonType.FLYING),
+    HOOH(250, "ho-Oh", -18, -10, PokemonType.FIRE, PokemonType.FLYING),
+    CELEBI(251, "celebi", -16, -10, PokemonType.PSYCHIC, PokemonType.GRASS),
     // Gen III
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
