@@ -53,7 +53,7 @@ public enum Pokemon {
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
     KYOGRE(382, "kyogre", -35, -33, PokemonType.WATER),
     GROUDON(383, "groudon", -20, -12, PokemonType.GROUND),
-    RAYQUAZA(384, "rayquaza", -16, -33, PokemonType.DRAGON, PokemonType.FLYING),
+    RAYQUAZA(384, "rayquaza", -16, -13, PokemonType.DRAGON, PokemonType.FLYING),
     JIRACHI(385, "jirachi", -17, -12, PokemonType.STEEL, PokemonType.PSYCHIC),
     DEOXYS(386, "deoxys", -16, -10, PokemonType.PSYCHIC),
     // Gen VII
