@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import javax.swing.*;
 
 import com.google.common.collect.ImmutableList;
 import com.intellij.openapi.util.IconLoader;
@@ -125,6 +127,18 @@ public enum Pokemon {
     public int getYShift() {
         return yShift;
     }
+
+    public void setXShift(int xShift) { this.xShift = xShift; }
+
+    public void setYShift(int yShift) { this.yShift = yShift; }
+
+    public Icon getIcon() { return icon.get(); }
+
+    public Icon getIconR() { return iconR.get(); }
+
+    public void setIcon(Icon icon) { this.icon = () -> icon; }
+
+    public void setIconR(Icon iconR) { this.iconR = () -> iconR; }
 
     public String getName() {
         return name;
