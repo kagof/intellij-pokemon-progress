@@ -7,6 +7,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.text.StringUtil;
 
 public enum Pokemon {
@@ -68,7 +69,7 @@ public enum Pokemon {
     MISSINGNO("???", "missingNo.", -16, -7, true, PokemonType.NORMAL);
 
     // For convenience's sake, these can be used when testing positioning & sizing of new sprites
-    static final boolean DEBUGGING = false;
+    static final boolean DEBUGGING = true;
     static final Pokemon TARGET = null;
 
     public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values()).filter(p -> !p.secret)
@@ -79,8 +80,13 @@ public enum Pokemon {
     private final String name;
     private final String number;
 
-    private final int xShift;
-    private final int yShift;
+    private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
+
+    private Supplier<Icon> icon;
+    private Supplier<Icon> iconR;
+
+    private int xShift;
+    private int yShift;
     private final boolean secret;
 
     public static Pokemon getByNumber(final String number) {
@@ -103,6 +109,9 @@ public enum Pokemon {
         this.number = number;
 
         this.secret = secret;
+
+        this.icon = () -> IconLoader.getIcon(RESOURCE_PATH + name + ".gif");
+        this.iconR = () -> IconLoader.getIcon(RESOURCE_PATH + name + "_r.gif");
     }
 
     public List<PokemonType> getTypes() {

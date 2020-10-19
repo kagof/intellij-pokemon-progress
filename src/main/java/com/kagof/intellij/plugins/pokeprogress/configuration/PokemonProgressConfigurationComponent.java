@@ -15,7 +15,6 @@ import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.roots.ScalableIconComponent;
 import com.intellij.util.ui.FormBuilder;
 import com.kagof.intellij.plugins.pokeprogress.Pokemon;
-import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
@@ -64,7 +63,7 @@ public class PokemonProgressConfigurationComponent {
                 }
                 refreshSelectAllButtons();
             });
-            formBuilder.addLabeledComponent(new ScalableIconComponent(PokemonResourceLoader.getIcon(pokemon)), checkBox);
+            formBuilder.addLabeledComponent(new ScalableIconComponent(pokemon.getIcon()), checkBox);
             checkboxes.put(pokemon.getNumber(), checkBox);
             numSelected.incrementAndGet();
         });

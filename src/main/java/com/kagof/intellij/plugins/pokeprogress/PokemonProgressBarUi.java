@@ -190,7 +190,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final Shape previousClip = graphics2D.getClip();
 
         graphics2D.setClip(clip);
-        final Icon icon = velocity >= 0 ? PokemonResourceLoader.getIcon(pokemon) : PokemonResourceLoader.getReversedIcon(pokemon);
+        final Icon icon = velocity >= 0 ? pokemon.getIcon() : pokemon.getIconR();
         icon.paintIcon(progressBar,
             graphics2D,
             amountFull + (velocity >= 0 ? JBUI.scale(pokemon.getXShift())

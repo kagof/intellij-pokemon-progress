@@ -26,7 +26,11 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public boolean addToolTips = true;
 
     public static PokemonProgressState getInstance() {
-        return ServiceManager.getService(PokemonProgressState.class);
+        try {
+            return ServiceManager.getService(PokemonProgressState.class);
+        }catch (Exception e){
+            return new PokemonProgressState();
+        }
     }
 
     @Override
