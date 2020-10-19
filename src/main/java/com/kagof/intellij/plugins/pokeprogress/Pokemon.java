@@ -54,7 +54,7 @@ public enum Pokemon {
     KYOGRE(382, "kyogre", -35, -33, PokemonType.WATER),
     GROUDON(383, "groudon", -20, -12, PokemonType.GROUND),
     RAYQUAZA(384, "rayquaza", -16, -13, PokemonType.DRAGON, PokemonType.FLYING),
-    JIRACHI(385, "jirachi", -17, -12, PokemonType.STEEL, PokemonType.PSYCHIC),
+    JIRACHI(385, "jirachi", -14, -10, PokemonType.STEEL, PokemonType.PSYCHIC),
     DEOXYS(386, "deoxys", -16, -10, PokemonType.PSYCHIC),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
@@ -84,8 +84,8 @@ public enum Pokemon {
     private final String name;
     private final String number;
 
-    private final int xShift;
-    private final int yShift;
+    private int xShift;
+    private int yShift;
     private final boolean secret;
 
     public static Pokemon getByNumber(final String number) {
@@ -121,6 +121,10 @@ public enum Pokemon {
     public int getYShift() {
         return yShift;
     }
+
+    public void setXShift(int xShift) { this.xShift = xShift; }
+
+    public void setYShift(int yShift) { this.yShift = yShift; }
 
     public String getName() {
         return name;
