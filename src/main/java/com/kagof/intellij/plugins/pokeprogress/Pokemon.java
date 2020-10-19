@@ -22,7 +22,7 @@ public enum Pokemon {
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY);
 
-    public static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
+    private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
     private static final Random RANDOM = new Random();
 
     private Icon icon;
