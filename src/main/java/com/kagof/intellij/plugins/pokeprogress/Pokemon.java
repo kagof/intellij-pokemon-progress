@@ -51,7 +51,7 @@ public enum Pokemon {
     // Gen III
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
-    KYOGRE(384, "kyogre", -16, -16, PokemonType.WATER),
+    KYOGRE(382, "kyogre", -16, -16, PokemonType.WATER),
     GROUDON(383, "groudon", -20, -12, PokemonType.GROUND),
     RAYQUAZA(384, "rayquaza", -16, -13, PokemonType.DRAGON, PokemonType.FLYING),
     JIRACHI(385, "jirachi", -14, -10, PokemonType.STEEL, PokemonType.PSYCHIC),
