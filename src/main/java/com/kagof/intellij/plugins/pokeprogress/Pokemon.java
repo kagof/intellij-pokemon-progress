@@ -58,8 +58,8 @@ public enum Pokemon {
     private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
     private static final Random RANDOM = new Random();
 
-    private final Supplier<Icon> icon;
-    private final Supplier<Icon> iconR;
+    private Supplier<Icon> icon;
+    private Supplier<Icon> iconR;
 
     private final List<PokemonType> types;
 
