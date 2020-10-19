@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 import com.google.common.collect.ImmutableList;
 import com.intellij.openapi.util.IconLoader;
@@ -67,8 +67,8 @@ public enum Pokemon {
 
     private final int number;
 
-    private final int xShift;
-    private final int yShift;
+    private int xShift;
+    private int yShift;
 
     @SuppressWarnings("ConstantConditions")
     public static Pokemon randomPokemon() {
@@ -110,12 +110,24 @@ public enum Pokemon {
         return yShift;
     }
 
+    public void setXShift(int xShift) { this.xShift = xShift; }
+
+    public void setYShift(int yShift) { this.yShift = yShift; }
+
     public String getName() {
         return name;
     }
 
     public int getNumber() {
         return number;
+    }
+
+    public void setIcon(Icon icon) {
+        this.icon = () -> icon;
+    }
+
+    public void setIconR(Icon iconR) {
+        this.iconR = () -> iconR;
     }
 
     public String getNameWithNumber() {
