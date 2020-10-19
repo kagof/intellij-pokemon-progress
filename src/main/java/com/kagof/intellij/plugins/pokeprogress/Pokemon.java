@@ -3,7 +3,7 @@ package com.kagof.intellij.plugins.pokeprogress;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 import com.google.common.collect.ImmutableList;
 import com.intellij.openapi.util.IconLoader;
@@ -22,11 +22,11 @@ public enum Pokemon {
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY);
 
-    private static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
+    public static final String RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
     private static final Random RANDOM = new Random();
 
-    private final Icon icon;
-    private final Icon iconR;
+    private Icon icon;
+    private Icon iconR;
 
     private final List<PokemonType> types;
 
@@ -34,8 +34,8 @@ public enum Pokemon {
 
     private final int number;
 
-    private final int xShift;
-    private final int yShift;
+    private int xShift;
+    private int yShift;
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final PokemonType... types) {
         if (types == null || types.length < 1) {
@@ -74,6 +74,10 @@ public enum Pokemon {
         return yShift;
     }
 
+    public void setXShift(int xShift) { this.xShift = xShift; }
+
+    public void setYShift(int yShift) { this.yShift = yShift; }
+
     public String getName() {
         return name;
     }
@@ -81,6 +85,10 @@ public enum Pokemon {
     public int getNumber() {
         return number;
     }
+
+    public void setIcon(Icon icon) { this.icon = icon; }
+
+    public void setIconR(Icon iconR) { this.iconR = iconR; }
 
     public String getNameWithNumber() {
         return name + " (#" + number + ")";
