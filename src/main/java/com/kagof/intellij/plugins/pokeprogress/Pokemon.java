@@ -53,18 +53,18 @@ public enum Pokemon {
     ESPEON(196, "espeon", -16, -10, PokemonType.PSYCHIC),
     UMBREON(197, "umbreon", -16, -10, PokemonType.DARK),
     WOBBUFFET(202, "wobbuffet", -16, -10, PokemonType.PSYCHIC),
-    RAIKOU(243, "raikou", -16, -10, PokemonType.ELECTRIC),
-    ENTEI(244, "entei", -16, -10, PokemonType.FIRE),
-    SUICUNE(245, "suicune", -16, -10, PokemonType.WATER),
-    LUGIA(249, "lugia", -18, -10, PokemonType.PSYCHIC, PokemonType.FLYING),
-    HOOH(250, "ho-Oh", -18, -10, PokemonType.FIRE, PokemonType.FLYING),
+    RAIKOU(243, "raikou", -17, -10, PokemonType.ELECTRIC),
+    ENTEI(244, "entei", -17, -10, PokemonType.FIRE),
+    SUICUNE(245, "suicune", -19, -10, PokemonType.WATER),
+    LUGIA(249, "lugia", -19, -10, PokemonType.PSYCHIC, PokemonType.FLYING),
+    HO_OH(250, "ho-Oh", -18, -10, PokemonType.FIRE, PokemonType.FLYING),
     CELEBI(251, "celebi", -16, -10, PokemonType.PSYCHIC, PokemonType.GRASS),
     // Gen III
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
     KYOGRE(382, "kyogre", -16, -5, PokemonType.WATER),
-    GROUDON(383, "groudon", -20, -12, PokemonType.GROUND),
-    RAYQUAZA(384, "rayquaza", -16, -13, PokemonType.DRAGON, PokemonType.FLYING),
+    GROUDON(383, "groudon", -18, -12, PokemonType.GROUND),
+    RAYQUAZA(384, "rayquaza", -21, -12, PokemonType.DRAGON, PokemonType.FLYING),
     JIRACHI(385, "jirachi", -14, -10, PokemonType.STEEL, PokemonType.PSYCHIC),
     DEOXYS(386, "deoxys", -16, -7, PokemonType.PSYCHIC),
     // Gen IV
@@ -89,7 +89,7 @@ public enum Pokemon {
     // Secret
     MISSINGNO(-1, "missingNo.", -16, -7, true, PokemonType.NORMAL);
 
-    // For convenience's sake, these can be used when testing positioning & sizing of new sprites
+    // Historically used for testing, however will soon be removed, as TestProgressBar.java is much more useful
     static final boolean DEBUGGING = false;
     static final Pokemon TARGET = null;
 

@@ -30,8 +30,11 @@ public final class PokemonResourceLoader {
 
     private static Icon getIconInternal(final String resourceName) {
         try {
-            return cache.get(resourceName, () -> Optional.ofNullable(PokemonResourceLoader.class.getClassLoader()
-                .getResource(resourceName))
+            return cache.get(resourceName, () -> Optional.ofNullable(Optional
+                .ofNullable(PokemonResourceLoader.class.getClassLoader()
+                    .getResource(resourceName))
+                .orElseGet(() -> PokemonResourceLoader.class.getClassLoader()
+                    .getResource(resourceName.replaceFirst("/", ""))))
                 .map(ImageIcon::new)
                 .orElseGet(ImageIcon::new));
         } catch (final ExecutionException e) {
