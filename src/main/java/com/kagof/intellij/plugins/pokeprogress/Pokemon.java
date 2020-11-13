@@ -32,6 +32,9 @@ public enum Pokemon {
     SCYTHER(123, "scyther", -17, -9, PokemonType.BUG, PokemonType.FLYING),
     GYARADOS(130, "gyarados", -16, -7, PokemonType.WATER, PokemonType.FLYING),
     EEVEE(133, "eevee", -16, -11, PokemonType.NORMAL),
+    VAPOREON(134, "vaporeon", -18, -11, PokemonType.WATER),
+    JOLTEON(135, "jolteon", -16, -11, PokemonType.ELECTRIC),
+    FLAREON(136, "flareon", -18, -11, PokemonType.FIRE),
     SNORLAX(143, "snorlax", -16, -7, PokemonType.NORMAL),
     ARTICUNO(144, "articuno", -18, -7, PokemonType.ICE, PokemonType.FLYING),
     ZAPDOS(145, "zapdos", -16, -7, PokemonType.ELECTRIC, PokemonType.FLYING),
@@ -47,6 +50,8 @@ public enum Pokemon {
     TOTODILE(158, "totodile", -16, -11, PokemonType.WATER),
     FERALIGATR(160, "feraligatr", -16, -7, PokemonType.WATER),
     TOGEPI(175, "togepi", -16, -11, PokemonType.FAIRY),
+    ESPEON(196, "espeon", -16, -10, PokemonType.PSYCHIC),
+    UMBREON(197, "umbreon", -16, -10, PokemonType.DARK),
     WOBBUFFET(202, "wobbuffet", -16, -10, PokemonType.PSYCHIC),
     RAIKOU(243, "raikou", -16, -10, PokemonType.ELECTRIC),
     ENTEI(244, "entei", -16, -10, PokemonType.FIRE),
@@ -57,6 +62,12 @@ public enum Pokemon {
     // Gen III
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
+    // Gen IV
+    LEAFEON(470, "leafeon", -18, -11, PokemonType.GRASS),
+    GLACEON(471, "glaceon", -18, -11, PokemonType.ICE),
+    // Gen V
+    // Gen VI
+    SYLVEON(700, "sylveon", -18, -8, PokemonType.FAIRY),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
@@ -71,33 +82,34 @@ public enum Pokemon {
     ZAMAZENTA(889, "zamazenta", -7, -7, PokemonType.FIGHTING, PokemonType.STEEL),
 
     // Secret
-    MISSINGNO("???", "missingNo.", -16, -7, true, PokemonType.NORMAL);
+    MISSINGNO(-1, "missingNo.", -16, -7, true, PokemonType.NORMAL);
 
     // For convenience's sake, these can be used when testing positioning & sizing of new sprites
     static final boolean DEBUGGING = false;
     static final Pokemon TARGET = null;
 
     public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values()).filter(p -> !p.secret)
-        .collect(Collectors.toMap(Pokemon::getNumber, Function.identity()));
+        .collect(Collectors.toMap(Pokemon::getNumberString, Function.identity()));
 
     private final List<PokemonType> types;
 
     private final String name;
-    private final String number;
+    private final int number;
 
     private final int xShift;
     private final int yShift;
     private final boolean secret;
+    private final Generation generation;
 
     public static Pokemon getByNumber(final String number) {
         return DEFAULT_POKEMON.get(number);
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final PokemonType... types) {
-        this(String.format("%03d", number), name, xShift, yShift, false, types);
+        this(number, name, xShift, yShift, false, types);
     }
 
-    Pokemon(final String number, final String name, final int xShift, final int yShift, final boolean secret, final PokemonType... types) {
+    Pokemon(final int number, final String name, final int xShift, final int yShift, final boolean secret, final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
         }
@@ -109,6 +121,7 @@ public enum Pokemon {
         this.number = number;
 
         this.secret = secret;
+        generation = Generation.getGeneration(number);
     }
 
     public List<PokemonType> getTypes() {
@@ -123,19 +136,33 @@ public enum Pokemon {
         return yShift;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
     public boolean isSecret() {
         return secret;
     }
 
-    public String getNameWithNumber() {
-        return StringUtil.capitalizeWords(name, true) + " (#" + number + ")";
+    public Generation getGeneration() {
+        return generation;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getNumberString() {
+        return number > 0 ? String.format("%03d", number) : "???";
+    }
+
+    public String getNameWithNumber() {
+        return StringUtil.capitalizeWords(name, true) + " (#" + getNumberString() + ")";
+    }
+
+    @Override
+    public String toString() {
+        return getNameWithNumber();
+    }
+
 }

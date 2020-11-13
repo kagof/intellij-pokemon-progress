@@ -1,5 +1,10 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -8,11 +13,20 @@ public class DocumentationGenerator {
 
     @Test
     public void printForReadme() {
+        final Map<Generation, Boolean> gens = Arrays.stream(Generation.values()).collect(Collectors.toMap(Function.identity(), __ -> false));
         for (final Pokemon pokemon : Pokemon.values()) {
+            final Generation generation = pokemon.getGeneration();
+            if (!gens.get(generation)) {
+                System.out.println();
+                System.out.println("### Generation " + generation);
+                System.out.println();
+                gens.put(generation, true);
+            }
             if (!pokemon.isSecret()) {
                 System.out.println(getReadmeString(pokemon));
             }
         }
+        System.out.println();
     }
 
     @Test
