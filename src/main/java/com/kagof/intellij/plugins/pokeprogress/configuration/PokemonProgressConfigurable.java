@@ -23,9 +23,9 @@ public class PokemonProgressConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
-        return !state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
+        return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
             || state.drawSprites != component.getDrawSprites().isSelected()
-            || state.addToolTips != component.getAddToolTips().isSelected();
+            || state.addToolTips != component.getAddToolTips().isSelected());
     }
 
     @Override
