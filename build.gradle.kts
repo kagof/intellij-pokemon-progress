@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.kagof"
-version = "1.2.0"
+version = "1.2.1"
 
 repositories {
     mavenCentral()
@@ -16,11 +16,16 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = "2020.2.1"
+    version = "2020.3"
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
     <ul>
+        <li><b><a href="https://github.com/kagof/intellij-pokemon-progress/releases/tag/1.2.0">1.2.1</a></b>
+            <ul>
+                <li>Updates plugin to work with IntelliJ 2020.3</li>
+            </ul>
+        </li>
         <li><b><a href="https://github.com/kagof/intellij-pokemon-progress/releases/tag/1.2.0">1.2.0</a></b>
             <ul>
                 <li>New Gen I: Nidoqueen, Nidoking, Jigglypuff, Alakazam, Machamp, Magnemite, Scyther, Dragonite</li>
