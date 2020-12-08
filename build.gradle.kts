@@ -20,6 +20,7 @@ intellij {
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.PublishTask>("publishPlugin") {
+    System.getenv("JETBRAINS_REPO_TOKEN")?.let { token(it) }
     System.getenv("PLUGIN_DEPLOYMENT_CHANNEL")?.let { channels(it) }
 }
 

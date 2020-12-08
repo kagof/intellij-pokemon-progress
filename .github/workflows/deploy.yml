@@ -21,7 +21,8 @@ jobs:
       - name: Build & deploy with Gradle
         env:
           PLUGIN_DEPLOYMENT_CHANNEL: ${{ github.event.inputs.channel }}
-        run: ./gradlew publishPlugin -Dorg.gradle.project.intellijPublishToken=${{ secrets.JETBRAINS_REPO_TOKEN }} -DpublishPlugin.channels
+          JETBRAINS_REPO_TOKEN: ${{ secrets.JETBRAINS_REPO_TOKEN }}
+        run: ./gradlew publishPlugin
       - name: Append commit hash
         run: |
           for file in ./build/distributions/*.zip ; do mv $file ${file%.*}-$(echo ${GITHUB_SHA} | cut -c1-8).zip ; done
