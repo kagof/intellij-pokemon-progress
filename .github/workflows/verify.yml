@@ -36,8 +36,8 @@ jobs:
           ide-versions: |
             ideaIC:2019.3.5
             ideaIU:2019.3.5
-            ideaIC:2020.2.2
-            ideaIU:2020.2.2
+            ideaIC:2020.3
+            ideaIU:2020.3
             ideaIC:LATEST-EAP-SNAPSHOT
             ideaIU:LATEST-EAP-SNAPSHOT
 
