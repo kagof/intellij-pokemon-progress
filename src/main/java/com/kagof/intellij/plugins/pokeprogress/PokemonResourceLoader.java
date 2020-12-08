@@ -1,20 +1,41 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
-import javax.swing.Icon;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
-import com.intellij.openapi.util.IconLoader;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 
 public final class PokemonResourceLoader {
     private static final String SPRITE_RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
+
+    private static final Cache<String, Icon> cache = CacheBuilder
+        .newBuilder()
+        .maximumSize(100L)
+        .build();
 
     private PokemonResourceLoader() {
     }
 
     public static Icon getIcon(final Pokemon pokemon) {
-        return IconLoader.getIcon(SPRITE_RESOURCE_PATH + pokemon.getName() + ".gif");
+        return getIconInternal(SPRITE_RESOURCE_PATH + pokemon.getName() + ".gif");
     }
 
     public static Icon getReversedIcon(final Pokemon pokemon) {
-        return IconLoader.getIcon(SPRITE_RESOURCE_PATH + pokemon.getName() + "_r.gif");
+        return getIconInternal(SPRITE_RESOURCE_PATH + pokemon.getName() + "_r.gif");
+    }
+
+    private static Icon getIconInternal(final String resourceName) {
+        try {
+            return cache.get(resourceName, () -> Optional.ofNullable(PokemonResourceLoader.class.getClassLoader()
+                .getResource(resourceName))
+                .map(ImageIcon::new)
+                .orElseGet(ImageIcon::new));
+        } catch (final ExecutionException e) {
+            return new ImageIcon();
+        }
     }
 }
