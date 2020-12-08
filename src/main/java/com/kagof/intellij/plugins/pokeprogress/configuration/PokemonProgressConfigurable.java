@@ -2,14 +2,15 @@ package com.kagof.intellij.plugins.pokeprogress.configuration;
 
 import javax.swing.JComponent;
 
+import org.jetbrains.annotations.Nls;
+
 import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.util.NlsContexts;
 
 public class PokemonProgressConfigurable implements Configurable {
     private PokemonProgressConfigurationComponent component;
 
+    @Nls
     @Override
-    @NlsContexts.ConfigurableName
     public String getDisplayName() {
         return "Pokémon Progress";
     }
