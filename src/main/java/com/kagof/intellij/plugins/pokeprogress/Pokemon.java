@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.intellij.openapi.util.text.StringUtil;
 
 public enum Pokemon {
@@ -88,8 +88,9 @@ public enum Pokemon {
     static final boolean DEBUGGING = false;
     static final Pokemon TARGET = null;
 
-    public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values()).filter(p -> !p.secret)
-        .collect(Collectors.toMap(Pokemon::getNumberString, Function.identity()));
+    public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values())
+        .filter(p -> !p.secret)
+        .collect(ImmutableMap.toImmutableMap(Pokemon::getNumberString, Function.identity()));
 
     private final List<PokemonType> types;
 
