@@ -51,7 +51,7 @@ public enum Pokemon {
     // Gen III
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
-    KYOGRE(382, "kyogre", -16, -16, PokemonType.WATER),
+    KYOGRE(382, "kyogre", -16, -5, PokemonType.WATER),
     GROUDON(383, "groudon", -20, -12, PokemonType.GROUND),
     RAYQUAZA(384, "rayquaza", -16, -13, PokemonType.DRAGON, PokemonType.FLYING),
     JIRACHI(385, "jirachi", -14, -10, PokemonType.STEEL, PokemonType.PSYCHIC),
@@ -84,8 +84,8 @@ public enum Pokemon {
     private final String name;
     private final String number;
 
-    private int xShift;
-    private int yShift;
+    private final int xShift;
+    private final int yShift;
     private final boolean secret;
 
     public static Pokemon getByNumber(final String number) {
@@ -121,10 +121,6 @@ public enum Pokemon {
     public int getYShift() {
         return yShift;
     }
-
-    public void setXShift(int xShift) { this.xShift = xShift; }
-
-    public void setYShift(int yShift) { this.yShift = yShift; }
 
     public String getName() {
         return name;
