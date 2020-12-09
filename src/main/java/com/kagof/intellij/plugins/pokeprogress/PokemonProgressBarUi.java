@@ -37,6 +37,8 @@ import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressStat
 public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static final float ONE_HALF = 0.5f;
     private final Pokemon pokemon;
+    private final Icon iconForward;
+    private final Icon iconReversed;
 
     private volatile int pos = 0;
     private volatile int velocity = 1;
@@ -44,6 +46,8 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     public PokemonProgressBarUi(final Pokemon pokemon) {
         super();
         this.pokemon = pokemon;
+        iconForward = PokemonResourceLoader.getIcon(pokemon);
+        iconReversed = PokemonResourceLoader.getReversedIcon(pokemon);
     }
 
     @SuppressWarnings( {"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
@@ -190,7 +194,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final Shape previousClip = graphics2D.getClip();
 
         graphics2D.setClip(clip);
-        final Icon icon = velocity >= 0 ? PokemonResourceLoader.getIcon(pokemon) : PokemonResourceLoader.getReversedIcon(pokemon);
+        final Icon icon = velocity >= 0 ? iconForward : iconReversed;
         icon.paintIcon(progressBar,
             graphics2D,
             amountFull + (velocity >= 0 ? JBUI.scale(pokemon.getXShift())
