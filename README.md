@@ -68,21 +68,11 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 * ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
 * ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
-* ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#382) ![Kyogre(#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
-* ![Groudon (#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon.gif) Groudon (#383) ![Groudon(#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon_r.gif)
-* ![Rayquaza (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza.gif) Rayquaza (#384) ![Rayquaza(#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza_r.gif)
-* ![Jirachi (#385)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jirachi.gif) Jirachi (#385) ![Jirachi(#385)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jirachi_r.gif)
-* ![Deoxys (#386)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/deoxys.gif) Deoxys (#386) ![Deoxys(#386)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/deoxys_r.gif)
-
-### Generation IV
-
-* ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon.gif) Leafeon (#470) ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon_r.gif)
-* ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon.gif) Glaceon (#471) ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon_r.gif)
-
-### Generation VI
-
-* ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon.gif) Sylveon (#700) ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon_r.gif)
-
+* ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#382) ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
+* ![Groudon (#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon.gif) Groudon (#383) ![Groudon (#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon_r.gif)
+* ![Rayquaza (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza.gif) Rayquaza (#384) ![Rayquaza (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza_r.gif)
+* ![Jirachi (#385)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jirachi.gif) Jirachi (#385) ![Jirachi (#385)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jirachi_r.gif)
+* ![Deoxys (#386)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/deoxys.gif) Deoxys (#386) ![Deoxys (#386)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/deoxys_r.gif)
 
 ### Generation IV
 
@@ -91,8 +81,13 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Chimchar (#390)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chimchar.gif) Chimchar (#390) ![Chimchar (#390)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chimchar_r.gif)
 * ![Infernape (#392)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/infernape.gif) Infernape (#392) ![Infernape (#392)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/infernape_r.gif)
 * ![Piplup (#393)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/piplup.gif) Piplup (#393) ![Piplup (#393)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/piplup_r.gif)
-* ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon.gif) Empoleon (#395) ![Empoleon (#396)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon_r.gif)
+* ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon.gif) Empoleon (#395) ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon_r.gif)
+* ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon.gif) Leafeon (#470) ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon_r.gif)
+* ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon.gif) Glaceon (#471) ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon_r.gif)
 
+### Generation VI
+
+* ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon.gif) Sylveon (#700) ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon_r.gif)
 
 ### Generation VII
 
