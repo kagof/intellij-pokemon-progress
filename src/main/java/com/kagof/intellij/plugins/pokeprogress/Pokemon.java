@@ -68,6 +68,12 @@ public enum Pokemon {
     JIRACHI(385, "jirachi", -14, -10, PokemonType.STEEL, PokemonType.PSYCHIC),
     DEOXYS(386, "deoxys", -16, -7, PokemonType.PSYCHIC),
     // Gen IV
+    TURTWIG(387, "turtwig", -16, -11, PokemonType.GRASS),
+    TORTERRA(389, "torterra", -14, -8, PokemonType.GRASS, PokemonType.GROUND),
+    CHIMCHAR(390, "chimchar", -16, -11, PokemonType.FIRE),
+    INFERNAPE(392, "infernape", -18, -7, PokemonType.FIRE, PokemonType.FIGHTING),
+    PIPLUP(393, "piplup", -16, -11, PokemonType.WATER),
+    EMPOLEON(395, "empoleon", -17, -8, PokemonType.WATER, PokemonType.STEEL),
     LEAFEON(470, "leafeon", -18, -11, PokemonType.GRASS),
     GLACEON(471, "glaceon", -18, -11, PokemonType.ICE),
     // Gen V
