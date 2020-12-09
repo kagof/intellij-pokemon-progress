@@ -2,9 +2,11 @@ package com.kagof.intellij.plugins.pokeprogress.configuration;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
@@ -14,6 +16,7 @@ import javax.swing.JPanel;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.roots.ScalableIconComponent;
 import com.intellij.util.ui.FormBuilder;
+import com.kagof.intellij.plugins.pokeprogress.Generation;
 import com.kagof.intellij.plugins.pokeprogress.Pokemon;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
 
@@ -54,7 +57,15 @@ public class PokemonProgressConfigurationComponent {
             }
         });
 
+        final Map<Generation, Boolean> gens = Arrays.stream(Generation.values()).collect(Collectors.toMap(Function.identity(), __ -> false));
+
         Pokemon.DEFAULT_POKEMON.values().stream().sorted().forEach(pokemon -> {
+            final Generation gen = pokemon.getGeneration();
+            if (!gens.get(gen)) {
+                final JLabel genLabel = new JLabel("Generation " + gen);
+                formBuilder.addComponent(genLabel);
+                gens.put(gen, true);
+            }
             final JBCheckBox checkBox = new JBCheckBox(pokemon.getNameWithNumber(), true);
             checkBox.addItemListener(c -> {
                 if (c.getStateChange() == ItemEvent.SELECTED) {
@@ -65,7 +76,7 @@ public class PokemonProgressConfigurationComponent {
                 refreshSelectAllButtons();
             });
             formBuilder.addLabeledComponent(new ScalableIconComponent(PokemonResourceLoader.getIcon(pokemon)), checkBox);
-            checkboxes.put(pokemon.getNumber(), checkBox);
+            checkboxes.put(pokemon.getNumberString(), checkBox);
             numSelected.incrementAndGet();
         });
         refreshSelectAllButtons();
