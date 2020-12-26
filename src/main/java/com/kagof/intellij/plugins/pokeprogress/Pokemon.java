@@ -77,6 +77,12 @@ public enum Pokemon {
     LEAFEON(470, "leafeon", -18, -11, PokemonType.GRASS),
     GLACEON(471, "glaceon", -18, -11, PokemonType.ICE),
     // Gen V
+    SNIVY(495, "snivy", -15, -4, PokemonType.GRASS),
+    SERPERIOR(497, "serperior", -20, -10, PokemonType.GRASS),
+    TEPIG(498, "tepig", -17, -5, PokemonType.FIRE),
+    EMBOAR(500, "emboar", -19, -9, PokemonType.FIRE, PokemonType.FIGHTING),
+    OSHAWOTT(501, "oshawott", -15, -6, PokemonType.WATER),
+    SAMUROTT(503, "samurott", -17, -9, PokemonType.WATER),
     // Gen VI
     SYLVEON(700, "sylveon", -18, -8, PokemonType.FAIRY),
     // Gen VII

@@ -85,6 +85,15 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon.gif) Leafeon (#470) ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon_r.gif)
 * ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon.gif) Glaceon (#471) ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon_r.gif)
 
+### Generation V
+
+* ![Snivy (#495)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/snivy.gif) Snivy (#495) ![Snivy (#495)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/snivy_r.gif)
+* ![Serperior (#497)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/serperior.gif) Serperior (#497) ![Serperior (#497)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/serperior_r.gif)
+* ![Tepig (#498)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/tepig.gif) Tepig (#498) ![Tepig (#498)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/tepig_r.gif)
+* ![Emboar (#500)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/emboar.gif) Emboar (#500) ![Emboar (#500)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/emboar_r.gif)
+* ![Oshawott (#501)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/oshawott.gif) Oshawott (#501) ![Oshawott (#501)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/oshawott_r.gif)
+* ![Samurott (#503)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/samurott.gif) Samurott (#503) ![Samurott (#503)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/samurott_r.gif)
+
 ### Generation VI
 
 * ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon.gif) Sylveon (#700) ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon_r.gif)
@@ -118,6 +127,10 @@ Contributions are very welcome on this project! Please see our [contributing gui
     * MissingNo.
 * [JuJoAura on DeviantArt](https://www.deviantart.com/jujoaura/art/Sylveon-Full-Sprite-379989482)
     * Sylveon
+* [Kyle-Dove on DeviantArt](https://www.deviantart.com/kyle-dove/gallery)
+    * Snivy, Tepig, Oshawott
+* [cSc-A7X on DeviantArt](https://www.deviantart.com/csc-a7x/gallery)
+    * Serperior, Emboar, Samurott
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
