@@ -19,7 +19,8 @@ import com.kagof.intellij.plugins.pokeprogress.Pokemon;
     storages = {@Storage("PokemonProgress.xml")}
 )
 public class PokemonProgressState implements PersistentStateComponent<PokemonProgressState> {
-
+    public float initialVelocity = 1.0f;
+    public float acceleration = 0.4f;
     public Map<String, Boolean> pokemonNumbersEnabled = ImmutableMap
         .copyOf(Pokemon.DEFAULT_POKEMON.keySet().stream().collect(Collectors.toMap(Function.identity(), p -> true)));
     public boolean drawSprites = true;
