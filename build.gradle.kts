@@ -30,4 +30,9 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         if (it.exists() && it.isFile && it.canRead()) changeNotes(it.readText())
         else throw IllegalStateException("unable to read changenotes.html")
     }
+    File("description.html").let {
+        if (it.exists() && it.isFile && it.canRead()) pluginDescription(it.readText())
+        else throw IllegalStateException("unable to read description.html")
+    }
+    
 }

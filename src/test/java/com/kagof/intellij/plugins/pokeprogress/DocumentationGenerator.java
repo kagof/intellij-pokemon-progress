@@ -30,7 +30,7 @@ public class DocumentationGenerator {
     }
 
     @Test
-    public void printForPluginXml() {
+    public void printForDescriptionHtml() {
         final StringBuilder stringBuilder = new StringBuilder();
         int i = 0;
         for (final Pokemon pokemon : Pokemon.values()) {
