@@ -90,6 +90,12 @@ public enum Pokemon {
     OSHAWOTT(501, "oshawott", -15, -6, PokemonType.WATER),
     SAMUROTT(503, "samurott", -17, -9, PokemonType.WATER),
     // Gen VI
+    CHESPIN(650, "chespin", -17, -12, PokemonType.GRASS),
+    CHESNAUGHT(652, "chesnaught", -21, -9, PokemonType.GRASS, PokemonType.FIGHTING),
+    FENNEKIN(653, "fennekin", -18, -11, PokemonType.FIRE),
+    DELPHOX(655, "delphox", -16, -9, PokemonType.FIRE, PokemonType.PSYCHIC),
+    FROAKIE(656, "froakie", -20, -12, PokemonType.WATER),
+    GRENINJA(658, "greninja", -19, -8, PokemonType.WATER, PokemonType.DARK),
     SYLVEON(700, "sylveon", -18, -8, PokemonType.FAIRY),
     // Gen VII
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),

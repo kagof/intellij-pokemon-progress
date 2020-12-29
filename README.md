@@ -102,6 +102,12 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 ### Generation VI
 
+* ![Chespin (#650)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chespin.gif) Chespin (#650) ![Chespin (#650)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chespin_r.gif)
+* ![Chesnaught (#652)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chesnaught.gif) Chesnaught (#652) ![Chesnaught (#652)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chesnaught_r.gif)
+* ![Fennekin (#653)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fennekin.gif) Fennekin (#653) ![Fennekin (#653)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fennekin_r.gif)
+* ![Delphox (#655)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/delphox.gif) Delphox (#655) ![Delphox (#655)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/delphox_r.gif)
+* ![Froakie (#656)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/froakie.gif) Froakie (#656) ![Froakie (#656)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/froakie_r.gif)
+* ![Greninja (#658)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/greninja.gif) Greninja (#658) ![Greninja (#658)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/greninja_r.gif)
 * ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon.gif) Sylveon (#700) ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon_r.gif)
 
 ### Generation VII
@@ -131,12 +137,14 @@ Contributions are very welcome on this project! Please see our [contributing gui
 * [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
     * All Gen I-IV sprites unless otherwise noted
     * MissingNo.
-* [JuJoAura on DeviantArt](https://www.deviantart.com/jujoaura/art/Sylveon-Full-Sprite-379989482)
-    * Sylveon
 * [Kyle-Dove on DeviantArt](https://www.deviantart.com/kyle-dove/gallery)
     * Snivy, Tepig, Oshawott
 * [cSc-A7X on DeviantArt](https://www.deviantart.com/csc-a7x/gallery)
     * Serperior, Emboar, Samurott
+* [princess-phoenix on DeviantArt](https://www.deviantart.com/princess-phoenix/art/Gen-6-Kalos-Pokemon-Overworld-Sprites-525954409)
+    * All Gen VI sprites unless otherwise noted
+* [JuJoAura on DeviantArt](https://www.deviantart.com/jujoaura/art/Sylveon-Full-Sprite-379989482)
+    * Sylveon
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
