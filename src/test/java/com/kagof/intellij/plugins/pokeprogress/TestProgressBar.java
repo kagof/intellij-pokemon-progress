@@ -58,7 +58,6 @@ public class TestProgressBar {
         final MockApplication application = MockApplication.setUp(parent);
         application.registerService(PokemonProgressState.class, state);
         ApplicationManager.setApplication(application, parent);
-        IconLoader.activate();
     }
 
     private void initializeFrame() {

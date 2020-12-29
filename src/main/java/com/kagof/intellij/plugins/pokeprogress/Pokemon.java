@@ -60,6 +60,12 @@ public enum Pokemon {
     HO_OH(250, "ho-Oh", -18, -10, PokemonType.FIRE, PokemonType.FLYING),
     CELEBI(251, "celebi", -16, -10, PokemonType.PSYCHIC, PokemonType.GRASS),
     // Gen III
+    TREECKO(252, "treecko", -19, -12, PokemonType.GRASS),
+    SCEPTILE(254, "sceptile", -14, -9, PokemonType.GRASS),
+    TORCHIC(255, "torchic", -17, -12, PokemonType.FIRE),
+    BLAZIKEN(257, "blaziken", -18, -8, PokemonType.FIRE, PokemonType.FIGHTING),
+    MUDKIP(258, "mudkip", -15, -12, PokemonType.WATER),
+    SWAMPERT(260, "swampert", -18, -8, PokemonType.WATER, PokemonType.GROUND),
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
     KYOGRE(382, "kyogre", -16, -5, PokemonType.WATER),

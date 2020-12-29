@@ -66,6 +66,12 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 ### Generation III
 
+* ![Treecko (#252)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/treecko.gif) Treecko (#252) ![Treecko (#252)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/treecko_r.gif)
+* ![Sceptile (#254)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sceptile.gif) Sceptile (#254) ![Sceptile (#254)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sceptile_r.gif)
+* ![Torchic (#255)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/torchic.gif) Torchic (#255) ![Torchic (#255)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/torchic_r.gif)
+* ![Blaziken (#257)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/blaziken.gif) Blaziken (#257) ![Blaziken (#257)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/blaziken_r.gif)
+* ![Mudkip (#258)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mudkip.gif) Mudkip (#258) ![Mudkip (#258)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mudkip_r.gif)
+* ![Swampert (#260)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/swampert.gif) Swampert (#260) ![Swampert (#260)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/swampert_r.gif)
 * ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
 * ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
 * ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#382) ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
