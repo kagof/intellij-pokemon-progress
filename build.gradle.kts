@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.kagof"
-version = "1.3.1"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
@@ -34,5 +34,5 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         if (it.exists() && it.isFile && it.canRead()) pluginDescription(it.readText())
         else throw IllegalStateException("unable to read description.html")
     }
-    
+
 }
