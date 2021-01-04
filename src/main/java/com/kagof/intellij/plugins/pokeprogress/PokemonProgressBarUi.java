@@ -14,6 +14,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -39,15 +40,24 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private final Pokemon pokemon;
     private final Icon iconForward;
     private final Icon iconReversed;
+    private final Supplier<Float> initialVelocity;
+    private final Supplier<Float> acceleration;
 
     private volatile int pos = 0;
-    private volatile int velocity = 1;
+    private volatile float velocity = 0;
 
     public PokemonProgressBarUi(final Pokemon pokemon) {
+        this(pokemon, () -> PokemonProgressState.getInstance().initialVelocity, () -> PokemonProgressState.getInstance().acceleration);
+    }
+
+    public PokemonProgressBarUi(final Pokemon pokemon, final Supplier<Float> initialVelocity, final Supplier<Float> acceleration) {
         super();
         this.pokemon = pokemon;
         iconForward = PokemonResourceLoader.getIcon(pokemon);
         iconReversed = PokemonResourceLoader.getReversedIcon(pokemon);
+        this.initialVelocity = initialVelocity;
+        this.acceleration = acceleration;
+        velocity = initialVelocity.get();
     }
 
     @SuppressWarnings( {"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
@@ -210,23 +220,23 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void updatePosition() {
-        final int v = velocity;
+        final float v = velocity;
         final int p = pos;
         if (velocity < 0) {
             if (pos <= 0) {
-                velocity = 1;
+                velocity = initialVelocity.get();
                 pos = 0;
             } else {
-                pos = p + JBUI.scale(velocity);
-                velocity = v - 1;
+                pos = p + (int) JBUIScale.scale(velocity);
+                velocity = v - acceleration.get();
             }
         } else if (velocity > 0) {
             if (pos >= progressBar.getWidth()) {
-                velocity = -1;
+                velocity = -initialVelocity.get();
                 pos = progressBar.getWidth();
             } else {
-                pos = p + JBUI.scale(velocity);
-                velocity = v + 1;
+                pos = p + (int) JBUIScale.scale(velocity);
+                velocity = v + acceleration.get();
             }
         }
     }

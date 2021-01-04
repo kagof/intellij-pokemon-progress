@@ -30,18 +30,20 @@ public class DocumentationGenerator {
     }
 
     @Test
-    public void printForPluginXml() {
+    public void printForDescriptionHtml() {
         final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<div>\n    ");
         int i = 0;
         for (final Pokemon pokemon : Pokemon.values()) {
             if (!pokemon.isSecret()) {
-                if (i == 0) {
+                if (i != 0 && i % 10 == 0) {
                     stringBuilder.append("<br>\n    ");
                 }
-                i = (i + 1) % 10;
+                ++i;
                 stringBuilder.append(getPluginXmlString(pokemon));
             }
         }
+        stringBuilder.append("\n</div>");
         System.out.println(stringBuilder.toString().trim());
     }
 

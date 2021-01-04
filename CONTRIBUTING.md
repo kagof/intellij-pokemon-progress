@@ -71,5 +71,5 @@ Preferably you should be using [signed commits](https://help.github.com/en/artic
 * if adding a new Pokémon:
     * please maintain numerical ordering in the [Readme](README.md), [plugin.xml](src/main/resources/META-INF/plugin.xml), and [Pokemon.java](src/main/java/com/kagof/intellij/plugins/pokeprogress/Pokemon.java)
     * [editSprite.sh](editSprite.sh) can be used to generate the required gifs from existing png images
-    * [DocumentGenerator.java](src/test/java/com/kagof/intellij/plugins/pokeprogress/DocumentationGenerator.java) can be used to generate the new lines in plugin.xml and README.md
+    * [DocumentGenerator.java](src/test/java/com/kagof/intellij/plugins/pokeprogress/DocumentationGenerator.java) can be used to generate the new lines in [`description.html`](./description.html) and [`README.md`](README.md)
     * [TestProgressBar.java](src/test/java/com/kagof/intellij/plugins/pokeprogress/TestProgressBar.java)) is very useful when tweaking sprite positioning & sizing (Thanks to @Paola351 for the initial implementation of this!)

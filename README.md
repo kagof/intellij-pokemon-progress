@@ -66,6 +66,12 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 ### Generation III
 
+* ![Treecko (#252)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/treecko.gif) Treecko (#252) ![Treecko (#252)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/treecko_r.gif)
+* ![Sceptile (#254)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sceptile.gif) Sceptile (#254) ![Sceptile (#254)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sceptile_r.gif)
+* ![Torchic (#255)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/torchic.gif) Torchic (#255) ![Torchic (#255)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/torchic_r.gif)
+* ![Blaziken (#257)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/blaziken.gif) Blaziken (#257) ![Blaziken (#257)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/blaziken_r.gif)
+* ![Mudkip (#258)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mudkip.gif) Mudkip (#258) ![Mudkip (#258)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mudkip_r.gif)
+* ![Swampert (#260)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/swampert.gif) Swampert (#260) ![Swampert (#260)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/swampert_r.gif)
 * ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
 * ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
 * ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#382) ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
@@ -85,12 +91,33 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon.gif) Leafeon (#470) ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon_r.gif)
 * ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon.gif) Glaceon (#471) ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon_r.gif)
 
+### Generation V
+
+* ![Snivy (#495)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/snivy.gif) Snivy (#495) ![Snivy (#495)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/snivy_r.gif)
+* ![Serperior (#497)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/serperior.gif) Serperior (#497) ![Serperior (#497)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/serperior_r.gif)
+* ![Tepig (#498)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/tepig.gif) Tepig (#498) ![Tepig (#498)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/tepig_r.gif)
+* ![Emboar (#500)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/emboar.gif) Emboar (#500) ![Emboar (#500)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/emboar_r.gif)
+* ![Oshawott (#501)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/oshawott.gif) Oshawott (#501) ![Oshawott (#501)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/oshawott_r.gif)
+* ![Samurott (#503)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/samurott.gif) Samurott (#503) ![Samurott (#503)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/samurott_r.gif)
+
 ### Generation VI
 
+* ![Chespin (#650)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chespin.gif) Chespin (#650) ![Chespin (#650)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chespin_r.gif)
+* ![Chesnaught (#652)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chesnaught.gif) Chesnaught (#652) ![Chesnaught (#652)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/chesnaught_r.gif)
+* ![Fennekin (#653)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fennekin.gif) Fennekin (#653) ![Fennekin (#653)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fennekin_r.gif)
+* ![Delphox (#655)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/delphox.gif) Delphox (#655) ![Delphox (#655)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/delphox_r.gif)
+* ![Froakie (#656)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/froakie.gif) Froakie (#656) ![Froakie (#656)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/froakie_r.gif)
+* ![Greninja (#658)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/greninja.gif) Greninja (#658) ![Greninja (#658)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/greninja_r.gif)
 * ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon.gif) Sylveon (#700) ![Sylveon (#700)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sylveon_r.gif)
 
 ### Generation VII
 
+* ![Rowlet (#722)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rowlet.gif) Rowlet (#722) ![Rowlet (#722)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rowlet_r.gif)
+* ![Decidueye (#724)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/decidueye.gif) Decidueye (#724) ![Decidueye (#724)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/decidueye_r.gif)
+* ![Litten (#725)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/litten.gif) Litten (#725) ![Litten (#725)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/litten_r.gif)
+* ![Incineroar (#727)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/incineroar.gif) Incineroar (#727) ![Incineroar (#727)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/incineroar_r.gif)
+* ![Popplio (#728)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/popplio.gif) Popplio (#728) ![Popplio (#728)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/popplio_r.gif)
+* ![Primarina (#730)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/primarina.gif) Primarina (#730) ![Primarina (#730)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/primarina_r.gif)
 * ![Mimikyu (#778)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mimikyu.gif) Mimikyu (#778) ![Mimikyu (#778)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mimikyu_r.gif)
 
 ### Generation VIII
@@ -116,8 +143,16 @@ Contributions are very welcome on this project! Please see our [contributing gui
 * [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
     * All Gen I-IV sprites unless otherwise noted
     * MissingNo.
+* [Kyle-Dove on DeviantArt](https://www.deviantart.com/kyle-dove/gallery)
+    * Snivy, Tepig, Oshawott
+* [cSc-A7X on DeviantArt](https://www.deviantart.com/csc-a7x/gallery)
+    * Serperior, Emboar, Samurott
+* [princess-phoenix on DeviantArt](https://www.deviantart.com/princess-phoenix/art/Gen-6-Kalos-Pokemon-Overworld-Sprites-525954409)
+    * All Gen VI sprites unless otherwise noted
 * [JuJoAura on DeviantArt](https://www.deviantart.com/jujoaura/art/Sylveon-Full-Sprite-379989482)
     * Sylveon
+* [Princess-Phoenix, Larryturbo, Kiddkatt, Zender1752, SageDeoxys, curated by Larryturbo](https://www.deviantart.com/larryturbo/art/Gen-7-Alola-Overworld-Sprites-805455576)
+    * All Gen VII sprites unless otherwise noted
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)

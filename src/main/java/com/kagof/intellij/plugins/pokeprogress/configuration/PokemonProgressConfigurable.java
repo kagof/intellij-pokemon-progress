@@ -26,7 +26,9 @@ public class PokemonProgressConfigurable implements Configurable {
         final PokemonProgressState state = PokemonProgressState.getInstance();
         return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
             || state.drawSprites != component.getDrawSprites().isSelected()
-            || state.addToolTips != component.getAddToolTips().isSelected());
+            || state.addToolTips != component.getAddToolTips().isSelected()
+            || state.initialVelocity != component.getInitialVelocity().getValue() / 100f
+            || state.acceleration != component.getAcceleration().getValue() / 100f);
     }
 
     @Override
@@ -35,6 +37,8 @@ public class PokemonProgressConfigurable implements Configurable {
         state.pokemonNumbersEnabled = component.getEnabledNumberMap();
         state.drawSprites = component.getDrawSprites().isSelected();
         state.addToolTips = component.getAddToolTips().isSelected();
+        state.initialVelocity = component.getInitialVelocity().getValue() / 100f;
+        state.acceleration = component.getAcceleration().getValue() / 100f;
     }
 
     @Override
