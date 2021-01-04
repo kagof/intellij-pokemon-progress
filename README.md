@@ -112,6 +112,12 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 ### Generation VII
 
+* ![Rowlet (#722)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rowlet.gif) Rowlet (#722) ![Rowlet (#722)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rowlet_r.gif)
+* ![Decidueye (#724)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/decidueye.gif) Decidueye (#724) ![Decidueye (#724)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/decidueye_r.gif)
+* ![Litten (#725)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/litten.gif) Litten (#725) ![Litten (#725)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/litten_r.gif)
+* ![Incineroar (#727)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/incineroar.gif) Incineroar (#727) ![Incineroar (#727)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/incineroar_r.gif)
+* ![Popplio (#728)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/popplio.gif) Popplio (#728) ![Popplio (#728)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/popplio_r.gif)
+* ![Primarina (#730)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/primarina.gif) Primarina (#730) ![Primarina (#730)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/primarina_r.gif)
 * ![Mimikyu (#778)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mimikyu.gif) Mimikyu (#778) ![Mimikyu (#778)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/mimikyu_r.gif)
 
 ### Generation VIII
@@ -145,6 +151,8 @@ Contributions are very welcome on this project! Please see our [contributing gui
     * All Gen VI sprites unless otherwise noted
 * [JuJoAura on DeviantArt](https://www.deviantart.com/jujoaura/art/Sylveon-Full-Sprite-379989482)
     * Sylveon
+* [Princess-Phoenix, Larryturbo, Kiddkatt, Zender1752, SageDeoxys, curated by Larryturbo](https://www.deviantart.com/larryturbo/art/Gen-7-Alola-Overworld-Sprites-805455576)
+    * All Gen VII sprites unless otherwise noted
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)

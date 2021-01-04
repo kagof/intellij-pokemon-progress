@@ -98,6 +98,12 @@ public enum Pokemon {
     GRENINJA(658, "greninja", -19, -8, PokemonType.WATER, PokemonType.DARK),
     SYLVEON(700, "sylveon", -18, -8, PokemonType.FAIRY),
     // Gen VII
+    ROWLET(722, "rowlet", -15, -11, PokemonType.GRASS, PokemonType.FLYING),
+    DECIDUEYE(724, "decidueye", -15, -7, PokemonType.GRASS, PokemonType.GHOST),
+    LITTEN(725, "litten", -21, -11, PokemonType.FIRE),
+    INCINEROAR(727, "incineroar", -18, -7, PokemonType.FIRE, PokemonType.DARK),
+    POPPLIO(728, "popplio", -18, -10, PokemonType.WATER),
+    PRIMARINA(730, "primarina", -18, -8, PokemonType.WATER, PokemonType.FAIRY),
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
     GROOKEY(810, "grookey", -15, -7, PokemonType.GRASS),
