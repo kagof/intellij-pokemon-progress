@@ -52,8 +52,8 @@ public class TestProgressBar {
 
     private void setUpMockApplication() {
         final PokemonProgressState state = new PokemonProgressState();
-        state.drawSprites = true;
-        state.addToolTips = false;
+        state.setDrawSprites(true);
+        state.setAddToolTips(false);
         final Disposable parent = () -> { /*do nothing*/ };
         final MockApplication application = MockApplication.setUp(parent);
         application.registerService(PokemonProgressState.class, state);
