@@ -99,11 +99,11 @@ public class PokemonProgressConfigurationComponent {
 
     void updateUi(final PokemonProgressState state) {
         if (state != null) {
-            initialVelocity.setValue((int) (state.getInitialVelocity() * 100));
-            acceleration.setValue((int) (state.getAcceleration() * 100));
-            drawSprites.setSelected(state.isDrawSprites());
-            addToolTips.setSelected(state.isAddToolTips());
-            state.getPokemonNumbersEnabled()
+            initialVelocity.setValue((int) (state.initialVelocity * 100));
+            acceleration.setValue((int) (state.acceleration * 100));
+            drawSprites.setSelected(state.drawSprites);
+            addToolTips.setSelected(state.addToolTips);
+            state.pokemonNumbersEnabled
                 .forEach((pokemon, enabled) -> checkboxes.computeIfPresent(pokemon, (p, check) -> {
                     check.setSelected(enabled);
                     return check;

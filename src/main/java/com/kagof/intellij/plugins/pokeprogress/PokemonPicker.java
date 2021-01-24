@@ -27,7 +27,7 @@ public class PokemonPicker {
     }
 
     private static List<String> getEnabledPokemonNumbers(final PokemonProgressState state) {
-        return state.getPokemonNumbersEnabled().entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).collect(Collectors.toList());
+        return state.pokemonNumbersEnabled.entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
 }
