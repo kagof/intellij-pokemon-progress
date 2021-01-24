@@ -24,21 +24,21 @@ public class PokemonProgressConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
-        return component != null && (!state.getPokemonNumbersEnabled().equals(component.getEnabledNumberMap())
-            || state.isDrawSprites() != component.getDrawSprites().isSelected()
-            || state.isAddToolTips() != component.getAddToolTips().isSelected()
-            || state.getInitialVelocity() != component.getInitialVelocity().getValue() / 100f
-            || state.getAcceleration() != component.getAcceleration().getValue() / 100f);
+        return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
+            || state.drawSprites != component.getDrawSprites().isSelected()
+            || state.addToolTips != component.getAddToolTips().isSelected()
+            || state.initialVelocity != component.getInitialVelocity().getValue() / 100f
+            || state.acceleration != component.getAcceleration().getValue() / 100f);
     }
 
     @Override
     public void apply() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
-        state.setPokemonNumbersEnabled(component.getEnabledNumberMap());
-        state.setDrawSprites(component.getDrawSprites().isSelected());
-        state.setAddToolTips(component.getAddToolTips().isSelected());
-        state.setInitialVelocity(component.getInitialVelocity().getValue() / 100f);
-        state.setAcceleration(component.getAcceleration().getValue() / 100f);
+        state.pokemonNumbersEnabled = component.getEnabledNumberMap();
+        state.drawSprites = component.getDrawSprites().isSelected();
+        state.addToolTips = component.getAddToolTips().isSelected();
+        state.initialVelocity = component.getInitialVelocity().getValue() / 100f;
+        state.acceleration = component.getAcceleration().getValue() / 100f;
     }
 
     @Override
