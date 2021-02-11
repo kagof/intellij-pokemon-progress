@@ -27,6 +27,8 @@ public class PokemonProgressConfigurable implements Configurable {
         return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
             || state.drawSprites != component.getDrawSprites().isSelected()
             || state.addToolTips != component.getAddToolTips().isSelected()
+            || state.transparencyOnIndeterminate != component.getIndeterminateTransparency().isSelected()
+            || state.transparencyOnDeterminate != component.getDeterminateTransparency().isSelected()
             || state.initialVelocity != component.getInitialVelocity().getValue() / 100f
             || state.acceleration != component.getAcceleration().getValue() / 100f);
     }
@@ -37,6 +39,8 @@ public class PokemonProgressConfigurable implements Configurable {
         state.pokemonNumbersEnabled = component.getEnabledNumberMap();
         state.drawSprites = component.getDrawSprites().isSelected();
         state.addToolTips = component.getAddToolTips().isSelected();
+        state.transparencyOnIndeterminate = component.getIndeterminateTransparency().isSelected();
+        state.transparencyOnDeterminate = component.getDeterminateTransparency().isSelected();
         state.initialVelocity = component.getInitialVelocity().getValue() / 100f;
         state.acceleration = component.getAcceleration().getValue() / 100f;
     }

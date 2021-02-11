@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.ui.JBColor;
 import com.intellij.ui.scale.JBUIScale;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
@@ -42,21 +43,33 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private final Icon iconReversed;
     private final Supplier<Float> initialVelocity;
     private final Supplier<Float> acceleration;
+    private final Supplier<Boolean> transparencyOnIndeterminate;
+    private final Supplier<Boolean> transparencyOnDeterminate;
 
     private volatile int pos = 0;
     private volatile float velocity = 0;
 
     public PokemonProgressBarUi(final Pokemon pokemon) {
-        this(pokemon, () -> PokemonProgressState.getInstance().initialVelocity, () -> PokemonProgressState.getInstance().acceleration);
+        this(pokemon,
+            () -> PokemonProgressState.getInstance().initialVelocity,
+            () -> PokemonProgressState.getInstance().acceleration,
+            () -> PokemonProgressState.getInstance().transparencyOnIndeterminate,
+            () -> PokemonProgressState.getInstance().transparencyOnDeterminate);
     }
 
-    public PokemonProgressBarUi(final Pokemon pokemon, final Supplier<Float> initialVelocity, final Supplier<Float> acceleration) {
+    public PokemonProgressBarUi(final Pokemon pokemon,
+        final Supplier<Float> initialVelocity,
+        final Supplier<Float> acceleration,
+        final Supplier<Boolean> transparencyOnIndeterminate,
+        final Supplier<Boolean> transparencyOnDeterminate) {
         super();
         this.pokemon = pokemon;
         iconForward = PokemonResourceLoader.getIcon(pokemon);
         iconReversed = PokemonResourceLoader.getReversedIcon(pokemon);
         this.initialVelocity = initialVelocity;
         this.acceleration = acceleration;
+        this.transparencyOnIndeterminate = transparencyOnIndeterminate;
+        this.transparencyOnDeterminate = transparencyOnDeterminate;
         velocity = initialVelocity.get();
     }
 
@@ -134,7 +147,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
 
         final RoundRectangle2D rectangle = getRoundRectangle(width, height);
 
-        drawTypePaint(height, amountFull, graphics2D, rectangle);
+        drawTypePaint(width, height, amountFull, graphics2D, rectangle);
         drawPokemonIcon(amountFull, graphics2D, rectangle);
         drawBorder(rectangle, graphics2D);
         // Deal with possible text painting
@@ -165,15 +178,24 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
             arcLength);
     }
 
-    private void drawTypePaint(final int height, final int progress, final Graphics2D graphics2D,
+    private void drawTypePaint(final int width, final int height, final int progress, final Graphics2D graphics2D,
         final RoundRectangle2D rectangle) {
         final Paint paint = graphics2D.getPaint();
         final Shape clip = graphics2D.getClip();
+        final boolean movingRight = velocity >= 0;
 
         graphics2D.setPaint(getTypePaint(pokemon, height));
-        graphics2D.setClip(velocity >= 0 ? new Rectangle(progress, height)
+        graphics2D.setClip(movingRight ? new Rectangle(progress, height)
             : new Rectangle(progress, 0, progressBar.getWidth(), height));
         graphics2D.fill(rectangle);
+
+        if ((progressBar.isIndeterminate() && transparencyOnIndeterminate.get())
+            || (!progressBar.isIndeterminate() && transparencyOnDeterminate.get())) {
+            graphics2D.setPaint(getTransparencyPaint(progressBar.getBackground(), width, movingRight));
+            graphics2D.setClip(movingRight ? new Rectangle(progress, height)
+                : new Rectangle(progress, 0, progressBar.getWidth(), height));
+            graphics2D.fill(rectangle);
+        }
 
         graphics2D.setPaint(paint);
         graphics2D.setClip(clip);
@@ -244,6 +266,13 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private void resetPositionAndVelocity() {
         velocity = 1;
         pos = 0;
+    }
+
+    private static Paint getTransparencyPaint(final Color backgroundColor, final int width, final boolean movingRight) {
+        final JBColor transparent = new JBColor(new Color(0, 0, 0, 0), new Color(0, 0, 0, 0));
+        return new LinearGradientPaint(0, JBUIScale.scale(2f), width, JBUIScale.scale(2f),
+            new float[] {0, 1}, new Color[] {movingRight ? backgroundColor : transparent,
+            movingRight ? transparent : backgroundColor});
     }
 
     private static Paint getTypePaint(final Pokemon pokemon, final int height) {
