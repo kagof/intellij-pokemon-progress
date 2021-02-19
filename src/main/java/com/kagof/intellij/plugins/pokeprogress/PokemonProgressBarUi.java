@@ -45,6 +45,8 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private final Supplier<Float> acceleration;
     private final Supplier<Boolean> transparencyOnIndeterminate;
     private final Supplier<Boolean> transparencyOnDeterminate;
+    private final Supplier<Boolean> drawSprites;
+    private final Supplier<Boolean> addToolTips;
 
     private volatile int pos = 0;
     private volatile float velocity = 0;
@@ -54,14 +56,18 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
             () -> PokemonProgressState.getInstance().initialVelocity,
             () -> PokemonProgressState.getInstance().acceleration,
             () -> PokemonProgressState.getInstance().transparencyOnIndeterminate,
-            () -> PokemonProgressState.getInstance().transparencyOnDeterminate);
+            () -> PokemonProgressState.getInstance().transparencyOnDeterminate,
+            () -> PokemonProgressState.getInstance().drawSprites,
+            () -> PokemonProgressState.getInstance().addToolTips);
     }
 
     public PokemonProgressBarUi(final Pokemon pokemon,
         final Supplier<Float> initialVelocity,
         final Supplier<Float> acceleration,
         final Supplier<Boolean> transparencyOnIndeterminate,
-        final Supplier<Boolean> transparencyOnDeterminate) {
+        final Supplier<Boolean> transparencyOnDeterminate,
+        final Supplier<Boolean> drawSprites,
+        final Supplier<Boolean> addToolTips) {
         super();
         this.pokemon = pokemon;
         iconForward = PokemonResourceLoader.getIcon(pokemon);
@@ -70,6 +76,8 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         this.acceleration = acceleration;
         this.transparencyOnIndeterminate = transparencyOnIndeterminate;
         this.transparencyOnDeterminate = transparencyOnDeterminate;
+        this.drawSprites = drawSprites;
+        this.addToolTips = addToolTips;
         velocity = initialVelocity.get();
     }
 
@@ -202,7 +210,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void setToolTipText() {
-        if (PokemonProgressState.getInstance().addToolTips && StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
+        if (addToolTips.get() && StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
             progressBar.setToolTipText(pokemon.getNameWithNumber());
         }
     }
@@ -220,7 +228,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void drawPokemonIcon(final int amountFull, final Graphics2D graphics2D, final Shape clip) {
-        if (!PokemonProgressState.getInstance().drawSprites) {
+        if (!drawSprites.get()) {
             return;
         }
         final Shape previousClip = graphics2D.getClip();

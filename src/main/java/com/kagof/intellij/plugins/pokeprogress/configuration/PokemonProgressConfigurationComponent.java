@@ -50,7 +50,7 @@ public class PokemonProgressConfigurationComponent {
 
     void createUi() {
         final FormBuilder formBuilder = FormBuilder.createFormBuilder();
-        formBuilder.addComponent(createPreviewPanel());
+        formBuilder.addLabeledComponent("Preview", createPreviewPanel(), true);
         formBuilder.addSeparator();
         formBuilder.addComponent(createIndeterminatePanel());
         formBuilder.addSeparator();
@@ -183,7 +183,9 @@ public class PokemonProgressConfigurationComponent {
             () -> initialVelocity.getValue() / 100f,
             () -> acceleration.getValue() / 100f,
             indeterminateTransparency::isSelected,
-            determinateTransparency::isSelected));
+            determinateTransparency::isSelected,
+            drawSprites::isSelected,
+            addToolTips::isSelected));
 
         final JProgressBar indeterminateProgressBar = new JProgressBar();
         indeterminateProgressBar.setIndeterminate(true);
@@ -191,7 +193,9 @@ public class PokemonProgressConfigurationComponent {
             () -> initialVelocity.getValue() / 100f,
             () -> acceleration.getValue() / 100f,
             indeterminateTransparency::isSelected,
-            determinateTransparency::isSelected));
+            determinateTransparency::isSelected,
+            drawSprites::isSelected,
+            addToolTips::isSelected));
 
         panel.add(LabeledComponent.create(determinateProgressBar, "Determinate", BorderLayout.NORTH));
         panel.add(LabeledComponent.create(indeterminateProgressBar, "Indeterminate", BorderLayout.NORTH));
