@@ -24,6 +24,8 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
         .collect(Collectors.toMap(Function.identity(), p -> true));
     public boolean drawSprites = true;
     public boolean addToolTips = true;
+    public boolean transparencyOnIndeterminate = true;
+    public boolean transparencyOnDeterminate = false;
 
     public static PokemonProgressState getInstance() {
         return ServiceManager.getService(PokemonProgressState.class);
