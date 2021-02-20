@@ -10,7 +10,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
 public final class PokemonResourceLoader {
-    private static final String SPRITE_RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/sprites/";
+    private static final String SPRITE_RESOURCE_PATH = "com/kagof/intellij/plugins/pokeprogress/sprites/";
 
     private static final Cache<String, Icon> cache = CacheBuilder
         .newBuilder()
@@ -34,7 +34,7 @@ public final class PokemonResourceLoader {
                 .ofNullable(PokemonResourceLoader.class.getClassLoader()
                     .getResource(resourceName))
                 .orElseGet(() -> PokemonResourceLoader.class.getClassLoader()
-                    .getResource(resourceName.replaceFirst("/", ""))))
+                    .getResource("/" + resourceName)))
                 .map(ImageIcon::new)
                 .orElseGet(ImageIcon::new));
         } catch (final ExecutionException e) {
