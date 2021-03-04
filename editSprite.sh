@@ -59,7 +59,7 @@ delay=${4:-${DEFAULT_DELAY}}
 path=${5:-${DEFAULT_PATH}}
 
 # create initial gif
-convert \
+magick convert \
   -delay "$delay" \
   -dispose Background \
   -resize "${resize}x${resize}" \
@@ -72,7 +72,7 @@ convert \
 checkExitCode 'unable to convert sprite (run editSprite.sh --help for usage)'
 
 # create @2x gif
-convert \
+magick convert \
   -delay "$delay" \
   -dispose Background \
   -resize "${resize2}x${resize2}" \
@@ -85,7 +85,7 @@ convert \
 checkExitCode 'unable to convert @2x sprite (run editSprite.sh --help for usage)'
 
 # create reversed gif
-convert \
+magick convert \
   -flop \
   "${path}/${spriteName}.gif" \
   "${path}/${spriteName}_r.gif"
@@ -93,7 +93,7 @@ convert \
 checkExitCode 'unable to create reversed sprite (run editSprite.sh --help for usage)'
 
 # create reversed @2x gif
-convert \
+magick convert \
   -flop \
   "${path}/${spriteName}@2x.gif" \
   "${path}/${spriteName}_r@2x.gif"
