@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     testImplementation("junit", "junit", "4.12")
+    testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.0.22")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
