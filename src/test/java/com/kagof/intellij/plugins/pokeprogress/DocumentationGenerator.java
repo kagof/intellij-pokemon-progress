@@ -58,6 +58,28 @@ public class DocumentationGenerator {
         }
     }
 
+    @Test
+    public void generateNewReleaseNoteSection() {
+        final String version = "1.5.0";
+
+        final String notes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
+            + version
+            + "\">"
+            + version
+            + "</a></b>\n"
+            + "        <!--"
+            + version
+            + "-->\n"
+            + "        <ul>\n"
+            + "            <li></li>\n"
+            + "        </ul>\n"
+            + "        <!--/"
+            + version
+            + "-->\n"
+            + "    </li>\n";
+        System.out.println(notes);
+    }
+
     private String getReadmeString() {
         final Map<Generation, Boolean> gens = Arrays.stream(Generation.values()).collect(Collectors.toMap(Function.identity(), __ -> false));
         final StringBuilder stringBuilder = new StringBuilder();
