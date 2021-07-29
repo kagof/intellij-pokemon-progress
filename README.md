@@ -7,6 +7,8 @@
 
 ![](eg/example.gif)
 
+![All](eg/family.gif)
+
 This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s).
 
 ## Included Pokémon
@@ -131,6 +133,8 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Wooloo (#831)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wooloo.gif) Wooloo (#831) ![Wooloo (#831)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wooloo_r.gif)
 * ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian.gif) Zacian (#888) ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian_r.gif)
 * ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta.gif) Zamazenta (#889) ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta_r.gif)
+
+[comment]: <> (end-included-pokemon)
 
 ## Contributing
 

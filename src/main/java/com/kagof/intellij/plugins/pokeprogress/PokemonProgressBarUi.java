@@ -7,16 +7,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import java.awt.LinearGradientPaint;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
@@ -24,12 +20,10 @@ import javax.swing.SwingConstants;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.ui.JBColor;
 import com.intellij.ui.scale.JBUIScale;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
@@ -37,7 +31,6 @@ import com.intellij.util.ui.UIUtil;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
 
 public class PokemonProgressBarUi extends BasicProgressBarUI {
-    private static final float ONE_HALF = 0.5f;
     private final Pokemon pokemon;
     private final Icon iconForward;
     private final Icon iconReversed;
@@ -192,14 +185,14 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final Shape clip = graphics2D.getClip();
         final boolean movingRight = velocity >= 0;
 
-        graphics2D.setPaint(getTypePaint(pokemon, height));
+        graphics2D.setPaint(Painter.getTypePaint(pokemon, height));
         graphics2D.setClip(movingRight ? new Rectangle(progress, height)
             : new Rectangle(progress, 0, progressBar.getWidth(), height));
         graphics2D.fill(rectangle);
 
         if ((progressBar.isIndeterminate() && transparencyOnIndeterminate.get())
             || (!progressBar.isIndeterminate() && transparencyOnDeterminate.get())) {
-            graphics2D.setPaint(getTransparencyPaint(progressBar.getBackground(), width, movingRight));
+            graphics2D.setPaint(Painter.getTransparencyPaint(progressBar.getBackground(), width, movingRight));
             graphics2D.setClip(movingRight ? new Rectangle(progress, height)
                 : new Rectangle(progress, 0, progressBar.getWidth(), height));
             graphics2D.fill(rectangle);
@@ -274,33 +267,6 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private void resetPositionAndVelocity() {
         velocity = 1;
         pos = 0;
-    }
-
-    private static Paint getTransparencyPaint(final Color backgroundColor, final int width, final boolean movingRight) {
-        final JBColor transparent = new JBColor(new Color(0, 0, 0, 0), new Color(0, 0, 0, 0));
-        return new LinearGradientPaint(0, JBUIScale.scale(2f), width, JBUIScale.scale(2f),
-            new float[] {0, 1}, new Color[] {movingRight ? backgroundColor : transparent,
-            movingRight ? transparent : backgroundColor});
-    }
-
-    private static Paint getTypePaint(final Pokemon pokemon, final int height) {
-        final List<PokemonType> types = pokemon.getTypes();
-        final int numColors = types.size();
-        if (numColors == 1) {
-            return getPaintSingleType(types.get(0), height);
-        }
-
-        final float numColorsReciprocal = 1f / (numColors - 1);
-        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
-            ArrayUtils.toPrimitive(
-                IntStream.range(0, numColors).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
-            types.stream().map(PokemonType::getColor).collect(Collectors.toList()).toArray(new Color[] {}));
-    }
-
-    private static Paint getPaintSingleType(final PokemonType type, final int height) {
-        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
-            new float[] {0f, ONE_HALF, 1f},
-            new Color[] {type.getColorLight(), type.getColor(), type.getColorDark()});
     }
 
     private static boolean isEven(final int n) {
