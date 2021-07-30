@@ -26,21 +26,31 @@ public final class Painter {
     }
 
     public static Paint getTypePaint(final Pokemon pokemon, final int height) {
+        return getTypePaint(pokemon, 0, height);
+    }
+
+    public static Paint getTypePaint(final Pokemon pokemon, final int startY, final int height) {
         final List<PokemonType> types = pokemon.getTypes();
         final int numColors = types.size();
         if (numColors == 1) {
-            return getPaintSingleType(types.get(0), height);
+            return getPaintSingleType(types.get(0), startY, height);
         }
 
         final float numColorsReciprocal = 1f / (numColors - 1);
-        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
+        return new LinearGradientPaint(0,
+            (float) startY + JBUIScale.scale(2f),
+            0,
+            (float) startY + (float) height - JBUIScale.scale(2f),
             ArrayUtils.toPrimitive(
                 IntStream.range(0, numColors).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
             types.stream().map(PokemonType::getColor).collect(Collectors.toList()).toArray(new Color[] {}));
     }
 
-    private static Paint getPaintSingleType(final PokemonType type, final int height) {
-        return new LinearGradientPaint(0, JBUIScale.scale(2f), 0, (float) height - JBUIScale.scale(2f),
+    private static Paint getPaintSingleType(final PokemonType type, final int startY, final int height) {
+        return new LinearGradientPaint(0,
+            (float) startY + JBUIScale.scale(2f),
+            0,
+            (float) startY + (float) height - JBUIScale.scale(2f),
             new float[] {0f, ONE_HALF, 1f},
             new Color[] {type.getColorLight(), type.getColor(), type.getColorDark()});
     }

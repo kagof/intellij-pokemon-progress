@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,11 +17,12 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import com.sksamuel.scrimage.ImmutableImage;
 import com.sksamuel.scrimage.nio.AnimatedGif;
 import com.sksamuel.scrimage.nio.AnimatedGifReader;
 import com.sksamuel.scrimage.nio.ImageSource;
-import com.sksamuel.scrimage.nio.StreamingGifWriter;
+
+import ork.sevenstates.apng.APNGSeqWriter;
+import ork.sevenstates.apng.optimizing.ARGBSubtractor;
 
 public class DocumentationGenerator {
     /**
@@ -46,14 +46,14 @@ public class DocumentationGenerator {
     @Test
     public void updateFamilyPicture() throws Exception {
         final int lcm = getLcmNumFrames();
-        final List<ImmutableImage> images = new ArrayList<>();
+        final List<BufferedImage> images = new ArrayList<>();
         for (int frame = 0; frame < lcm; frame++) {
-            images.add(ImmutableImage.fromAwt(drawFrame(frame)));
+            images.add(drawFrame(frame));
         }
-        final StreamingGifWriter writer = new StreamingGifWriter(Duration.ofMillis(500), true);
-        try (final StreamingGifWriter.GifStream gif = writer.prepareStream("eg/family.gif", BufferedImage.TYPE_INT_ARGB)) {
-            for (final ImmutableImage image : images) {
-                gif.writeFrame(image);
+
+        try (final APNGSeqWriter apngWriter = new APNGSeqWriter("eg/family.png", BufferedImage.TYPE_INT_ARGB, new ARGBSubtractor())) {
+            for (final BufferedImage image : images) {
+                apngWriter.writeImage(image, 500);
             }
         }
     }
@@ -130,17 +130,19 @@ public class DocumentationGenerator {
     }
 
     private void drawPokemon(final int frame, final int i, final int j, final Graphics2D g, final Pokemon pokemon) throws IOException {
-        final Paint typePaint = Painter.getTypePaint(pokemon, 32);
+        final int startX = i * 32;
+        final int startY = j * 32;
+        final Paint typePaint = Painter.getTypePaint(pokemon, startY, 32);
         g.setPaint(typePaint);
-        g.fillRect(i * 32, j * 32, 32, 32);
+        g.fillRect(startX, startY, 32, 32);
         final AnimatedGif gif = AnimatedGifReader.read(ImageSource.of(getClass().getClassLoader()
             .getResource(PokemonResourceLoader.getIconPath(pokemon))
             .openStream()));
         if (pokemon == Pokemon.WAILORD) {
             // the Wailord sprite is big
-            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), i * 32 - 18, j * 32 - 25, null);
+            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX - 18, startY - 25, null);
         } else {
-            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), i * 32, j * 32, null);
+            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX, startY, null);
         }
     }
 

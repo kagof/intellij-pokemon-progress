@@ -8,11 +8,13 @@ version = "1.5.0"
 
 repositories {
     mavenCentral()
+    maven { setUrl("https://jitpack.io") }
 }
 
 dependencies {
     testImplementation("junit", "junit", "4.12")
     testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.0.22")
+    testImplementation("com.github.Arcnor.apng-writer:apng-writer-core:63699322f5")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
