@@ -10,14 +10,17 @@ import com.intellij.ide.plugins.DynamicPluginListener;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
+import com.intellij.openapi.extensions.PluginId;
 
 public class PokemonProgressListener implements LafManagerListener, DynamicPluginListener {
     private static final String PROGRESS_BAR_UI_KEY = "ProgressBarUI";
     private static final String POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME = PokemonProgressBarUi.class.getName();
     private volatile static Object previousProgressBar = null;
+    private volatile static PluginId pluginId = null;
 
     public PokemonProgressListener() {
         updateProgressBarUi();
+        pluginId = PluginId.getId("com.kagof.pokeprogress");
     }
 
     @Override
@@ -27,12 +30,18 @@ public class PokemonProgressListener implements LafManagerListener, DynamicPlugi
 
     @Override
     public void pluginLoaded(@NotNull final IdeaPluginDescriptor pluginDescriptor) {
-        updateProgressBarUi();
+        if (Objects.equals(pluginId, pluginDescriptor.getPluginId())) {
+            updateProgressBarUi();
+        }
     }
 
     @Override
     public void beforePluginUnload(@NotNull final IdeaPluginDescriptor pluginDescriptor, final boolean isUpdate) {
-        resetProgressBarUi();
+        if (Objects.equals(pluginId, pluginDescriptor.getPluginId())) {
+            if (!isUpdate) {
+                resetProgressBarUi();
+            }
+        }
     }
 
     static void updateProgressBarUi() {
