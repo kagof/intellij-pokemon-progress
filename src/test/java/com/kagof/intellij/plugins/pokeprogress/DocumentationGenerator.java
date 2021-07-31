@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,12 +18,11 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import com.sksamuel.scrimage.ImmutableImage;
 import com.sksamuel.scrimage.nio.AnimatedGif;
 import com.sksamuel.scrimage.nio.AnimatedGifReader;
 import com.sksamuel.scrimage.nio.ImageSource;
-
-import ork.sevenstates.apng.APNGSeqWriter;
-import ork.sevenstates.apng.optimizing.ARGBSubtractor;
+import com.sksamuel.scrimage.nio.StreamingGifWriter;
 
 public class DocumentationGenerator {
     /**
@@ -51,9 +51,10 @@ public class DocumentationGenerator {
             images.add(drawFrame(frame));
         }
 
-        try (final APNGSeqWriter apngWriter = new APNGSeqWriter("eg/family.png", BufferedImage.TYPE_INT_ARGB, new ARGBSubtractor())) {
+        final StreamingGifWriter writer = new StreamingGifWriter(Duration.ofMillis(500), true);
+        try (final StreamingGifWriter.GifStream gif = writer.prepareStream("eg/family.gif", BufferedImage.TYPE_INT_ARGB)) {
             for (final BufferedImage image : images) {
-                apngWriter.writeImage(image, 500);
+                gif.writeFrame(ImmutableImage.fromAwt(image));
             }
         }
     }

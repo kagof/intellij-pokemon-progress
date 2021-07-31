@@ -7,7 +7,7 @@
 
 ![](eg/example.gif)
 
-![All](eg/family.png)
+![All](eg/family.gif)
 
 This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s).
 
@@ -174,5 +174,5 @@ Contributions are very welcome on this project! Please see our [contributing gui
 * Types, names, numbers, & info mainly gathered from [Bulbapedia](https://bulbapedia.bulbagarden.net)
 * Type colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
 * The idea for this plugin came from [KikiManjaro's Pokemon Trainer Progress Bar](https://plugins.jetbrains.com/plugin/14609-pokemon-trainer-progress-bar)
-* Family photo generated using a combination of [Scrimage](https://github.com/sksamuel/scrimage) for GIF reading and [apng-writer](https://github.com/Weoulren/apng-writer) ([Arcnor's fork which is usable with Jitpack](https://github.com/Arcnor/apng-writer)) for APNG writing
+* Family photo generated using [Scrimage](https://github.com/sksamuel/scrimage) for GIF reading & writing
 * The Pokémon Company, for creating Pokémon
