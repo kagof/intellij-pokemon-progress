@@ -38,9 +38,7 @@ public class PokemonProgressListener implements LafManagerListener, DynamicPlugi
     @Override
     public void beforePluginUnload(@NotNull final IdeaPluginDescriptor pluginDescriptor, final boolean isUpdate) {
         if (Objects.equals(pluginId, pluginDescriptor.getPluginId())) {
-            if (!isUpdate) {
-                resetProgressBarUi();
-            }
+            resetProgressBarUi();
         }
     }
 
