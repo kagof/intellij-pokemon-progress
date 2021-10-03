@@ -61,7 +61,7 @@ public class DocumentationGenerator {
 
     @Test
     public void generateNewReleaseNoteSection() {
-        final String version = "1.5.0";
+        final String version = "1.6.0";
 
         final String notes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
             + version
