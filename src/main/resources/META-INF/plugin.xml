@@ -2,7 +2,7 @@
     <id>com.kagof.pokeprogress</id>
     <name>Pokemon Progress</name>
     <vendor email="karl.goffin@gmail.com" url="https://github.com/kagof">Kagof</vendor>
-    <idea-version since-build="193"/>
+    <idea-version since-build="201" />
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -12,15 +12,16 @@
         <applicationConfigurable parentId="appearance"
                                  instance="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressConfigurable"
                                  id="org.intellij.sdk.settings.AppSettingsConfigurable"
-                                 displayName="Pokémon Progress"/>
+                                 dynamic="true"
+                                 displayName="Pokémon Progress" />
         <applicationService
-                serviceImplementation="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState"/>
+                serviceImplementation="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState" />
     </extensions>
     <applicationListeners>
         <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
-                  topic="com.intellij.ide.ui.LafManagerListener"/>
+                  topic="com.intellij.ide.ui.LafManagerListener" />
         <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
-                  topic="com.intellij.ide.plugins.DynamicPluginListener"/>
+                  topic="com.intellij.ide.plugins.DynamicPluginListener" />
     </applicationListeners>
     <actions>
         <!-- Add your actions here -->
