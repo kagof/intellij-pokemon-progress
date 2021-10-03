@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
@@ -28,7 +28,7 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public boolean transparencyOnDeterminate = false;
 
     public static PokemonProgressState getInstance() {
-        return ServiceManager.getService(PokemonProgressState.class);
+        return ApplicationManager.getApplication().getService(PokemonProgressState.class);
     }
 
     @Override

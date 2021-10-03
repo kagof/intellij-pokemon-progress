@@ -7,6 +7,8 @@
 
 ![](eg/example.gif)
 
+![All](eg/family.gif)
+
 This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s).
 
 ## Included Pokémon
@@ -24,7 +26,11 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Nidoqueen (#031)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/nidoqueen.gif) Nidoqueen (#031) ![Nidoqueen (#031)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/nidoqueen_r.gif)
 * ![Nidoking (#034)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/nidoking.gif) Nidoking (#034) ![Nidoking (#034)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/nidoking_r.gif)
 * ![Jigglypuff (#039)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jigglypuff.gif) Jigglypuff (#039) ![Jigglypuff (#039)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/jigglypuff_r.gif)
+* ![Diglett (#050)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/diglett.gif) Diglett (#050) ![Diglett (#050)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/diglett_r.gif)
+* ![Dugtrio (#051)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/dugtrio.gif) Dugtrio (#051) ![Dugtrio (#051)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/dugtrio_r.gif)
 * ![Meowth (#052)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meowth.gif) Meowth (#052) ![Meowth (#052)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meowth_r.gif)
+* ![Psyduck (#054)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/psyduck.gif) Psyduck (#054) ![Psyduck (#054)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/psyduck_r.gif)
+* ![Golduck (#055)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/golduck.gif) Golduck (#055) ![Golduck (#055)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/golduck_r.gif)
 * ![Alakazam (#065)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/alakazam.gif) Alakazam (#065) ![Alakazam (#065)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/alakazam_r.gif)
 * ![Machamp (#068)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/machamp.gif) Machamp (#068) ![Machamp (#068)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/machamp_r.gif)
 * ![Slowpoke (#079)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/slowpoke.gif) Slowpoke (#079) ![Slowpoke (#079)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/slowpoke_r.gif)
@@ -74,6 +80,8 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Swampert (#260)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/swampert.gif) Swampert (#260) ![Swampert (#260)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/swampert_r.gif)
 * ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer.gif) Wailmer (#320) ![Wailmer (#320)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailmer_r.gif)
 * ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord.gif) Wailord (#321) ![Wailord (#321)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wailord_r.gif)
+* ![Latias (#380)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/latias.gif) Latias (#380) ![Latias (#380)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/latias_r.gif)
+* ![Latios (#381)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/latios.gif) Latios (#381) ![Latios (#381)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/latios_r.gif)
 * ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre.gif) Kyogre (#382) ![Kyogre (#382)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/kyogre_r.gif)
 * ![Groudon (#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon.gif) Groudon (#383) ![Groudon (#383)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/groudon_r.gif)
 * ![Rayquaza (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza.gif) Rayquaza (#384) ![Rayquaza (#384)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rayquaza_r.gif)
@@ -132,6 +140,8 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian.gif) Zacian (#888) ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian_r.gif)
 * ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta.gif) Zamazenta (#889) ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta_r.gif)
 
+[comment]: <> (end-included-pokemon)
+
 ## Contributing
 
 Contributions are very welcome on this project! Please see our [contributing guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md) to get started.
@@ -166,8 +176,9 @@ Contributions are very welcome on this project! Please see our [contributing gui
 
 ### Misc
 
-* Gif editing done with [ImageMagick](https://imagemagick.org/script/index.php) (using [this](./editSprite.sh) script)
+* Sprite Gif editing done with [ImageMagick](https://imagemagick.org/script/index.php) (using [this](./editSprite.sh) script)
 * Types, names, numbers, & info mainly gathered from [Bulbapedia](https://bulbapedia.bulbagarden.net)
 * Type colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
 * The idea for this plugin came from [KikiManjaro's Pokemon Trainer Progress Bar](https://plugins.jetbrains.com/plugin/14609-pokemon-trainer-progress-bar)
+* Family photo generated using [Scrimage](https://github.com/sksamuel/scrimage) for GIF reading & writing
 * The Pokémon Company, for creating Pokémon

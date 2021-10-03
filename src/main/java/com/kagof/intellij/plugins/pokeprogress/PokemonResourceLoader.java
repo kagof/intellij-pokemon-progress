@@ -21,20 +21,28 @@ public final class PokemonResourceLoader {
     }
 
     public static Icon getIcon(final Pokemon pokemon) {
-        return getIconInternal(SPRITE_RESOURCE_PATH + pokemon.getName() + ".gif");
+        return getIconInternal(getIconPath(pokemon));
     }
 
     public static Icon getReversedIcon(final Pokemon pokemon) {
-        return getIconInternal(SPRITE_RESOURCE_PATH + pokemon.getName() + "_r.gif");
+        return getIconInternal(getReversedIconPath(pokemon));
+    }
+
+    public static String getIconPath(final Pokemon pokemon) {
+        return SPRITE_RESOURCE_PATH + pokemon.getName() + ".gif";
+    }
+
+    public static String getReversedIconPath(final Pokemon pokemon) {
+        return SPRITE_RESOURCE_PATH + pokemon.getName() + "_r.gif";
     }
 
     private static Icon getIconInternal(final String resourceName) {
         try {
             return cache.get(resourceName, () -> Optional.ofNullable(Optional
-                .ofNullable(PokemonResourceLoader.class.getClassLoader()
-                    .getResource(resourceName))
-                .orElseGet(() -> PokemonResourceLoader.class.getClassLoader()
-                    .getResource("/" + resourceName)))
+                    .ofNullable(PokemonResourceLoader.class.getClassLoader()
+                        .getResource(resourceName))
+                    .orElseGet(() -> PokemonResourceLoader.class.getClassLoader()
+                        .getResource("/" + resourceName)))
                 .map(ImageIcon::new)
                 .orElseGet(ImageIcon::new));
         } catch (final ExecutionException e) {

@@ -32,12 +32,12 @@ jobs:
 
       - name: Verify against IntelliJ builds
         id: verify
-        uses: ChrisCarini/intellij-platform-plugin-verifier-action@v1.0.4
+        uses: ChrisCarini/intellij-platform-plugin-verifier-action@v1.0.7
         with:
           ide-versions: |
             ideaIC:2019.3.5
-            ideaIU:2019.3.5
             ideaIC:2020.3
+            ideaIC:2021.2
             ideaIC:LATEST-EAP-SNAPSHOT
 
       - name: Sync master branch verification results to gist

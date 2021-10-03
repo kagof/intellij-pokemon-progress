@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.kagof"
-version = "1.5.0"
+version = "1.6.0"
 
 repositories {
     mavenCentral()
@@ -12,11 +12,12 @@ repositories {
 
 dependencies {
     testImplementation("junit", "junit", "4.12")
+    testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.0.22")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = "2019.3"
+    version = "2020.1"
 }
 
 tasks.getByName<org.jetbrains.intellij.tasks.PublishTask>("publishPlugin") {
