@@ -68,6 +68,8 @@ public enum Pokemon {
     SWAMPERT(260, "swampert", -18, -8, PokemonType.WATER, PokemonType.GROUND),
     WAILMER(320, "wailmer", -16, -9, PokemonType.WATER),
     WAILORD(321, "wailord", -35, -35, PokemonType.WATER),
+    LATIAS(380, "latias", -10, -6, PokemonType.DRAGON, PokemonType.PSYCHIC),
+    LATIOS(381, "latios", -10, -6, PokemonType.DRAGON, PokemonType.PSYCHIC),
     KYOGRE(382, "kyogre", -16, -5, PokemonType.WATER),
     GROUDON(383, "groudon", -18, -12, PokemonType.GROUND),
     RAYQUAZA(384, "rayquaza", -21, -12, PokemonType.DRAGON, PokemonType.FLYING),
