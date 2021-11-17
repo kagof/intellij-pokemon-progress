@@ -4,14 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -19,11 +22,15 @@ import javax.swing.JSlider;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.roots.ScalableIconComponent;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.ui.FormBuilder;
+import com.intellij.util.ui.ThreeStateCheckBox;
+import com.intellij.util.ui.ThreeStateCheckBox.State;
 import com.kagof.intellij.plugins.pokeprogress.Generation;
 import com.kagof.intellij.plugins.pokeprogress.Pokemon;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
@@ -37,6 +44,8 @@ public class PokemonProgressConfigurationComponent {
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
     private final JBCheckBox determinateTransparency = new JBCheckBox("Transparency on determinate");
     private final Map<String, JBCheckBox> checkboxes = new HashMap<>();
+    private final Multimap<Generation, JCheckBox> checkboxesByGen = ArrayListMultimap.create();
+    private final Map<Generation, ThreeStateCheckBox> genToggleCheckBoxes = new EnumMap<>(Generation.class);
     private final JButton selectAll = new JButton("Select all");
     private final JButton deselectAll = new JButton("Deselect all");
     private final JLabel label = new JLabel("?/? Pokémon selected");
@@ -75,15 +84,23 @@ public class PokemonProgressConfigurationComponent {
         });
         formBuilder.addComponent(selectButtonsPanel);
 
-        final Map<Generation, Boolean> gens = Arrays.stream(Generation.values()).collect(Collectors.toMap(Function.identity(), __ -> false));
+        final Set<Generation> addedGens = EnumSet.noneOf(Generation.class);
 
         Pokemon.DEFAULT_POKEMON.values().stream().sorted().forEach(pokemon -> {
             final Generation gen = pokemon.getGeneration();
-            if (!gens.get(gen)) {
-                final JLabel genLabel = new JLabel("Generation " + gen);
-                formBuilder.addComponent(genLabel);
-                gens.put(gen, true);
+
+            if (addedGens.add(gen)) {
+                final ThreeStateCheckBox genToggleCheckBox = new ThreeStateCheckBox("Generation " + gen);
+                genToggleCheckBox.setThirdStateEnabled(false);
+                genToggleCheckBox.addItemListener(c -> {
+                    final boolean isSelected = genToggleCheckBox.getState() == State.SELECTED;
+                    checkboxesByGen.get(gen).forEach(cb -> cb.setSelected(isSelected));
+                    refreshSelectAllButtons();
+                });
+                formBuilder.addComponent(genToggleCheckBox);
+                genToggleCheckBoxes.put(gen, genToggleCheckBox);
             }
+
             final JBCheckBox checkBox = new JBCheckBox(pokemon.getNameWithNumber(), true);
             checkBox.addItemListener(c -> {
                 if (c.getStateChange() == ItemEvent.SELECTED) {
@@ -91,12 +108,17 @@ public class PokemonProgressConfigurationComponent {
                 } else if (c.getStateChange() == ItemEvent.DESELECTED) {
                     numSelected.decrementAndGet();
                 }
+                refreshGenCheckBox(gen);
                 refreshSelectAllButtons();
             });
+
             formBuilder.addLabeledComponent(new ScalableIconComponent(PokemonResourceLoader.getIcon(pokemon)), checkBox);
             checkboxes.put(pokemon.getNumberString(), checkBox);
+            checkboxesByGen.put(gen, checkBox);
             numSelected.incrementAndGet();
         });
+
+        addedGens.forEach(this::refreshGenCheckBox);
         refreshSelectAllButtons();
         mainPanel = formBuilder.getPanel();
     }
@@ -170,6 +192,21 @@ public class PokemonProgressConfigurationComponent {
         deselectAll.setEnabled(i > 0);
         selectAll.setEnabled(i < size);
         label.setText(i + "/" + size + " Pokémon selected");
+    }
+
+    private void refreshGenCheckBox(final Generation gen) {
+        final ThreeStateCheckBox toggleCheckBox = genToggleCheckBoxes.get(gen);
+        final Collection<JCheckBox> pokemonCheckBoxes = checkboxesByGen.get(gen);
+        final boolean areAllSelected = pokemonCheckBoxes.stream().allMatch(JCheckBox::isSelected);
+        final boolean areNoneSelected = pokemonCheckBoxes.stream().noneMatch(JCheckBox::isSelected);
+
+        if (areAllSelected) {
+            toggleCheckBox.setState(State.SELECTED);
+        } else if (areNoneSelected) {
+            toggleCheckBox.setState(State.NOT_SELECTED);
+        } else {
+            toggleCheckBox.setState(State.DONT_CARE);
+        }
     }
 
     private JPanel createPreviewPanel() {
