@@ -203,7 +203,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void setToolTipText() {
-        if (addToolTips.get() && StringUtil.isEmptyOrSpaces(progressBar.getToolTipText())) {
+        if (addToolTips.get()) {
             progressBar.setToolTipText(pokemon.getNameWithNumber());
         }
     }
