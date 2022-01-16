@@ -1,5 +1,7 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
+import java.util.Objects;
+
 import javax.swing.JComponent;
 
 import org.jetbrains.annotations.Nls;
@@ -25,6 +27,7 @@ public class PokemonProgressConfigurable implements Configurable {
     public boolean isModified() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
         return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
+            || !Objects.equals(state.theme, component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId())
             || state.drawSprites != component.getDrawSprites().isSelected()
             || state.addToolTips != component.getAddToolTips().isSelected()
             || state.transparencyOnIndeterminate != component.getIndeterminateTransparency().isSelected()
@@ -37,6 +40,7 @@ public class PokemonProgressConfigurable implements Configurable {
     public void apply() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
         state.pokemonNumbersEnabled = component.getEnabledNumberMap();
+        state.theme = component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId();
         state.drawSprites = component.getDrawSprites().isSelected();
         state.addToolTips = component.getAddToolTips().isSelected();
         state.transparencyOnIndeterminate = component.getIndeterminateTransparency().isSelected();
