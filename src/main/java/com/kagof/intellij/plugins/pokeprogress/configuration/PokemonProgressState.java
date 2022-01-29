@@ -22,6 +22,7 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public float acceleration = 0.4f;
     public Map<String, Boolean> pokemonNumbersEnabled = Pokemon.DEFAULT_POKEMON.keySet().stream()
         .collect(Collectors.toMap(Function.identity(), p -> true));
+    public String theme;
     public boolean drawSprites = true;
     public boolean addToolTips = true;
     public boolean transparencyOnIndeterminate = true;
