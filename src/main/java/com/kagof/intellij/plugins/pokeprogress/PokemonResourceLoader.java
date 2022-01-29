@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public final class PokemonResourceLoader {
     private static final String SPRITE_RESOURCE_PATH = "com/kagof/intellij/plugins/pokeprogress/sprites/";

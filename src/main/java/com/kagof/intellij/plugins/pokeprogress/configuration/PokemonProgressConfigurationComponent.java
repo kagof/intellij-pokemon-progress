@@ -36,13 +36,13 @@ import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.ThreeStateCheckBox;
 import com.intellij.util.ui.ThreeStateCheckBox.State;
-import com.kagof.intellij.plugins.pokeprogress.Generation;
-import com.kagof.intellij.plugins.pokeprogress.PaintTheme;
-import com.kagof.intellij.plugins.pokeprogress.PaintThemes;
-import com.kagof.intellij.plugins.pokeprogress.Pokemon;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
+import com.kagof.intellij.plugins.pokeprogress.model.Generation;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;

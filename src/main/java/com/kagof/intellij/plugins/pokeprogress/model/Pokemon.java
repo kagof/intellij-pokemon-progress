@@ -1,4 +1,4 @@
-package com.kagof.intellij.plugins.pokeprogress;
+package com.kagof.intellij.plugins.pokeprogress.model;
 
 import java.util.Arrays;
 import java.util.List;
@@ -124,10 +124,6 @@ public enum Pokemon {
 
     // Secret
     MISSINGNO(-1, "missingNo.", -16, -7, true, PokemonType.NORMAL);
-
-    // Historically used for testing, however will soon be removed, as TestProgressBar.java is much more useful
-    static final boolean DEBUGGING = false;
-    static final Pokemon TARGET = null;
 
     public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values())
         .filter(p -> !p.secret)

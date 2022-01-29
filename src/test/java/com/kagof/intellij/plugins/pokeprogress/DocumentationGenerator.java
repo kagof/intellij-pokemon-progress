@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import com.kagof.intellij.plugins.pokeprogress.model.Generation;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
 import com.sksamuel.scrimage.ImmutableImage;
 import com.sksamuel.scrimage.nio.AnimatedGif;
 import com.sksamuel.scrimage.nio.AnimatedGifReader;

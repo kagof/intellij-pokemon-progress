@@ -11,7 +11,7 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import com.kagof.intellij.plugins.pokeprogress.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 @State(
     name = "com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState",

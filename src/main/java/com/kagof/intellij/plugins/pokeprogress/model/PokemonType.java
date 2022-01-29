@@ -1,4 +1,4 @@
-package com.kagof.intellij.plugins.pokeprogress;
+package com.kagof.intellij.plugins.pokeprogress.model;
 
 import java.awt.Color;
 
@@ -27,9 +27,9 @@ public enum PokemonType {
     private final Color colorDark;
 
     PokemonType(final String hexColorLight, final String hexColor, final String hexColorDark) {
-        this.colorLight = Color.decode(hexColorLight);
-        this.color = Color.decode(hexColor);
-        this.colorDark = Color.decode(hexColorDark);
+        colorLight = Color.decode(hexColorLight);
+        color = Color.decode(hexColor);
+        colorDark = Color.decode(hexColorDark);
     }
 
     public Color getColorLight() {

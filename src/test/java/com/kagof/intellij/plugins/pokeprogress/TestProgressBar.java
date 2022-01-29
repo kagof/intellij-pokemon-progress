@@ -26,6 +26,7 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.components.fields.IntegerField;
 import com.intellij.util.ReflectionUtil;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public class TestProgressBar {
     private static final int MAX_SHIFT_VALUE = 900;

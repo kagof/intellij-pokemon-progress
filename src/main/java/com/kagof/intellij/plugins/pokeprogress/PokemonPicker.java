@@ -7,15 +7,13 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public class PokemonPicker {
     private static final Random RANDOM = new Random();
 
     @SuppressWarnings("ConstantConditions")
     public static Pokemon get() {
-        if (Pokemon.TARGET != null) {
-            return Pokemon.TARGET;
-        }
 
         final List<String> enabledPokemonNumbers = Optional.ofNullable(PokemonProgressState.getInstance())
             .map(PokemonPicker::getEnabledPokemonNumbers)

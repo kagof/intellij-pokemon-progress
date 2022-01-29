@@ -31,8 +31,13 @@ import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
 
 public class PokemonProgressBarUi extends BasicProgressBarUI {
+    private static final String DEBUGGING_ENV_VAR = "POKEMON_PROGRESS_DEBUG";
+
     private final Pokemon pokemon;
     private final Icon iconForward;
     private final Icon iconReversed;
@@ -138,7 +143,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         }
 
         final int amountFull;
-        if (Pokemon.DEBUGGING) {
+        if (System.getenv().containsKey(DEBUGGING_ENV_VAR)) {
             amountFull = barRectWidth / 2;
         } else {
             amountFull = determinate ? getAmountFull(border, barRectWidth, barRectHeight) : pos;
@@ -211,8 +216,8 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static Paint getTransparencyPaint(final Color backgroundColor, final int width, final boolean movingRight) {
         final JBColor transparent = new JBColor(new Color(0, 0, 0, 0), new Color(0, 0, 0, 0));
         return new LinearGradientPaint(0, JBUIScale.scale(2f), width, JBUIScale.scale(2f),
-            new float[]{ 0, 1 }, new Color[]{ movingRight ? backgroundColor : transparent,
-            movingRight ? transparent : backgroundColor });
+            new float[] {0, 1}, new Color[] {movingRight ? backgroundColor : transparent,
+            movingRight ? transparent : backgroundColor});
     }
 
     private void setToolTipText() {
