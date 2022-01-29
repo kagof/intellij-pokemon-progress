@@ -133,7 +133,7 @@ public class DocumentationGenerator {
     private void drawPokemon(final int frame, final int i, final int j, final Graphics2D g, final Pokemon pokemon) throws IOException {
         final int startX = i * 32;
         final int startY = j * 32;
-        final Paint typePaint = PaintThemes.getDefaultTheme().getPaint(pokemon.getTypes(), startY, 32);
+        final Paint typePaint = PaintThemes.getByIdOrDefault("flat").getPaint(pokemon.getTypes(), startY, 32);
         g.setPaint(typePaint);
         g.fillRect(startX, startY, 32, 32);
         final AnimatedGif gif = AnimatedGifReader.read(ImageSource.of(getClass().getClassLoader()
