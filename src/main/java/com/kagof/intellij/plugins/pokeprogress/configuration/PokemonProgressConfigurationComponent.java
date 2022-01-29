@@ -1,6 +1,8 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -25,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.ui.components.JBCheckBox;
@@ -222,7 +225,7 @@ public class PokemonProgressConfigurationComponent {
 
     private JPanel createPreviewPanel() {
         final JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
+        panel.setLayout(new GridBagLayout());
 
         final JProgressBar determinateProgressBar = new JProgressBar(0, 2);
         determinateProgressBar.setIndeterminate(false);
@@ -233,8 +236,30 @@ public class PokemonProgressConfigurationComponent {
         indeterminateProgressBar.setIndeterminate(true);
         indeterminateProgressBar.setUI(createProgressBarUi());
 
-        panel.add(LabeledComponent.create(determinateProgressBar, "Determinate", BorderLayout.NORTH));
-        panel.add(LabeledComponent.create(indeterminateProgressBar, "Indeterminate", BorderLayout.NORTH));
+        final JButton randomizeButton = new JButton(AllIcons.Actions.Refresh);
+        randomizeButton.setToolTipText("Randomize");
+        randomizeButton.addActionListener(a -> {
+            if (a.getID() == ActionEvent.ACTION_PERFORMED) {
+                determinateProgressBar.setUI(createProgressBarUi());
+                indeterminateProgressBar.setUI(createProgressBarUi());
+            }
+        });
+        final GridBagConstraints buttonConstraints = new GridBagConstraints();
+        buttonConstraints.gridx = 0;
+        buttonConstraints.gridy = 0;
+        buttonConstraints.gridwidth = 1;
+        buttonConstraints.gridheight = 1;
+        buttonConstraints.weightx = 0;
+        panel.add(randomizeButton, buttonConstraints);
+        final GridBagConstraints progressBarConstraints = new GridBagConstraints();
+        progressBarConstraints.gridx = GridBagConstraints.RELATIVE;
+        progressBarConstraints.gridy = 0;
+        progressBarConstraints.gridwidth = 3;
+        progressBarConstraints.gridheight = 1;
+        progressBarConstraints.weightx = 0.5;
+        progressBarConstraints.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(LabeledComponent.create(determinateProgressBar, "Determinate", BorderLayout.NORTH), progressBarConstraints);
+        panel.add(LabeledComponent.create(indeterminateProgressBar, "Indeterminate", BorderLayout.NORTH), progressBarConstraints);
         return panel;
     }
 
