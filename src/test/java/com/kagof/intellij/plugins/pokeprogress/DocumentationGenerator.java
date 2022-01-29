@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import com.kagof.intellij.plugins.pokeprogress.model.Generation;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
 import com.sksamuel.scrimage.ImmutableImage;
 import com.sksamuel.scrimage.nio.AnimatedGif;
 import com.sksamuel.scrimage.nio.AnimatedGifReader;
@@ -60,10 +63,13 @@ public class DocumentationGenerator {
     }
 
     @Test
-    public void generateNewReleaseNoteSection() {
-        final String version = "1.6.0";
+    public void addNewReleaseNoteSection() throws IOException {
+        final String version = "1.7.0";
 
-        final String notes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
+        final Path changenotes = new File("changenotes.html").toPath();
+        final String content = new String(Files.readAllBytes(changenotes), Charset.defaultCharset());
+
+        final String newNotes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
             + version
             + "\">"
             + version
@@ -78,7 +84,9 @@ public class DocumentationGenerator {
             + version
             + "-->\n"
             + "    </li>\n";
-        System.out.println(notes);
+        final String newContent = content.replaceFirst("<ul>\n", "<ul>\n" + newNotes);
+        Files.write(changenotes, newContent.getBytes(Charset.defaultCharset()));
+        System.out.println("added " + version + " section to changenotes.html");
     }
 
     private String getReadmeString() {
@@ -102,12 +110,12 @@ public class DocumentationGenerator {
 
     private String getReadmeString(final Pokemon pokemon) {
         return String.format(
-            "* ![%s](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/%s.gif) %s ![%s](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/%s_r.gif)",
+            "* ![%s](src/main/resources/%s) %s ![%s](src/main/resources/%s)",
             pokemon.getNameWithNumber(),
-            pokemon.getName(),
+            PokemonResourceLoader.getIconPath(pokemon),
             pokemon.getNameWithNumber(),
             pokemon.getNameWithNumber(),
-            pokemon.getName());
+            PokemonResourceLoader.getReversedIconPath(pokemon));
     }
 
     @SuppressWarnings("UndesirableClassUsage")
@@ -133,7 +141,7 @@ public class DocumentationGenerator {
     private void drawPokemon(final int frame, final int i, final int j, final Graphics2D g, final Pokemon pokemon) throws IOException {
         final int startX = i * 32;
         final int startY = j * 32;
-        final Paint typePaint = Painter.getTypePaint(pokemon, startY, 32);
+        final Paint typePaint = PaintThemes.getByIdOrDefault("flat").getPaint(pokemon.getTypes(), startY, 32);
         g.setPaint(typePaint);
         g.fillRect(startX, startY, 32, 32);
         final AnimatedGif gif = AnimatedGifReader.read(ImageSource.of(getClass().getClassLoader()

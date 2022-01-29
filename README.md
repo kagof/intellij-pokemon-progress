@@ -9,7 +9,7 @@
 
 ![All](eg/family.gif)
 
-This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s).
+This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s). Preferences are located under `Preferences > Appearance & Behaviour > Pokémon Progress`.
 
 ## Included Pokémon
 
@@ -130,6 +130,9 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 ### Generation VIII
 
+* ![Galarian Articuno (#144)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/galarian_articuno.gif) Galarian Articuno (#144) ![Galarian Articuno (#144)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/galarian_articuno_r.gif)
+* ![Galarian Zapdos (#145)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/galarian_zapdos.gif) Galarian Zapdos (#145) ![Galarian Zapdos (#145)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/galarian_zapdos_r.gif)
+* ![Galarian Moltres (#146)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/galarian_moltres.gif) Galarian Moltres (#146) ![Galarian Moltres (#146)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/galarian_moltres_r.gif)
 * ![Grookey (#810)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/grookey.gif) Grookey (#810) ![Grookey (#810)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/grookey_r.gif)
 * ![Rillaboom (#812)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rillaboom.gif) Rillaboom (#812) ![Rillaboom (#812)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/rillaboom_r.gif)
 * ![Scorbunny (#813)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/scorbunny.gif) Scorbunny (#813) ![Scorbunny (#813)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/scorbunny_r.gif)

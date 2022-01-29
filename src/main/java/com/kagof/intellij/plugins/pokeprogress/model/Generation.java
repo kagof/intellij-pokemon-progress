@@ -1,4 +1,4 @@
-package com.kagof.intellij.plugins.pokeprogress;
+package com.kagof.intellij.plugins.pokeprogress.model;
 
 public enum Generation {
     I(1),

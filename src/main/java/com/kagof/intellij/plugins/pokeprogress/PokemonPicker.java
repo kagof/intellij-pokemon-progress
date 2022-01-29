@@ -7,23 +7,21 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public class PokemonPicker {
     private static final Random RANDOM = new Random();
 
     @SuppressWarnings("ConstantConditions")
     public static Pokemon get() {
-        if (Pokemon.TARGET != null) {
-            return Pokemon.TARGET;
-        }
 
-        final List<String> enabledPokemonNumbers = Optional.ofNullable(PokemonProgressState.getInstance())
+        final List<String> enabledPokemonIds = Optional.ofNullable(PokemonProgressState.getInstance())
             .map(PokemonPicker::getEnabledPokemonNumbers)
             .orElse(null);
-        if (enabledPokemonNumbers == null || enabledPokemonNumbers.isEmpty()) {
+        if (enabledPokemonIds == null || enabledPokemonIds.isEmpty()) {
             return Pokemon.MISSINGNO;
         }
-        return Pokemon.getByNumber(enabledPokemonNumbers.get(RANDOM.nextInt(enabledPokemonNumbers.size())));
+        return Pokemon.getById(enabledPokemonIds.get(RANDOM.nextInt(enabledPokemonIds.size())));
     }
 
     private static List<String> getEnabledPokemonNumbers(final PokemonProgressState state) {

@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public final class PokemonResourceLoader {
     private static final String SPRITE_RESOURCE_PATH = "com/kagof/intellij/plugins/pokeprogress/sprites/";
@@ -29,11 +30,11 @@ public final class PokemonResourceLoader {
     }
 
     public static String getIconPath(final Pokemon pokemon) {
-        return SPRITE_RESOURCE_PATH + pokemon.getName() + ".gif";
+        return SPRITE_RESOURCE_PATH + pokemon.getName().replace(' ', '_') + ".gif";
     }
 
     public static String getReversedIconPath(final Pokemon pokemon) {
-        return SPRITE_RESOURCE_PATH + pokemon.getName() + "_r.gif";
+        return SPRITE_RESOURCE_PATH + pokemon.getName().replace(' ', '_') + "_r.gif";
     }
 
     private static Icon getIconInternal(final String resourceName) {

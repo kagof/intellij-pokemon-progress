@@ -1,17 +1,23 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -19,24 +25,35 @@ import javax.swing.JSlider;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.intellij.icons.AllIcons;
+import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.roots.ScalableIconComponent;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.ui.FormBuilder;
-import com.kagof.intellij.plugins.pokeprogress.Generation;
-import com.kagof.intellij.plugins.pokeprogress.Pokemon;
+import com.intellij.util.ui.ThreeStateCheckBox;
+import com.intellij.util.ui.ThreeStateCheckBox.State;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
+import com.kagof.intellij.plugins.pokeprogress.model.Generation;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
+    private final JComboBox<PaintTheme> theme = new ComboBox<>(PaintThemes.getAll());
     private final JBCheckBox drawSprites = new JBCheckBox("Draw sprites");
     private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
     private final JBCheckBox determinateTransparency = new JBCheckBox("Transparency on determinate");
     private final Map<String, JBCheckBox> checkboxes = new HashMap<>();
+    private final Multimap<Generation, JCheckBox> checkboxesByGen = ArrayListMultimap.create();
+    private final Map<Generation, ThreeStateCheckBox> genToggleCheckBoxes = new EnumMap<>(Generation.class);
     private final JButton selectAll = new JButton("Select all");
     private final JButton deselectAll = new JButton("Deselect all");
     private final JLabel label = new JLabel("?/? Pokémon selected");
@@ -54,6 +71,7 @@ public class PokemonProgressConfigurationComponent {
         formBuilder.addSeparator();
         formBuilder.addComponent(createIndeterminatePanel());
         formBuilder.addSeparator();
+        formBuilder.addLabeledComponent("Theme:", theme);
         formBuilder.addComponent(createCheckboxPanel());
 
         formBuilder.addSeparator();
@@ -75,15 +93,23 @@ public class PokemonProgressConfigurationComponent {
         });
         formBuilder.addComponent(selectButtonsPanel);
 
-        final Map<Generation, Boolean> gens = Arrays.stream(Generation.values()).collect(Collectors.toMap(Function.identity(), __ -> false));
+        final Set<Generation> addedGens = EnumSet.noneOf(Generation.class);
 
         Pokemon.DEFAULT_POKEMON.values().stream().sorted().forEach(pokemon -> {
             final Generation gen = pokemon.getGeneration();
-            if (!gens.get(gen)) {
-                final JLabel genLabel = new JLabel("Generation " + gen);
-                formBuilder.addComponent(genLabel);
-                gens.put(gen, true);
+
+            if (addedGens.add(gen)) {
+                final ThreeStateCheckBox genToggleCheckBox = new ThreeStateCheckBox("Generation " + gen);
+                genToggleCheckBox.setThirdStateEnabled(false);
+                genToggleCheckBox.addItemListener(c -> {
+                    final boolean isSelected = genToggleCheckBox.getState() == State.SELECTED;
+                    checkboxesByGen.get(gen).forEach(cb -> cb.setSelected(isSelected));
+                    refreshSelectAllButtons();
+                });
+                formBuilder.addComponent(genToggleCheckBox);
+                genToggleCheckBoxes.put(gen, genToggleCheckBox);
             }
+
             final JBCheckBox checkBox = new JBCheckBox(pokemon.getNameWithNumber(), true);
             checkBox.addItemListener(c -> {
                 if (c.getStateChange() == ItemEvent.SELECTED) {
@@ -91,12 +117,17 @@ public class PokemonProgressConfigurationComponent {
                 } else if (c.getStateChange() == ItemEvent.DESELECTED) {
                     numSelected.decrementAndGet();
                 }
+                refreshGenCheckBox(gen);
                 refreshSelectAllButtons();
             });
+
             formBuilder.addLabeledComponent(new ScalableIconComponent(PokemonResourceLoader.getIcon(pokemon)), checkBox);
             checkboxes.put(pokemon.getNumberString(), checkBox);
+            checkboxesByGen.put(gen, checkBox);
             numSelected.incrementAndGet();
         });
+
+        addedGens.forEach(this::refreshGenCheckBox);
         refreshSelectAllButtons();
         mainPanel = formBuilder.getPanel();
     }
@@ -120,6 +151,7 @@ public class PokemonProgressConfigurationComponent {
         if (state != null) {
             initialVelocity.setValue((int) (state.initialVelocity * 100));
             acceleration.setValue((int) (state.acceleration * 100));
+            theme.setSelectedItem(PaintThemes.getByIdOrDefault(state.theme));
             drawSprites.setSelected(state.drawSprites);
             addToolTips.setSelected(state.addToolTips);
             indeterminateTransparency.setSelected(state.transparencyOnIndeterminate);
@@ -156,6 +188,10 @@ public class PokemonProgressConfigurationComponent {
         return acceleration;
     }
 
+    public JComboBox<PaintTheme> getTheme() {
+        return theme;
+    }
+
     public JBCheckBox getIndeterminateTransparency() {
         return indeterminateTransparency;
     }
@@ -172,34 +208,70 @@ public class PokemonProgressConfigurationComponent {
         label.setText(i + "/" + size + " Pokémon selected");
     }
 
+    private void refreshGenCheckBox(final Generation gen) {
+        final ThreeStateCheckBox toggleCheckBox = genToggleCheckBoxes.get(gen);
+        final Collection<JCheckBox> pokemonCheckBoxes = checkboxesByGen.get(gen);
+        final boolean areAllSelected = pokemonCheckBoxes.stream().allMatch(JCheckBox::isSelected);
+        final boolean areNoneSelected = pokemonCheckBoxes.stream().noneMatch(JCheckBox::isSelected);
+
+        if (areAllSelected) {
+            toggleCheckBox.setState(State.SELECTED);
+        } else if (areNoneSelected) {
+            toggleCheckBox.setState(State.NOT_SELECTED);
+        } else {
+            toggleCheckBox.setState(State.DONT_CARE);
+        }
+    }
+
     private JPanel createPreviewPanel() {
         final JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
+        panel.setLayout(new GridBagLayout());
 
         final JProgressBar determinateProgressBar = new JProgressBar(0, 2);
         determinateProgressBar.setIndeterminate(false);
         determinateProgressBar.setValue(1);
-        determinateProgressBar.setUI(new PokemonProgressBarUi(PokemonPicker.get(),
-            () -> initialVelocity.getValue() / 100f,
-            () -> acceleration.getValue() / 100f,
-            indeterminateTransparency::isSelected,
-            determinateTransparency::isSelected,
-            drawSprites::isSelected,
-            addToolTips::isSelected));
+        determinateProgressBar.setUI(createProgressBarUi());
 
         final JProgressBar indeterminateProgressBar = new JProgressBar();
         indeterminateProgressBar.setIndeterminate(true);
-        indeterminateProgressBar.setUI(new PokemonProgressBarUi(PokemonPicker.get(),
+        indeterminateProgressBar.setUI(createProgressBarUi());
+
+        final JButton randomizeButton = new JButton(AllIcons.Actions.Refresh);
+        randomizeButton.setToolTipText("Randomize");
+        randomizeButton.addActionListener(a -> {
+            if (a.getID() == ActionEvent.ACTION_PERFORMED) {
+                determinateProgressBar.setUI(createProgressBarUi());
+                indeterminateProgressBar.setUI(createProgressBarUi());
+            }
+        });
+        final GridBagConstraints buttonConstraints = new GridBagConstraints();
+        buttonConstraints.gridx = 0;
+        buttonConstraints.gridy = 0;
+        buttonConstraints.gridwidth = 1;
+        buttonConstraints.gridheight = 1;
+        buttonConstraints.weightx = 0;
+        panel.add(randomizeButton, buttonConstraints);
+        final GridBagConstraints progressBarConstraints = new GridBagConstraints();
+        progressBarConstraints.gridx = GridBagConstraints.RELATIVE;
+        progressBarConstraints.gridy = 0;
+        progressBarConstraints.gridwidth = 3;
+        progressBarConstraints.gridheight = 1;
+        progressBarConstraints.weightx = 0.5;
+        progressBarConstraints.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(LabeledComponent.create(determinateProgressBar, "Determinate", BorderLayout.NORTH), progressBarConstraints);
+        panel.add(LabeledComponent.create(indeterminateProgressBar, "Indeterminate", BorderLayout.NORTH), progressBarConstraints);
+        return panel;
+    }
+
+    private PokemonProgressBarUi createProgressBarUi() {
+        return new PokemonProgressBarUi(PokemonPicker.get(),
             () -> initialVelocity.getValue() / 100f,
             () -> acceleration.getValue() / 100f,
+            () -> theme.getItemAt(theme.getSelectedIndex()),
             indeterminateTransparency::isSelected,
             determinateTransparency::isSelected,
             drawSprites::isSelected,
-            addToolTips::isSelected));
-
-        panel.add(LabeledComponent.create(determinateProgressBar, "Determinate", BorderLayout.NORTH));
-        panel.add(LabeledComponent.create(indeterminateProgressBar, "Indeterminate", BorderLayout.NORTH));
-        return panel;
+            addToolTips::isSelected);
     }
 
     private JPanel createIndeterminatePanel() {
