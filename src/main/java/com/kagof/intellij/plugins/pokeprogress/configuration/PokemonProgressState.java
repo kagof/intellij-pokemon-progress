@@ -20,6 +20,8 @@ import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 public class PokemonProgressState implements PersistentStateComponent<PokemonProgressState> {
     public float initialVelocity = 1.0f;
     public float acceleration = 0.4f;
+
+    // Named poorly; this is actually Pokemon IDs enabled
     public Map<String, Boolean> pokemonNumbersEnabled = Pokemon.DEFAULT_POKEMON.keySet().stream()
         .collect(Collectors.toMap(Function.identity(), p -> true));
     public String theme;

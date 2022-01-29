@@ -15,13 +15,13 @@ public class PokemonPicker {
     @SuppressWarnings("ConstantConditions")
     public static Pokemon get() {
 
-        final List<String> enabledPokemonNumbers = Optional.ofNullable(PokemonProgressState.getInstance())
+        final List<String> enabledPokemonIds = Optional.ofNullable(PokemonProgressState.getInstance())
             .map(PokemonPicker::getEnabledPokemonNumbers)
             .orElse(null);
-        if (enabledPokemonNumbers == null || enabledPokemonNumbers.isEmpty()) {
+        if (enabledPokemonIds == null || enabledPokemonIds.isEmpty()) {
             return Pokemon.MISSINGNO;
         }
-        return Pokemon.getByNumber(enabledPokemonNumbers.get(RANDOM.nextInt(enabledPokemonNumbers.size())));
+        return Pokemon.getById(enabledPokemonIds.get(RANDOM.nextInt(enabledPokemonIds.size())));
     }
 
     private static List<String> getEnabledPokemonNumbers(final PokemonProgressState state) {

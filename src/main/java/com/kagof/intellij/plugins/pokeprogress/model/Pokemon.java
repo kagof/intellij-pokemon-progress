@@ -3,6 +3,7 @@ package com.kagof.intellij.plugins.pokeprogress.model;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 import com.google.common.collect.ImmutableList;
@@ -123,31 +124,35 @@ public enum Pokemon {
     ZAMAZENTA(889, "zamazenta", -7, -7, PokemonType.FIGHTING, PokemonType.STEEL),
 
     // Secret
-    MISSINGNO(-1, "missingNo.", -16, -7, true, PokemonType.NORMAL);
+    MISSINGNO(-1, "missingNo.", -16, -7, true, null, PokemonType.NORMAL);
 
     public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values())
         .filter(p -> !p.secret)
-        .collect(ImmutableMap.toImmutableMap(Pokemon::getNumberString, Function.identity()));
+        .collect(ImmutableMap.toImmutableMap(Pokemon::getId, Function.identity(), (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate Pokemon ID %s", u));
+        }));
 
     private final List<PokemonType> types;
 
     private final String name;
     private final int number;
+    private final String id;
 
     private final int xShift;
     private final int yShift;
     private final boolean secret;
     private final Generation generation;
 
-    public static Pokemon getByNumber(final String number) {
+    public static Pokemon getById(final String number) {
         return DEFAULT_POKEMON.get(number);
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final PokemonType... types) {
-        this(number, name, xShift, yShift, false, types);
+        this(number, name, xShift, yShift, false, null, types);
     }
 
-    Pokemon(final int number, final String name, final int xShift, final int yShift, final boolean secret, final PokemonType... types) {
+    Pokemon(final int number, final String name, final int xShift, final int yShift, final boolean secret, final RegionalVariant regionalVariant,
+        final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
         }
@@ -157,9 +162,10 @@ public enum Pokemon {
         this.yShift = yShift;
         this.name = name;
         this.number = number;
+        id = getNumberString() + Optional.ofNullable(regionalVariant).map(r -> "_" + r).orElse("");
 
         this.secret = secret;
-        generation = Generation.getGeneration(number);
+        generation = Optional.ofNullable(regionalVariant).map(RegionalVariant::getGeneration).orElseGet(() -> Generation.getGeneration(number));
     }
 
     public List<PokemonType> getTypes() {
@@ -192,6 +198,10 @@ public enum Pokemon {
 
     public String getNumberString() {
         return number > 0 ? String.format("%03d", number) : "???";
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getNameWithNumber() {
