@@ -63,10 +63,13 @@ public class DocumentationGenerator {
     }
 
     @Test
-    public void generateNewReleaseNoteSection() {
-        final String version = "1.6.0";
+    public void addNewReleaseNoteSection() throws IOException {
+        final String version = "1.7.0";
 
-        final String notes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
+        final Path changenotes = new File("changenotes.html").toPath();
+        final String content = new String(Files.readAllBytes(changenotes), Charset.defaultCharset());
+
+        final String newNotes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
             + version
             + "\">"
             + version
@@ -81,7 +84,9 @@ public class DocumentationGenerator {
             + version
             + "-->\n"
             + "    </li>\n";
-        System.out.println(notes);
+        final String newContent = content.replaceFirst("<ul>\n", "<ul>\n" + newNotes);
+        Files.write(changenotes, newContent.getBytes(Charset.defaultCharset()));
+        System.out.println("added " + version + " section to changenotes.html");
     }
 
     private String getReadmeString() {
