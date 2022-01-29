@@ -105,12 +105,12 @@ public class DocumentationGenerator {
 
     private String getReadmeString(final Pokemon pokemon) {
         return String.format(
-            "* ![%s](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/%s.gif) %s ![%s](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/%s_r.gif)",
+            "* ![%s](src/main/resources/%s) %s ![%s](src/main/resources/%s)",
             pokemon.getNameWithNumber(),
-            pokemon.getName(),
+            PokemonResourceLoader.getIconPath(pokemon),
             pokemon.getNameWithNumber(),
             pokemon.getNameWithNumber(),
-            pokemon.getName());
+            PokemonResourceLoader.getReversedIconPath(pokemon));
     }
 
     @SuppressWarnings("UndesirableClassUsage")

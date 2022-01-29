@@ -113,6 +113,9 @@ public enum Pokemon {
     PRIMARINA(730, "primarina", -18, -8, PokemonType.WATER, PokemonType.FAIRY),
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
+    GALARIAN_ARTICUNO(144, "galarian articuno", -20, -8, false, RegionalVariant.GALARIAN, PokemonType.PSYCHIC, PokemonType.FLYING),
+    GALARIAN_ZAPDOS(145, "galarian zapdos", -16, -10, false, RegionalVariant.GALARIAN, PokemonType.FIGHTING, PokemonType.FLYING),
+    GALARIAN_MOLTRES(146, "galarian moltres", -17, -5, false, RegionalVariant.GALARIAN, PokemonType.DARK, PokemonType.FLYING),
     GROOKEY(810, "grookey", -15, -7, PokemonType.GRASS),
     RILLABOOM(812, "rillaboom", -15, -6, PokemonType.GRASS),
     SCORBUNNY(813, "scorbunny", -16, -7, PokemonType.FIRE),

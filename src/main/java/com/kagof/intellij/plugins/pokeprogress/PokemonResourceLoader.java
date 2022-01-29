@@ -30,11 +30,11 @@ public final class PokemonResourceLoader {
     }
 
     public static String getIconPath(final Pokemon pokemon) {
-        return SPRITE_RESOURCE_PATH + pokemon.getName() + ".gif";
+        return SPRITE_RESOURCE_PATH + pokemon.getName().replace(' ', '_') + ".gif";
     }
 
     public static String getReversedIconPath(final Pokemon pokemon) {
-        return SPRITE_RESOURCE_PATH + pokemon.getName() + "_r.gif";
+        return SPRITE_RESOURCE_PATH + pokemon.getName().replace(' ', '_') + "_r.gif";
     }
 
     private static Icon getIconInternal(final String resourceName) {
