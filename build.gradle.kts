@@ -17,7 +17,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version = "2021.1"
+    version = "2021.1.3"
 }
 
 tasks.withType<JavaCompile> {

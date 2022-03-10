@@ -89,6 +89,7 @@ public enum Pokemon {
     EMPOLEON(395, "empoleon", -17, -8, PokemonType.WATER, PokemonType.STEEL),
     LEAFEON(470, "leafeon", -18, -11, PokemonType.GRASS),
     GLACEON(471, "glaceon", -18, -11, PokemonType.ICE),
+    ARCEUS(493, "arceus", -10, -10, PokemonType.NORMAL),
     // Gen V
     SNIVY(495, "snivy", -15, -4, PokemonType.GRASS),
     SERPERIOR(497, "serperior", -20, -10, PokemonType.GRASS),
@@ -113,9 +114,11 @@ public enum Pokemon {
     PRIMARINA(730, "primarina", -18, -8, PokemonType.WATER, PokemonType.FAIRY),
     MIMIKYU(778, "mimikyu", -21, -7, PokemonType.GHOST, PokemonType.FAIRY),
     // Gen VIII
-    GALARIAN_ARTICUNO(144, "galarian articuno", -20, -8, false, RegionalVariant.GALARIAN, PokemonType.PSYCHIC, PokemonType.FLYING),
-    GALARIAN_ZAPDOS(145, "galarian zapdos", -16, -10, false, RegionalVariant.GALARIAN, PokemonType.FIGHTING, PokemonType.FLYING),
-    GALARIAN_MOLTRES(146, "galarian moltres", -17, -5, false, RegionalVariant.GALARIAN, PokemonType.DARK, PokemonType.FLYING),
+    GALARIAN_ARTICUNO(144, "galarian articuno", -20, -8, RegionalVariant.GALARIAN, PokemonType.PSYCHIC,
+        PokemonType.FLYING),
+    GALARIAN_ZAPDOS(145, "galarian zapdos", -16, -10, RegionalVariant.GALARIAN, PokemonType.FIGHTING,
+        PokemonType.FLYING),
+    GALARIAN_MOLTRES(146, "galarian moltres", -17, -5, RegionalVariant.GALARIAN, PokemonType.DARK, PokemonType.FLYING),
     GROOKEY(810, "grookey", -15, -7, PokemonType.GRASS),
     RILLABOOM(812, "rillaboom", -15, -6, PokemonType.GRASS),
     SCORBUNNY(813, "scorbunny", -16, -7, PokemonType.FIRE),
@@ -125,9 +128,12 @@ public enum Pokemon {
     WOOLOO(831, "wooloo", -12, -5, PokemonType.NORMAL),
     ZACIAN(888, "zacian", -10, -6, PokemonType.FAIRY, PokemonType.STEEL),
     ZAMAZENTA(889, "zamazenta", -7, -7, PokemonType.FIGHTING, PokemonType.STEEL),
-
+    // Gen IX (numbers in this gen are speculation for now)
+    SPRIGATITO(906, "sprigatito", -15, -13, PokemonType.GRASS),
+    FUECOCO(909, "fuecoco", -15, -11, PokemonType.FIRE),
+    QUAXLY(912, "quaxly", -16, -11, PokemonType.WATER),
     // Secret
-    MISSINGNO(-1, "missingNo.", -16, -7, true, null, PokemonType.NORMAL);
+    MISSINGNO(-1, "missingNo.", -16, -7, true, null, null, PokemonType.NORMAL);
 
     public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values())
         .filter(p -> !p.secret)
@@ -151,10 +157,24 @@ public enum Pokemon {
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final PokemonType... types) {
-        this(number, name, xShift, yShift, false, null, types);
+        this(number, name, xShift, yShift, null, types);
     }
 
-    Pokemon(final int number, final String name, final int xShift, final int yShift, final boolean secret, final RegionalVariant regionalVariant,
+    Pokemon(final int number, final String name, final int xShift, final int yShift,
+        final RegionalVariant regionalVariant,
+        final PokemonType... types) {
+        this(number,
+            name,
+            xShift,
+            yShift,
+            false,
+            Optional.ofNullable(regionalVariant).map(Enum::toString).orElse(null),
+            Optional.ofNullable(regionalVariant).map(RegionalVariant::getGeneration).orElse(null),
+            types);
+    }
+
+    Pokemon(final int number, final String name, final int xShift, final int yShift, final boolean secret,
+        final String idModifier, final Generation gen,
         final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
@@ -165,10 +185,10 @@ public enum Pokemon {
         this.yShift = yShift;
         this.name = name;
         this.number = number;
-        id = getNumberString() + Optional.ofNullable(regionalVariant).map(r -> "_" + r).orElse("");
+        id = getNumberString() + Optional.ofNullable(idModifier).map(m -> "_" + m).orElse("");
 
         this.secret = secret;
-        generation = Optional.ofNullable(regionalVariant).map(RegionalVariant::getGeneration).orElseGet(() -> Generation.getGeneration(number));
+        generation = Optional.ofNullable(gen).orElseGet(() -> Generation.getGeneration(number));
     }
 
     public List<PokemonType> getTypes() {

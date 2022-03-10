@@ -143,6 +143,12 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian.gif) Zacian (#888) ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian_r.gif)
 * ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta.gif) Zamazenta (#889) ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta_r.gif)
 
+### Generation IX
+
+* ![Sprigatito (#906)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sprigatito.gif) Sprigatito (#906) ![Sprigatito (#906)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sprigatito_r.gif)
+* ![Fuecoco (#909)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fuecoco.gif) Fuecoco (#909) ![Fuecoco (#909)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fuecoco_r.gif)
+* ![Quaxly (#912)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaxly.gif) Quaxly (#912) ![Quaxly (#912)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaxly_r.gif)
+
 [comment]: <> (end-included-pokemon)
 
 ## Contributing
@@ -170,6 +176,8 @@ Contributions are very welcome on this project! Please see our [contributing gui
     * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
     * All Gen VIII sprites unless otherwise noted
+* [DarkusShadow on DeviantArt](https://www.deviantart.com/darkusshadow)
+    * All Gen IX sprites unless otherwise noted
 
 ### Code
 
