@@ -38,6 +38,8 @@ path=${5:-${DEFAULT_PATH}}
 
 # create @2x gif
 convert \
+  -interpolate Integer \
+  -filter point \
   -delay "$delay" \
   -dispose Background \
   -resize "${percentage}%" \

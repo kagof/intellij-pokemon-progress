@@ -91,7 +91,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         velocity = initialVelocity.get();
     }
 
-    @SuppressWarnings( {"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
+    @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
     public static ComponentUI createUI(final JComponent c) {
         c.setBorder(JBUI.Borders.empty().asUIResource());
         return new PokemonProgressBarUi(PokemonPicker.get());
@@ -104,7 +104,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
 
     @Override
     public Dimension getPreferredSize(final JComponent c) {
-        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(20));
+        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(pokemon.getHeight()));
     }
 
     @Override
@@ -223,7 +223,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final JBColor transparent = new JBColor(new Color(0, 0, 0, 0), new Color(0, 0, 0, 0));
         return new LinearGradientPaint(0, JBUIScale.scale(2f), width, JBUIScale.scale(2f),
             new float[] {0, 1}, new Color[] {movingRight ? backgroundColor : transparent,
-            movingRight ? transparent : backgroundColor});
+                movingRight ? transparent : backgroundColor});
     }
 
     private void setToolTipText() {
