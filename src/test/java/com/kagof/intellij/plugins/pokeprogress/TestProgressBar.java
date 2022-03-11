@@ -13,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
+import com.intellij.ide.ui.laf.darcula.DarculaLaf;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTextBorder;
 import com.intellij.mock.MockApplication;
 import com.intellij.openapi.Disposable;
@@ -48,11 +50,15 @@ public class TestProgressBar {
     private int originalHeight = 20;
 
     @SuppressWarnings("FieldCanBeLocal")
+    private final boolean useDarkMode = true;
+
+    @SuppressWarnings("FieldCanBeLocal")
     private final Pokemon target = null;
 
     @SuppressWarnings("ConstantConditions")
     public TestProgressBar() {
         setUpMockApplication();
+        setLookAndFeel();
         updateSelectedPokemon(Optional.ofNullable(target).orElseGet(PokemonPicker::get));
         initializeFrame();
         addShutdownHook();
@@ -66,6 +72,18 @@ public class TestProgressBar {
         final MockApplication application = MockApplication.setUp(parent);
         application.registerService(PokemonProgressState.class, state);
         ApplicationManager.setApplication(application, parent);
+    }
+
+    private void setLookAndFeel() {
+        if (useDarkMode) {
+            final DarculaLaf darkMode = new DarculaLaf();
+            try {
+                UIManager.setLookAndFeel(darkMode);
+            } catch (Exception e) {
+                System.out.println("unable to set look and feel");
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initializeFrame() {

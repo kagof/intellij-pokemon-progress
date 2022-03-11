@@ -47,7 +47,8 @@ jobs:
         shell: bash
         run: |
           PROPERTIES="$(./gradlew properties --no-daemon --console=plain -q)"
-          IDE_VERSIONS="$(echo "$PROPERTIES" | grep "^pluginVerifierIdeVersions:" | base64)"
+          which md5sum > /dev/null || alias md5sum=md5
+          IDE_VERSIONS="$(echo "$PROPERTIES" | grep "^pluginVerifierIdeVersions:" | md5sum)"
           echo "::set-output name=ideVersions::$IDE_VERSIONS"
           echo "::set-output name=pluginVerifierHomeDir::~/.pluginVerifier"
 
