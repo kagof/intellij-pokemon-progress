@@ -162,24 +162,24 @@ Contributions are very welcome on this project! Please see our [contributing gui
 ### Sprites
 
 * [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
-    * All Gen I-IV sprites unless otherwise noted
-    * MissingNo.
+  * All Gen I-IV sprites unless otherwise noted
+  * MissingNo.
 * [Kyle-Dove on DeviantArt](https://www.deviantart.com/kyle-dove/gallery)
-    * Snivy, Tepig, Oshawott
+  * Snivy, Tepig, Oshawott
 * [cSc-A7X on DeviantArt](https://www.deviantart.com/csc-a7x/gallery)
-    * Serperior, Emboar, Samurott
+  * Serperior, Emboar, Samurott
 * [princess-phoenix on DeviantArt](https://www.deviantart.com/princess-phoenix/art/Gen-6-Kalos-Pokemon-Overworld-Sprites-525954409)
-    * All Gen VI sprites unless otherwise noted
+  * All Gen VI sprites unless otherwise noted
 * [JuJoAura on DeviantArt](https://www.deviantart.com/jujoaura/art/Sylveon-Full-Sprite-379989482)
-    * Sylveon
+  * Sylveon
 * [Princess-Phoenix, Larryturbo, Kiddkatt, Zender1752, SageDeoxys, curated by Larryturbo](https://www.deviantart.com/larryturbo/art/Gen-7-Alola-Overworld-Sprites-805455576)
-    * All Gen VII sprites unless otherwise noted
+  * All Gen VII sprites unless otherwise noted
 * [Bulbagarden Archives](https://archives.bulbagarden.net)
-    * Mimikyu (first frame)
+  * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
-    * All Gen VIII sprites unless otherwise noted
+  * All Gen VIII sprites unless otherwise noted
 * [DarkusShadow on DeviantArt](https://www.deviantart.com/darkusshadow)
-    * All Gen IX sprites unless otherwise noted
+  * All Gen IX sprites unless otherwise noted
 
 ### Code
 
@@ -187,11 +187,16 @@ Contributions are very welcome on this project! Please see our [contributing gui
 * This plugin is of course heavily dependent on JetBrains' IntelliJ SDK
 * All the [contributors](https://github.com/kagof/intellij-pokemon-progress/graphs/contributors) who've helped build this plugin
 
+### Colours
+
+* Official scheme colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
+* Artemis251 scheme colours taken from [Artemis251's Pokémon Emerald Randomizer Type Color Guide](http://artemis251.fobby.net/downloads/emerald/)
+* Nyjee scheme colours taken from [Nyjee's Pokémon Type Colors on DeviantArt](https://www.deviantart.com/nyjee/art/pokemon-type-colors-807671821)
+
 ### Misc
 
 * Sprite Gif editing done with [ImageMagick](https://imagemagick.org/script/index.php) (using [this](./editSprite.sh) script)
 * Types, names, numbers, & info mainly gathered from [Bulbapedia](https://bulbapedia.bulbagarden.net)
-* Type colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
 * The idea for this plugin came from [KikiManjaro's Pokemon Trainer Progress Bar](https://plugins.jetbrains.com/plugin/14609-pokemon-trainer-progress-bar)
 * Family photo generated using [Scrimage](https://github.com/sksamuel/scrimage) for GIF reading & writing
 * The Pokémon Company, for creating Pokémon

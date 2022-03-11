@@ -22,7 +22,10 @@ import java.util.stream.Collectors;
 import com.intellij.openapi.util.text.Strings;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
-import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 import com.sksamuel.scrimage.ImmutableImage;
 import com.sksamuel.scrimage.nio.AnimatedGif;
 import com.sksamuel.scrimage.nio.AnimatedGifReader;
@@ -30,6 +33,8 @@ import com.sksamuel.scrimage.nio.ImageSource;
 import com.sksamuel.scrimage.nio.StreamingGifWriter;
 
 public class DocumentationGenerator {
+    private static final ColorScheme FAMILY_COLOR_SCHEME = ColorSchemes.getByIdOrDefault("1_Official");
+    private static final PaintTheme FAMILY_PAINT_THEME = PaintThemes.getByIdOrDefault("flat");
 
     public static void main(final String[] args) throws Exception {
         final DocumentationGenerator documentationGenerator = new DocumentationGenerator();
@@ -172,7 +177,7 @@ public class DocumentationGenerator {
         throws IOException {
         final int startX = i * 32;
         final int startY = j * 32;
-        final Paint typePaint = PaintThemes.getByIdOrDefault("flat").getPaint(pokemon.getTypes(), startY, 32);
+        final Paint typePaint = FAMILY_PAINT_THEME.getPaint(pokemon.getTypes(), FAMILY_COLOR_SCHEME, startY, 32);
         g.setPaint(typePaint);
         g.fillRect(startX, startY, 32, 32);
         final AnimatedGif gif = AnimatedGifReader.read(ImageSource.of(getClass().getClassLoader()

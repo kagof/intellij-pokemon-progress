@@ -1,4 +1,4 @@
-package com.kagof.intellij.plugins.pokeprogress.paint;
+package com.kagof.intellij.plugins.pokeprogress.theme;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 import static java.util.function.Function.identity;
@@ -6,7 +6,6 @@ import static java.util.function.Function.identity;
 import java.util.Arrays;
 
 import com.google.common.collect.ImmutableMap;
-import com.kagof.intellij.plugins.pokeprogress.model.PokemonType;
 
 public final class PaintThemes {
     private static final ImmutableMap<String, PaintTheme> allThemes;
@@ -17,9 +16,9 @@ public final class PaintThemes {
 
         final PaintTheme[] themes = {
             defaultTheme,
-            new FlatTheme("flat", "Flat", PokemonType::getColor),
-            new FlatTheme("flat_light", "Flat (Light)", PokemonType::getColorLight),
-            new FlatTheme("flat_dark", "Flat (Dark)", PokemonType::getColorDark),
+            new FlatTheme("flat", "Flat", TypeColor::getColor),
+            new FlatTheme("flat_light", "Flat (Light)", TypeColor::getColorLight),
+            new FlatTheme("flat_dark", "Flat (Dark)", TypeColor::getColorDark),
         };
 
         allThemes = Arrays.stream(themes).collect(toImmutableMap(PaintTheme::getId, identity()));

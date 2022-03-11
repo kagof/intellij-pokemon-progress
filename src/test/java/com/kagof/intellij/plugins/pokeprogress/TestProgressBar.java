@@ -27,9 +27,14 @@ import com.intellij.ui.components.fields.IntegerField;
 import com.intellij.util.ReflectionUtil;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
 public class TestProgressBar {
     private static final int MAX_SHIFT_VALUE = 900;
+    private PokemonProgressState state;
 
     private JFrame frame;
     private IntegerField xShift;
@@ -52,7 +57,7 @@ public class TestProgressBar {
     }
 
     private void setUpMockApplication() {
-        final PokemonProgressState state = new PokemonProgressState();
+        state = new PokemonProgressState();
         state.drawSprites = true;
         state.addToolTips = false;
         final Disposable parent = () -> { /*do nothing*/ };
@@ -75,15 +80,35 @@ public class TestProgressBar {
 
     private JPanel createContentPanel() {
         final JPanel contentPanel = new JPanel();
-        contentPanel.setPreferredSize(new Dimension(400, 200));
-        contentPanel.setLayout(new GridLayout(4, 1));
+        contentPanel.setPreferredSize(new Dimension(400, 250));
+        contentPanel.setLayout(new GridLayout(5, 1));
 
         contentPanel.add(createPokemonComboBox());
         contentPanel.add(createProgressBar());
+        contentPanel.add(createThemePanel());
         contentPanel.add(createShiftPanel());
         contentPanel.add(createButtonPanel());
 
         return contentPanel;
+    }
+
+    private JPanel createThemePanel() {
+        final JPanel themePanel = new JPanel();
+        themePanel.setLayout(new GridLayout(1, 2));
+        final ComboBox<PaintTheme> paintThemeComboBox = new ComboBox<>(PaintThemes.getAll());
+        final ComboBox<ColorScheme> colorSchemeComboBox = new ComboBox<>(ColorSchemes.getAll());
+        paintThemeComboBox.addActionListener(e -> {
+            state.theme = ((PaintTheme) ((ComboBox<?>) e.getSource()).getSelectedItem()).getId();
+            updatePositionAndUI(e);
+        });
+        colorSchemeComboBox.addActionListener(e -> {
+            state.colorScheme = ((ColorScheme) ((ComboBox<?>) e.getSource()).getSelectedItem()).getId();
+            updatePositionAndUI(e);
+        });
+
+        themePanel.add(LabeledComponent.create(paintThemeComboBox, "Paint theme", BorderLayout.NORTH));
+        themePanel.add(LabeledComponent.create(colorSchemeComboBox, "Color theme", BorderLayout.NORTH));
+        return themePanel;
     }
 
     @SuppressWarnings("unchecked")

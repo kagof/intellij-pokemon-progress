@@ -155,3 +155,4 @@ gradle-app.setting
 src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/*.png
 .idea
 .DS_Store
+*.cscheme.index
