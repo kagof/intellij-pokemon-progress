@@ -33,8 +33,8 @@ public class DocumentationGenerator {
 
     public static void main(final String[] args) throws Exception {
         final DocumentationGenerator documentationGenerator = new DocumentationGenerator();
-        documentationGenerator.updateReadme();
         documentationGenerator.updateFamilyPicture();
+        documentationGenerator.updateReadme();
         documentationGenerator.addNewReleaseNoteSection();
     }
 
@@ -69,15 +69,16 @@ public class DocumentationGenerator {
                 gif.writeFrame(ImmutableImage.fromAwt(image));
             }
         }
+        System.out.println("updated family photo");
     }
 
     public void addNewReleaseNoteSection() throws IOException {
-        final Path gradleFile = new File("build.gradle.kts").toPath();
+        final Path gradleFile = new File("gradle.properties").toPath();
         final String gradleContents = Files.readString(gradleFile, Charset.defaultCharset());
         final String version = gradleContents.lines()
             .filter(l -> l.startsWith("version"))
             .map(l -> {
-                final Matcher m = Pattern.compile("\".*?\"").matcher(l);
+                final Matcher m = Pattern.compile("=.*").matcher(l);
                 if (m.find()) {
                     return m.group();
                 }
@@ -86,7 +87,7 @@ public class DocumentationGenerator {
             .filter(Objects::nonNull)
             .filter(Strings::isNotEmpty)
             .findFirst()
-            .map(s -> s.replaceAll("\"", ""))
+            .map(s -> s.replaceAll("\"", "").replaceAll("=", ""))
             .orElseThrow(() -> new IllegalStateException("Gradle version not found"));
         System.out.println("using version " + version);
 

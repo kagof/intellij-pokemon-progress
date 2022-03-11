@@ -1,13 +1,14 @@
 # IntelliJ Pokémon Progress Bar
 
-[![Build](https://img.shields.io/github/workflow/status/kagof/intellij-pokemon-progress/Java%20CI%20with%20Gradle/master)](https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3)
+[![Build](https://img.shields.io/github/workflow/status/kagof/intellij-pokemon-progress/Verify%20Plugin/master)](https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3)
 [![Version](https://img.shields.io/jetbrains/plugin/v/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions)
-[![Rating](https://img.shields.io/jetbrains/plugin/r/rating/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews)
+[![Rating](https://img.shields.io/jetbrains/plugin/r/stars/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress)
+[![Stars](https://img.shields.io/github/stars/kagof/intellij-pokemon-progress?style=social)](https://github.com/kagof/intellij-pokemon-progress)
 
-![](eg/example.gif)
+[![Example](eg/example.gif)](eg/example.gif)
 
-![All](eg/family.gif)
+[![All](eg/family.gif)](eg/family.gif)
 
 This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s). Preferences are located under `Preferences > Appearance & Behaviour > Pokémon Progress`.
 
@@ -98,6 +99,7 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon.gif) Empoleon (#395) ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon_r.gif)
 * ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon.gif) Leafeon (#470) ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon_r.gif)
 * ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon.gif) Glaceon (#471) ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon_r.gif)
+* ![Arceus (#493)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/arceus.gif) Arceus (#493) ![Arceus (#493)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/arceus_r.gif)
 
 ### Generation V
 

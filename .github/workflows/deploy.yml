@@ -3,8 +3,8 @@ name: Deploy to JetBrains Plugin Repository
 on:
   workflow_dispatch:
     inputs:
-      channel:
-        description: Channel to publish to (optional)
+      channels:
+        description: Channels to publish to (comma separated, optional)
         required: false
 
 jobs:
@@ -16,29 +16,40 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+          distribution: 'adopt'
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
       - name: Set the plugin version env var
         run: echo "PLUGIN_VERSION=$(./gradlew properties --no-daemon --console=plain -q | grep "^version:" | awk '{printf $2}')" >> $GITHUB_ENV
+
       - name: Set the change notes env var
         run: echo "CHANGE_NOTES=$(sed -n "/<\!\-\-${{ env.PLUGIN_VERSION }}-->/,/<\!\-\-\/${{ env.PLUGIN_VERSION }}-->/p" changenotes.html | tr -d '\n')" >> $GITHUB_ENV
+
       - name: Build & deploy with Gradle
         env:
-          PLUGIN_DEPLOYMENT_CHANNEL: ${{ github.event.inputs.channel }}
+          PLUGIN_DEPLOYMENT_CHANNELS: ${{ github.event.inputs.channel }}
           JETBRAINS_REPO_TOKEN: ${{ secrets.JETBRAINS_REPO_TOKEN }}
+          JETBRAINS_REPO_SIGNING_KEY: ${{ secrets.JETBRAINS_REPO_SIGNING_KEY }}
+          JETBRAINS_REPO_SIGNING_KEY_PASSWORD: ${{ secrets.JETBRAINS_REPO_SIGNING_KEY_PASSWORD }}
+          JETBRAINS_REPO_CERTIFICATE_CHAIN: ${{ secrets.JETBRAINS_REPO_CERTIFICATE_CHAIN }}
         run: ./gradlew publishPlugin
+
       - name: Append commit hash
         run: |
           for file in ./build/distributions/*.zip ; do mv $file ${file%.*}-$(echo ${GITHUB_SHA} | cut -c1-8).zip ; done
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
       - name: Copy plugin version to s3 bucket
         run: |
-          aws s3 cp ./build/distributions s3://${{ secrets.S3_BUCKET_NAME }}/dist --recursive
+          aws s3 cp ./build/distributions ${{ secrets.S3_BUCKET_NAME }}/dist --recursive
       - name: Create Release
         uses: ncipollo/release-action@v1.8.6
         with:
