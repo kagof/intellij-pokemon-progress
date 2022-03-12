@@ -26,7 +26,7 @@ public class PokemonProgressConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
-        return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
+        return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledIdMap())
             || !Objects.equals(state.theme, component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId())
             || !Objects.equals(state.colorScheme,
                 component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId())
@@ -41,7 +41,7 @@ public class PokemonProgressConfigurable implements Configurable {
     @Override
     public void apply() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
-        state.pokemonNumbersEnabled = component.getEnabledNumberMap();
+        state.pokemonNumbersEnabled = component.getEnabledIdMap();
         state.theme = component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId();
         state.colorScheme = component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId();
         state.drawSprites = component.getDrawSprites().isSelected();
