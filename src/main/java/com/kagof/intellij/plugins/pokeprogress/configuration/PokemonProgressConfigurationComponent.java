@@ -30,12 +30,14 @@ import com.google.common.collect.Multimap;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
+import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.roots.ScalableIconComponent;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.ThreeStateCheckBox;
 import com.intellij.util.ui.ThreeStateCheckBox.State;
+import com.kagof.intellij.plugins.pokeprogress.PokeballLoaderIconReplacer;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
@@ -50,6 +52,8 @@ public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
     private final JComboBox<PaintTheme> theme = new ComboBox<>(PaintThemes.getAll());
     private final JComboBox<ColorScheme> colorScheme = new ComboBox<>(ColorSchemes.getAll());
+    private final JBCheckBox replaceLoaderIcon = new JBCheckBox("Replace loader icon with Pokéball");
+    final JLabel loader = new JLabel(new AnimatedIcon.Default());
     private final JBCheckBox drawSprites = new JBCheckBox("Draw sprites");
     private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
@@ -142,7 +146,7 @@ public class PokemonProgressConfigurationComponent {
     @NotNull
     private JPanel createCheckboxPanel() {
         final JPanel checkboxPanel = new JPanel();
-        checkboxPanel.setLayout(new GridLayout(2, 2));
+        checkboxPanel.setLayout(new GridLayout(3, 2));
 
         checkboxPanel.add(drawSprites);
         drawSprites.setToolTipText("Not actually drawing the Pokémon icons can make your IDE look more professional");
@@ -151,6 +155,14 @@ public class PokemonProgressConfigurationComponent {
         checkboxPanel.add(addToolTips);
         addToolTips.setToolTipText("Whether or not to add a Pokémon tool tip (hover text) on the progress bars");
         checkboxPanel.add(determinateTransparency);
+
+        replaceLoaderIcon.addActionListener(a -> {
+            if (a.getID() == ActionEvent.ACTION_PERFORMED) {
+                PokeballLoaderIconReplacer.updateSpinner(replaceLoaderIcon.isSelected());
+                loader.setIcon(new AnimatedIcon.Default());
+            }
+        });
+        checkboxPanel.add(replaceLoaderIcon);
         return checkboxPanel;
     }
 
@@ -169,6 +181,7 @@ public class PokemonProgressConfigurationComponent {
                     check.setSelected(enabled);
                     return check;
                 }));
+            replaceLoaderIcon.setSelected(state.isReplaceLoaderIcon());
         }
     }
 
@@ -210,6 +223,10 @@ public class PokemonProgressConfigurationComponent {
 
     public JBCheckBox getDeterminateTransparency() {
         return determinateTransparency;
+    }
+
+    public JBCheckBox getReplaceLoaderIcon() {
+        return replaceLoaderIcon;
     }
 
     private void refreshSelectAllButtons() {
@@ -256,6 +273,9 @@ public class PokemonProgressConfigurationComponent {
                 indeterminateProgressBar.setUI(createProgressBarUi());
             }
         });
+
+        loader.setToolTipText("loader/spinner icon");
+
         final GridBagConstraints buttonConstraints = new GridBagConstraints();
         buttonConstraints.gridx = 0;
         buttonConstraints.gridy = 0;
@@ -263,12 +283,19 @@ public class PokemonProgressConfigurationComponent {
         buttonConstraints.gridheight = 1;
         buttonConstraints.weightx = 0;
         panel.add(randomizeButton, buttonConstraints);
+        final GridBagConstraints loaderConstraints = new GridBagConstraints();
+        loaderConstraints.gridx = GridBagConstraints.RELATIVE;
+        loaderConstraints.gridy = 0;
+        loaderConstraints.gridwidth = 1;
+        loaderConstraints.gridheight = 1;
+        loaderConstraints.weightx = 0.1;
+        panel.add(LabeledComponent.create(loader, "Loader", BorderLayout.NORTH), loaderConstraints);
         final GridBagConstraints progressBarConstraints = new GridBagConstraints();
         progressBarConstraints.gridx = GridBagConstraints.RELATIVE;
         progressBarConstraints.gridy = 0;
         progressBarConstraints.gridwidth = 3;
         progressBarConstraints.gridheight = 1;
-        progressBarConstraints.weightx = 0.5;
+        progressBarConstraints.weightx = 0.45;
         progressBarConstraints.fill = GridBagConstraints.HORIZONTAL;
         panel.add(LabeledComponent.create(determinateProgressBar, "Determinate", BorderLayout.NORTH), progressBarConstraints);
         panel.add(LabeledComponent.create(indeterminateProgressBar, "Indeterminate", BorderLayout.NORTH), progressBarConstraints);

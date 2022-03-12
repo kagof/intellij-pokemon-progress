@@ -24,7 +24,6 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.components.fields.IntegerField;
 import com.intellij.util.ReflectionUtil;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
@@ -233,7 +232,6 @@ public class TestProgressBar {
             handleShiftChange(xShift);
             handleShiftChange(yShift);
             handleShiftChange(height);
-            IconLoader.clearCache();
             progressBar.setUI(new PokemonProgressBarUi(selectedPokemon));
             frame.repaint();
         }
