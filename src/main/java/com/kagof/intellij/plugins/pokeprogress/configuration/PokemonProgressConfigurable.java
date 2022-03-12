@@ -28,6 +28,8 @@ public class PokemonProgressConfigurable implements Configurable {
         final PokemonProgressState state = PokemonProgressState.getInstance();
         return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
             || !Objects.equals(state.theme, component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId())
+            || !Objects.equals(state.colorScheme,
+                component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId())
             || state.drawSprites != component.getDrawSprites().isSelected()
             || state.addToolTips != component.getAddToolTips().isSelected()
             || state.transparencyOnIndeterminate != component.getIndeterminateTransparency().isSelected()
@@ -41,6 +43,7 @@ public class PokemonProgressConfigurable implements Configurable {
         final PokemonProgressState state = PokemonProgressState.getInstance();
         state.pokemonNumbersEnabled = component.getEnabledNumberMap();
         state.theme = component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId();
+        state.colorScheme = component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId();
         state.drawSprites = component.getDrawSprites().isSelected();
         state.addToolTips = component.getAddToolTips().isSelected();
         state.transparencyOnIndeterminate = component.getIndeterminateTransparency().isSelected();

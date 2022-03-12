@@ -41,8 +41,36 @@ tasks {
         mainClass.set("com.kagof.intellij.plugins.pokeprogress.DocumentationGenerator")
     }
 
+    register("testProgressBar", JavaExec::class) {
+        group = "pokemon-progress"
+        description = "test progress bar"
+        classpath = java.sourceSets["test"].runtimeClasspath
+        mainClass.set("com.kagof.intellij.plugins.pokeprogress.TestProgressBar")
+    }
+
+    register("indexColors", DefaultTask::class) {
+        group = "pokemon-progress"
+        description = "create index file for color schemes"
+        doFirst {
+            File("src/main/resources/com/kagof/intellij/plugins/pokeprogress/colors").let { dir ->
+                if (dir.exists() && dir.isDirectory && dir.canRead()) {
+                    val strb = StringBuilder()
+                    dir.listFiles()
+                            ?.filter { it.isFile }
+                            ?.filter { it.name.endsWith(".csv") }
+                            ?.forEach { strb.append(it.name).append("\n") }
+                    val index = File(dir, ".cscheme.index")
+                    index.delete()
+                    index.createNewFile()
+                    index.writeText(strb.toString())
+                } else throw IllegalStateException("unable to read color schemes")
+            }
+        }
+    }
+
     withType<JavaCompile> {
         options.encoding = "UTF-8"
+        dependsOn("indexColors")
     }
 
     patchPluginXml {

@@ -1,5 +1,7 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -37,13 +39,27 @@ public final class PokemonResourceLoader {
         return SPRITE_RESOURCE_PATH + pokemon.getName().replace(' ', '_') + "_r.gif";
     }
 
+    public static Optional<URL> getResource(final String resourceName) {
+        return Optional
+            .ofNullable(PokemonResourceLoader.class.getClassLoader()
+                .getResource(resourceName))
+            .or(() -> Optional.ofNullable(PokemonResourceLoader.class.getClassLoader()
+                .getResource(resourceName.startsWith("/") ? resourceName.replaceFirst("/", "") : "/" + resourceName)));
+    }
+
+    public static Optional<InputStream> getResourceAsStream(final String resourceName) {
+        return Optional
+            .ofNullable(PokemonResourceLoader.class.getClassLoader()
+                .getResourceAsStream(resourceName))
+            .or(() -> Optional.ofNullable(PokemonResourceLoader.class.getClassLoader()
+                .getResourceAsStream(
+                    resourceName.startsWith("/") ? resourceName.replaceFirst("/", "") : "/" + resourceName)));
+    }
+
     private static Icon getIconInternal(final String resourceName) {
         try {
-            return cache.get(resourceName, () -> Optional.ofNullable(Optional
-                    .ofNullable(PokemonResourceLoader.class.getClassLoader()
-                        .getResource(resourceName))
-                    .orElseGet(() -> PokemonResourceLoader.class.getClassLoader()
-                        .getResource("/" + resourceName)))
+            return cache.get(resourceName,
+                () -> getResource(resourceName)
                 .map(ImageIcon::new)
                 .orElseGet(ImageIcon::new));
         } catch (final ExecutionException e) {

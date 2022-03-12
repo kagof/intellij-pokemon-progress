@@ -41,12 +41,15 @@ import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
-import com.kagof.intellij.plugins.pokeprogress.paint.PaintTheme;
-import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
     private final JComboBox<PaintTheme> theme = new ComboBox<>(PaintThemes.getAll());
+    private final JComboBox<ColorScheme> colorScheme = new ComboBox<>(ColorSchemes.getAll());
     private final JBCheckBox drawSprites = new JBCheckBox("Draw sprites");
     private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
@@ -71,7 +74,11 @@ public class PokemonProgressConfigurationComponent {
         formBuilder.addSeparator();
         formBuilder.addComponent(createIndeterminatePanel());
         formBuilder.addSeparator();
-        formBuilder.addLabeledComponent("Theme:", theme);
+        final JPanel themes = new JPanel();
+        themes.setLayout(new GridLayout(1, 2));
+        themes.add(LabeledComponent.create(theme, "Theme:"));
+        themes.add(LabeledComponent.create(colorScheme, "Color scheme:"));
+        formBuilder.addComponent(themes);
         formBuilder.addComponent(createCheckboxPanel());
 
         formBuilder.addSeparator();
@@ -152,6 +159,7 @@ public class PokemonProgressConfigurationComponent {
             initialVelocity.setValue((int) (state.initialVelocity * 100));
             acceleration.setValue((int) (state.acceleration * 100));
             theme.setSelectedItem(PaintThemes.getByIdOrDefault(state.theme));
+            colorScheme.setSelectedItem(ColorSchemes.getByIdOrDefault(state.colorScheme));
             drawSprites.setSelected(state.drawSprites);
             addToolTips.setSelected(state.addToolTips);
             indeterminateTransparency.setSelected(state.transparencyOnIndeterminate);
@@ -190,6 +198,10 @@ public class PokemonProgressConfigurationComponent {
 
     public JComboBox<PaintTheme> getTheme() {
         return theme;
+    }
+
+    public JComboBox<ColorScheme> getColorScheme() {
+        return colorScheme;
     }
 
     public JBCheckBox getIndeterminateTransparency() {
@@ -268,6 +280,7 @@ public class PokemonProgressConfigurationComponent {
             () -> initialVelocity.getValue() / 100f,
             () -> acceleration.getValue() / 100f,
             () -> theme.getItemAt(theme.getSelectedIndex()),
+            () -> colorScheme.getItemAt(colorScheme.getSelectedIndex()),
             indeterminateTransparency::isSelected,
             determinateTransparency::isSelected,
             drawSprites::isSelected,

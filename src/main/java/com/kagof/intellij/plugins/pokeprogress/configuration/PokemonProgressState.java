@@ -29,6 +29,7 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public boolean addToolTips = true;
     public boolean transparencyOnIndeterminate = true;
     public boolean transparencyOnDeterminate = false;
+    public String colorScheme;
 
     public static PokemonProgressState getInstance() {
         return ApplicationManager.getApplication().getService(PokemonProgressState.class);

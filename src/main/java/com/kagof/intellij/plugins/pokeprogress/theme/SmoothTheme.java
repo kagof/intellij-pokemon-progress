@@ -1,10 +1,9 @@
-package com.kagof.intellij.plugins.pokeprogress.paint;
+package com.kagof.intellij.plugins.pokeprogress.theme;
 
 import java.awt.Color;
 import java.awt.LinearGradientPaint;
 import java.awt.Paint;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -19,26 +18,33 @@ public class SmoothTheme extends PaintTheme {
     }
 
     @Override
-    public Paint getPaint(final List<PokemonType> types, final int startY, final int height) {
+    public Paint getPaint(final List<PokemonType> types,
+        final ColorScheme colorScheme,
+        final int startY,
+        final int height) {
         if (types.size() == 1) {
-            return getPaintSingleType(types.get(0), startY, height);
+            return getPaintSingleType(types.get(0), colorScheme, startY, height);
         } else {
-            return getPaintMultiType(types, startY, height);
+            return getPaintMultiType(types, colorScheme, startY, height);
         }
     }
 
     private static final float ONE_HALF = 0.5f;
 
-    private static Paint getPaintSingleType(final PokemonType type, final int startY, final int height) {
+    private static Paint getPaintSingleType(final PokemonType type, final ColorScheme colorScheme, final int startY,
+        final int height) {
+        final TypeColor typeColor = colorScheme.get(type);
         return new LinearGradientPaint(0,
             (float) startY + JBUIScale.scale(2f),
             0,
             (float) startY + (float) height - JBUIScale.scale(2f),
             new float[] {0f, ONE_HALF, 1f},
-            new Color[] {type.getColorLight(), type.getColor(), type.getColorDark()});
+            new Color[] {typeColor.getColorLight(), typeColor.getColor(), typeColor.getColorDark()});
     }
 
-    private static Paint getPaintMultiType(final List<PokemonType> types, final int startY, final int height) {
+    private static Paint getPaintMultiType(final List<PokemonType> types, final ColorScheme colorScheme,
+        final int startY,
+        final int height) {
         final int numColors = types.size();
         final float numColorsReciprocal = 1f / (numColors - 1);
         return new LinearGradientPaint(0,
@@ -47,6 +53,6 @@ public class SmoothTheme extends PaintTheme {
             (float) startY + (float) height - JBUIScale.scale(2f),
             ArrayUtils.toPrimitive(
                 IntStream.range(0, numColors).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
-            types.stream().map(PokemonType::getColor).collect(Collectors.toList()).toArray(new Color[0]));
+            types.stream().map(colorScheme::get).map(TypeColor::getColor).toArray(Color[]::new));
     }
 }

@@ -1,4 +1,4 @@
-package com.kagof.intellij.plugins.pokeprogress.paint;
+package com.kagof.intellij.plugins.pokeprogress.theme;
 
 import java.awt.Paint;
 import java.util.List;
@@ -23,5 +23,8 @@ public abstract class PaintTheme {
         return title;
     }
 
-    public abstract Paint getPaint(final List<PokemonType> types, final int startY, final int height);
+    public abstract Paint getPaint(final List<PokemonType> types,
+        final ColorScheme colorScheme,
+        final int startY,
+        final int height);
 }
