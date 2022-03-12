@@ -183,12 +183,7 @@ public class DocumentationGenerator {
         final AnimatedGif gif = AnimatedGifReader.read(ImageSource.of(getClass().getClassLoader()
             .getResource(PokemonResourceLoader.getIconPath(pokemon))
             .openStream()));
-        if (pokemon == Pokemon.WAILORD) {
-            // the Wailord sprite is big
-            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX - 18, startY - 25, null);
-        } else {
-            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX, startY, null);
-        }
+        g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX, startY, 32, 32, null);
     }
 
     private int getLcmNumFrames() {

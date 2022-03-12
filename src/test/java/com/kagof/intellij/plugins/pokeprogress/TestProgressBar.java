@@ -13,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
+import com.intellij.ide.ui.laf.darcula.DarculaLaf;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTextBorder;
 import com.intellij.mock.MockApplication;
 import com.intellij.openapi.Disposable;
@@ -39,11 +41,16 @@ public class TestProgressBar {
     private JFrame frame;
     private IntegerField xShift;
     private IntegerField yShift;
+    private IntegerField height;
     private JProgressBar progressBar;
 
     private Pokemon selectedPokemon;
     private int originalXShift = 0;
     private int originalYShift = 0;
+    private int originalHeight = 20;
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private final boolean useDarkMode = true;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final Pokemon target = null;
@@ -51,6 +58,7 @@ public class TestProgressBar {
     @SuppressWarnings("ConstantConditions")
     public TestProgressBar() {
         setUpMockApplication();
+        setLookAndFeel();
         updateSelectedPokemon(Optional.ofNullable(target).orElseGet(PokemonPicker::get));
         initializeFrame();
         addShutdownHook();
@@ -64,6 +72,18 @@ public class TestProgressBar {
         final MockApplication application = MockApplication.setUp(parent);
         application.registerService(PokemonProgressState.class, state);
         ApplicationManager.setApplication(application, parent);
+    }
+
+    private void setLookAndFeel() {
+        if (useDarkMode) {
+            final DarculaLaf darkMode = new DarculaLaf();
+            try {
+                UIManager.setLookAndFeel(darkMode);
+            } catch (Exception e) {
+                System.out.println("unable to set look and feel");
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initializeFrame() {
@@ -135,18 +155,24 @@ public class TestProgressBar {
 
     private JPanel createShiftPanel() {
         final JPanel shiftPanel = new JPanel();
-        shiftPanel.setLayout(new GridLayout(1, 2));
+        shiftPanel.setLayout(new GridLayout(1, 3));
         xShift = createIntegerFieldTextBox("xShift");
         yShift = createIntegerFieldTextBox("yShift");
+        height = createIntegerFieldTextBox("height", 5, 64);
 
         shiftPanel.add(LabeledComponent.create(xShift, "X shift", BorderLayout.NORTH));
         shiftPanel.add(LabeledComponent.create(yShift, "Y shift", BorderLayout.NORTH));
+        shiftPanel.add(LabeledComponent.create(height, "Height", BorderLayout.NORTH));
         resetShifts();
         return shiftPanel;
     }
 
     private IntegerField createIntegerFieldTextBox(final String valueName) {
-        final IntegerField shiftField = new IntegerField(valueName, -MAX_SHIFT_VALUE, MAX_SHIFT_VALUE);
+        return createIntegerFieldTextBox(valueName, -MAX_SHIFT_VALUE, MAX_SHIFT_VALUE);
+    }
+
+    private IntegerField createIntegerFieldTextBox(final String valueName, final int min, final int max) {
+        final IntegerField shiftField = new IntegerField(valueName, min, max);
         shiftField.setBorder(new DarculaTextBorder());
         shiftField.addActionListener(this::updatePositionAndUI);
         return shiftField;
@@ -185,23 +211,28 @@ public class TestProgressBar {
         if (selectedPokemon != null) {
             setSelectedPokemonIntField("xShift", originalXShift);
             setSelectedPokemonIntField("yShift", originalYShift);
+            setSelectedPokemonIntField("height", originalHeight);
         }
         selectedPokemon = newPokemon;
         originalXShift = newPokemon.getXShift();
         originalYShift = newPokemon.getYShift();
+        originalHeight = newPokemon.getHeight();
     }
 
     private void resetShifts() {
         xShift.setValue(originalXShift);
         yShift.setValue(originalYShift);
+        height.setValue(originalHeight);
         xShift.setDefaultValue(originalXShift);
         yShift.setDefaultValue(originalYShift);
+        height.setDefaultValue(originalHeight);
     }
 
     private void updatePositionAndUI(final ActionEvent e) {
         if (e.getID() == ActionEvent.ACTION_PERFORMED) {
             handleShiftChange(xShift);
             handleShiftChange(yShift);
+            handleShiftChange(height);
             IconLoader.clearCache();
             progressBar.setUI(new PokemonProgressBarUi(selectedPokemon));
             frame.repaint();
@@ -234,13 +265,18 @@ public class TestProgressBar {
 
     private void printIfShiftUpdated() {
         if (shiftUpdated()) {
-            System.out.printf("%nUpdated shift for %s: %d, %d%n", selectedPokemon.getNameWithNumber(), xShift.getValue(), yShift.getValue());
+            System.out.printf("%nUpdated shift for %s: %d, %d, %d%n",
+                selectedPokemon.getNameWithNumber(),
+                xShift.getValue(),
+                yShift.getValue(),
+                height.getValue());
         }
     }
 
     private boolean shiftUpdated() {
         return !Objects.equals(originalXShift, selectedPokemon.getXShift())
-            || !Objects.equals(originalYShift, selectedPokemon.getYShift());
+            || !Objects.equals(originalYShift, selectedPokemon.getYShift())
+            || !Objects.equals(originalHeight, selectedPokemon.getHeight());
     }
 
     public static void main(final String[] args) {

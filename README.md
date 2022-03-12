@@ -174,8 +174,6 @@ Contributions are very welcome on this project! Please see our [contributing gui
   * Sylveon
 * [Princess-Phoenix, Larryturbo, Kiddkatt, Zender1752, SageDeoxys, curated by Larryturbo](https://www.deviantart.com/larryturbo/art/Gen-7-Alola-Overworld-Sprites-805455576)
   * All Gen VII sprites unless otherwise noted
-* [Bulbagarden Archives](https://archives.bulbagarden.net)
-  * Mimikyu (first frame)
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
   * All Gen VIII sprites unless otherwise noted
 * [DarkusShadow on DeviantArt](https://www.deviantart.com/darkusshadow)

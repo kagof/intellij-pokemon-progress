@@ -60,6 +60,8 @@ path=${5:-${DEFAULT_PATH}}
 
 # create initial gif
 magick convert \
+  -interpolate Integer \
+  -filter point \
   -delay "$delay" \
   -dispose Background \
   -resize "${resize}x${resize}" \
@@ -73,6 +75,8 @@ checkExitCode 'unable to convert sprite (run editSprite.sh --help for usage)'
 
 # create @2x gif
 magick convert \
+  -interpolate Integer \
+  -filter point \
   -delay "$delay" \
   -dispose Background \
   -resize "${resize2}x${resize2}" \
@@ -86,6 +90,8 @@ checkExitCode 'unable to convert @2x sprite (run editSprite.sh --help for usage)
 
 # create reversed gif
 magick convert \
+  -interpolate Integer \
+  -filter point \
   -flop \
   "${path}/${spriteName}.gif" \
   "${path}/${spriteName}_r.gif"
@@ -94,6 +100,8 @@ checkExitCode 'unable to create reversed sprite (run editSprite.sh --help for us
 
 # create reversed @2x gif
 magick convert \
+  -interpolate Integer \
+  -filter point \
   -flop \
   "${path}/${spriteName}@2x.gif" \
   "${path}/${spriteName}_r@2x.gif"
