@@ -134,7 +134,7 @@ public enum Pokemon {
     FUECOCO(909, "fuecoco", -15, -9, 22, PokemonType.FIRE),
     QUAXLY(912, "quaxly", -15, -11, 22, PokemonType.WATER),
     // Secret
-    MISSINGNO(-1, "missingNo.", -20, 0, 35, true, null, null, PokemonType.NORMAL);
+    MISSINGNO(-1, "missingNo.", -20, 0, 35, true, null, null, 1, PokemonType.NORMAL);
 
     public static final Map<String, Pokemon> DEFAULT_POKEMON = Arrays.stream(values())
         .filter(p -> !p.secret)
@@ -153,6 +153,7 @@ public enum Pokemon {
     private final int height;
     private final boolean secret;
     private final Generation generation;
+    private final int numberOfFrames;
 
     public static Pokemon getById(final String id) {
         return DEFAULT_POKEMON.get(id);
@@ -173,11 +174,13 @@ public enum Pokemon {
             false,
             Optional.ofNullable(regionalVariant).map(Enum::toString).orElse(null),
             Optional.ofNullable(regionalVariant).map(RegionalVariant::getGeneration).orElse(null),
+            2,
             types);
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final int height,
-        final boolean secret, final String idModifier, final Generation gen, final PokemonType... types) {
+        final boolean secret, final String idModifier, final Generation gen, final int numberOfFrames,
+        final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
         }
@@ -192,6 +195,7 @@ public enum Pokemon {
 
         this.secret = secret;
         generation = Optional.ofNullable(gen).orElseGet(() -> Generation.getGeneration(number));
+        this.numberOfFrames = numberOfFrames;
     }
 
     public List<PokemonType> getTypes() {
@@ -236,6 +240,10 @@ public enum Pokemon {
 
     public String getNameWithNumber() {
         return StringUtil.capitalizeWords(name, true) + " (#" + getNumberString() + ")";
+    }
+
+    public int getNumberOfFrames() {
+        return numberOfFrames;
     }
 
     @Override

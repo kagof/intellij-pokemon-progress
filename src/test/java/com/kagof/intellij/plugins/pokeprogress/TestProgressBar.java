@@ -52,7 +52,7 @@ public class TestProgressBar {
     private final boolean useDarkMode = true;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final Pokemon target = null;
+    private final Pokemon target = Pokemon.BLASTOISE;
 
     @SuppressWarnings("ConstantConditions")
     public TestProgressBar() {

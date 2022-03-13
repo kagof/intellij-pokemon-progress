@@ -1,9 +1,6 @@
 #!/bin/bash
 
 SCRIPT_DIR=$(dirname "$0")
-DEFAULT_RESIZE=32
-DEFAULT_EXTENT=32
-DEFAULT_DELAY='50'
 DEFAULT_PATH=${SCRIPT_DIR}'/src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites'
 
 checkExitCode() {
@@ -17,7 +14,7 @@ checkExitCode() {
 
 usage() {
   echo "
-Utility for creating animated sprites from still PNGs.
+Utility for creating SVGs for a given Pokemon's PNG sprite(s).
 
 usage:
 
@@ -25,23 +22,17 @@ editSprite.sh --help
 
   Show this message
 
-editSprite.sh spriteName [resize] [extent] [delay] [path]
+editSprite.sh pokemon [path]
 
-  - spriteName: the name of the sprite. There should be matching spriteName_1.png, spriteName_2.png, ... files in the path.
-      NOTE: existing files named spriteName.gif, spriteName_r.gif spriteName@2x.gif, spriteName_r@2x.gif in the path will be overwritten
-  - resize: shrink/expand each image before conversion.
-      DEFAULT: ${DEFAULT_RESIZE}
-  - extent: expand the resulting gif post conversion, by padding the border with transparency.
-      DEFAULT: ${DEFAULT_EXTENT}
-  - delay: timing between frames, in ms.
-      DEFAULT: ${DEFAULT_DELAY}
+  - pokemon: the name of the pokemon. There should be matching pokemon_1.png, pokemon_2.png, ... files in the path.
+      NOTE: existing files named spriteName_1.svg, spriteName_2.svg, ... will be overwritten.
   - path: path of the sprites to create & use.
       DEFAULT: ${DEFAULT_PATH}
   "
 }
 
-if ! command -v magick &>/dev/null; then
-  echo "This script requires ImageMagick (https://imagemagick.org/script/index.php)"
+if ! command -v psvg &>/dev/null; then
+  echo "This script requires pixel-perfect-svg (https://github.com/kagof/pixel-perfect-svg)"
   exit 1
 elif [ "$1" = '--help' ]; then
   usage
@@ -50,62 +41,12 @@ fi
 
 [ -z "$1" ] && usage && exit 2
 
-spriteName=$1
-resize=${2:-${DEFAULT_RESIZE}}
-resize2=$(( 2 * resize ))
-extent=${3:-${DEFAULT_EXTENT}}
-extent2=$(( 2 * extent ))
-delay=${4:-${DEFAULT_DELAY}}
-path=${5:-${DEFAULT_PATH}}
+pokemon=$1
+path=${2:-${DEFAULT_PATH}}
 
-# create initial gif
-magick convert \
-  -interpolate Integer \
-  -filter point \
-  -delay "$delay" \
-  -dispose Background \
-  -resize "${resize}x${resize}" \
-  -background none \
-  -gravity center \
-  -extent "${extent}x${extent}" \
-  "${path}/${spriteName}_*.png" \
-  "${path}/${spriteName}.gif"
-
-checkExitCode 'unable to convert sprite (run editSprite.sh --help for usage)'
-
-# create @2x gif
-magick convert \
-  -interpolate Integer \
-  -filter point \
-  -delay "$delay" \
-  -dispose Background \
-  -resize "${resize2}x${resize2}" \
-  -background none \
-  -gravity center \
-  -extent "${extent2}x${extent2}" \
-  "${path}/${spriteName}_*.png" \
-  "${path}/${spriteName}@2x.gif"
-
-checkExitCode 'unable to convert @2x sprite (run editSprite.sh --help for usage)'
-
-# create reversed gif
-magick convert \
-  -interpolate Integer \
-  -filter point \
-  -flop \
-  "${path}/${spriteName}.gif" \
-  "${path}/${spriteName}_r.gif"
-
-checkExitCode 'unable to create reversed sprite (run editSprite.sh --help for usage)'
-
-# create reversed @2x gif
-magick convert \
-  -interpolate Integer \
-  -filter point \
-  -flop \
-  "${path}/${spriteName}@2x.gif" \
-  "${path}/${spriteName}_r@2x.gif"
-
-checkExitCode 'unable to create reversed @2x sprite (run editSprite.sh --help for usage)'
+for png in ${path}/${pokemon}_*.png; do
+    psvg -mq -i $png -o ${png%.*}.svg
+    checkExitCode 'unable to convert sprite $png (run editSprite.sh --help for usage)'
+done
 
 exit 0
