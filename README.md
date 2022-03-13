@@ -12,6 +12,8 @@
 
 This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s). Preferences are located under `Preferences > Appearance & Behaviour > Pokémon Progress`.
 
+If you like the plugin, please consider [rating it on the Marketplace](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews) or [starring it on Github](https://github.com/kagof/intellij-pokemon-progress)!
+
 ## Included Pokémon
 
 ### Generation I
@@ -155,7 +157,7 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 
 ## Contributing
 
-Contributions are very welcome on this project! Please see our [contributing guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md) to get started.
+Contributions are very welcome on this project! Contributions can take the form of bug reports, feature requests, pull requests, Pokémon requests or more! Please see our [contributing guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md) to get started.
 
 ## Acknowledgements
 
