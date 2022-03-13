@@ -35,7 +35,8 @@ public class PokemonProgressConfigurable implements Configurable {
             || state.transparencyOnIndeterminate != component.getIndeterminateTransparency().isSelected()
             || state.transparencyOnDeterminate != component.getDeterminateTransparency().isSelected()
             || state.initialVelocity != component.getInitialVelocity().getValue() / 100f
-            || state.acceleration != component.getAcceleration().getValue() / 100f);
+            || state.acceleration != component.getAcceleration().getValue() / 100f
+            || state.isReplaceLoaderIcon() != component.getReplaceLoaderIcon().isSelected());
     }
 
     @Override
@@ -50,6 +51,7 @@ public class PokemonProgressConfigurable implements Configurable {
         state.transparencyOnDeterminate = component.getDeterminateTransparency().isSelected();
         state.initialVelocity = component.getInitialVelocity().getValue() / 100f;
         state.acceleration = component.getAcceleration().getValue() / 100f;
+        state.setReplaceLoaderIcon(component.getReplaceLoaderIcon().isSelected());
     }
 
     @Override
