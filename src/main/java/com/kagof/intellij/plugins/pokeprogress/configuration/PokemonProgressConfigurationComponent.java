@@ -129,7 +129,7 @@ public class PokemonProgressConfigurationComponent {
             });
 
             formBuilder.addLabeledComponent(new ScalableIconComponent(PokemonResourceLoader.getIcon(pokemon)), checkBox);
-            checkboxes.put(pokemon.getNumberString(), checkBox);
+            checkboxes.put(pokemon.getId(), checkBox);
             checkboxesByGen.put(gen, checkBox);
             numSelected.incrementAndGet();
         });
@@ -165,7 +165,7 @@ public class PokemonProgressConfigurationComponent {
             indeterminateTransparency.setSelected(state.transparencyOnIndeterminate);
             determinateTransparency.setSelected(state.transparencyOnDeterminate);
             state.pokemonNumbersEnabled
-                .forEach((pokemon, enabled) -> checkboxes.computeIfPresent(pokemon, (p, check) -> {
+                .forEach((id, enabled) -> checkboxes.computeIfPresent(id, (p, check) -> {
                     check.setSelected(enabled);
                     return check;
                 }));
@@ -176,7 +176,7 @@ public class PokemonProgressConfigurationComponent {
         return mainPanel;
     }
 
-    public Map<String, Boolean> getEnabledNumberMap() {
+    public Map<String, Boolean> getEnabledIdMap() {
         return checkboxes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().isSelected()));
     }
 
