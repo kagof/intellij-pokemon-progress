@@ -26,6 +26,7 @@ intellij {
     version.set(ideaVersion)
     pluginName.set(name)
     downloadSources.set(true)
+    updateSinceUntilBuild.set(false)
 }
 
 java {
@@ -75,6 +76,7 @@ tasks {
 
     patchPluginXml {
         untilBuild.set(null as String?)
+
         File(changenotesFile).let {
             if (it.exists() && it.isFile && it.canRead()) changeNotes.set(it.readText())
             else throw IllegalStateException("unable to read $changenotesFile")
@@ -83,6 +85,10 @@ tasks {
             if (it.exists() && it.isFile && it.canRead()) pluginDescription.set(it.readText())
             else throw IllegalStateException("unable to read $descriptionFile")
         }
+    }
+
+    buildPlugin {
+        dependsOn(patchPluginXml)
     }
 
     runPluginVerifier {
