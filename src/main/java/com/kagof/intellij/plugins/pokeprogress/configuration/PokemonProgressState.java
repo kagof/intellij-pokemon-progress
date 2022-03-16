@@ -11,6 +11,7 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import com.kagof.intellij.plugins.pokeprogress.PokeballLoaderIconReplacer;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 @State(
@@ -29,6 +30,17 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public boolean addToolTips = true;
     public boolean transparencyOnIndeterminate = true;
     public boolean transparencyOnDeterminate = false;
+    public String colorScheme;
+    private boolean replaceLoaderIcon = true;
+
+    public void setReplaceLoaderIcon(final boolean updated) {
+        this.replaceLoaderIcon = updated;
+        PokeballLoaderIconReplacer.updateSpinner(updated);
+    }
+
+    public boolean isReplaceLoaderIcon() {
+        return replaceLoaderIcon;
+    }
 
     public static PokemonProgressState getInstance() {
         return ApplicationManager.getApplication().getService(PokemonProgressState.class);

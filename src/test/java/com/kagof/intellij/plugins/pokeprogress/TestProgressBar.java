@@ -13,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
+import com.intellij.ide.ui.laf.darcula.DarculaLaf;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTextBorder;
 import com.intellij.mock.MockApplication;
 import com.intellij.openapi.Disposable;
@@ -22,23 +24,32 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
-import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.components.fields.IntegerField;
 import com.intellij.util.ReflectionUtil;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
 public class TestProgressBar {
     private static final int MAX_SHIFT_VALUE = 900;
+    private PokemonProgressState state;
 
     private JFrame frame;
     private IntegerField xShift;
     private IntegerField yShift;
+    private IntegerField height;
     private JProgressBar progressBar;
 
     private Pokemon selectedPokemon;
     private int originalXShift = 0;
     private int originalYShift = 0;
+    private int originalHeight = 20;
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private final boolean useDarkMode = true;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final Pokemon target = null;
@@ -46,19 +57,32 @@ public class TestProgressBar {
     @SuppressWarnings("ConstantConditions")
     public TestProgressBar() {
         setUpMockApplication();
+        setLookAndFeel();
         updateSelectedPokemon(Optional.ofNullable(target).orElseGet(PokemonPicker::get));
         initializeFrame();
         addShutdownHook();
     }
 
     private void setUpMockApplication() {
-        final PokemonProgressState state = new PokemonProgressState();
+        state = new PokemonProgressState();
         state.drawSprites = true;
         state.addToolTips = false;
         final Disposable parent = () -> { /*do nothing*/ };
         final MockApplication application = MockApplication.setUp(parent);
         application.registerService(PokemonProgressState.class, state);
         ApplicationManager.setApplication(application, parent);
+    }
+
+    private void setLookAndFeel() {
+        if (useDarkMode) {
+            final DarculaLaf darkMode = new DarculaLaf();
+            try {
+                UIManager.setLookAndFeel(darkMode);
+            } catch (Exception e) {
+                System.out.println("unable to set look and feel");
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initializeFrame() {
@@ -75,15 +99,35 @@ public class TestProgressBar {
 
     private JPanel createContentPanel() {
         final JPanel contentPanel = new JPanel();
-        contentPanel.setPreferredSize(new Dimension(400, 200));
-        contentPanel.setLayout(new GridLayout(4, 1));
+        contentPanel.setPreferredSize(new Dimension(400, 250));
+        contentPanel.setLayout(new GridLayout(5, 1));
 
         contentPanel.add(createPokemonComboBox());
         contentPanel.add(createProgressBar());
+        contentPanel.add(createThemePanel());
         contentPanel.add(createShiftPanel());
         contentPanel.add(createButtonPanel());
 
         return contentPanel;
+    }
+
+    private JPanel createThemePanel() {
+        final JPanel themePanel = new JPanel();
+        themePanel.setLayout(new GridLayout(1, 2));
+        final ComboBox<PaintTheme> paintThemeComboBox = new ComboBox<>(PaintThemes.getAll());
+        final ComboBox<ColorScheme> colorSchemeComboBox = new ComboBox<>(ColorSchemes.getAll());
+        paintThemeComboBox.addActionListener(e -> {
+            state.theme = ((PaintTheme) ((ComboBox<?>) e.getSource()).getSelectedItem()).getId();
+            updatePositionAndUI(e);
+        });
+        colorSchemeComboBox.addActionListener(e -> {
+            state.colorScheme = ((ColorScheme) ((ComboBox<?>) e.getSource()).getSelectedItem()).getId();
+            updatePositionAndUI(e);
+        });
+
+        themePanel.add(LabeledComponent.create(paintThemeComboBox, "Paint theme", BorderLayout.NORTH));
+        themePanel.add(LabeledComponent.create(colorSchemeComboBox, "Color theme", BorderLayout.NORTH));
+        return themePanel;
     }
 
     @SuppressWarnings("unchecked")
@@ -110,18 +154,24 @@ public class TestProgressBar {
 
     private JPanel createShiftPanel() {
         final JPanel shiftPanel = new JPanel();
-        shiftPanel.setLayout(new GridLayout(1, 2));
+        shiftPanel.setLayout(new GridLayout(1, 3));
         xShift = createIntegerFieldTextBox("xShift");
         yShift = createIntegerFieldTextBox("yShift");
+        height = createIntegerFieldTextBox("height", 5, 64);
 
         shiftPanel.add(LabeledComponent.create(xShift, "X shift", BorderLayout.NORTH));
         shiftPanel.add(LabeledComponent.create(yShift, "Y shift", BorderLayout.NORTH));
+        shiftPanel.add(LabeledComponent.create(height, "Height", BorderLayout.NORTH));
         resetShifts();
         return shiftPanel;
     }
 
     private IntegerField createIntegerFieldTextBox(final String valueName) {
-        final IntegerField shiftField = new IntegerField(valueName, -MAX_SHIFT_VALUE, MAX_SHIFT_VALUE);
+        return createIntegerFieldTextBox(valueName, -MAX_SHIFT_VALUE, MAX_SHIFT_VALUE);
+    }
+
+    private IntegerField createIntegerFieldTextBox(final String valueName, final int min, final int max) {
+        final IntegerField shiftField = new IntegerField(valueName, min, max);
         shiftField.setBorder(new DarculaTextBorder());
         shiftField.addActionListener(this::updatePositionAndUI);
         return shiftField;
@@ -160,24 +210,28 @@ public class TestProgressBar {
         if (selectedPokemon != null) {
             setSelectedPokemonIntField("xShift", originalXShift);
             setSelectedPokemonIntField("yShift", originalYShift);
+            setSelectedPokemonIntField("height", originalHeight);
         }
         selectedPokemon = newPokemon;
         originalXShift = newPokemon.getXShift();
         originalYShift = newPokemon.getYShift();
+        originalHeight = newPokemon.getHeight();
     }
 
     private void resetShifts() {
         xShift.setValue(originalXShift);
         yShift.setValue(originalYShift);
+        height.setValue(originalHeight);
         xShift.setDefaultValue(originalXShift);
         yShift.setDefaultValue(originalYShift);
+        height.setDefaultValue(originalHeight);
     }
 
     private void updatePositionAndUI(final ActionEvent e) {
         if (e.getID() == ActionEvent.ACTION_PERFORMED) {
             handleShiftChange(xShift);
             handleShiftChange(yShift);
-            IconLoader.clearCache();
+            handleShiftChange(height);
             progressBar.setUI(new PokemonProgressBarUi(selectedPokemon));
             frame.repaint();
         }
@@ -209,13 +263,18 @@ public class TestProgressBar {
 
     private void printIfShiftUpdated() {
         if (shiftUpdated()) {
-            System.out.printf("%nUpdated shift for %s: %d, %d%n", selectedPokemon.getNameWithNumber(), xShift.getValue(), yShift.getValue());
+            System.out.printf("%nUpdated shift for %s: %d, %d, %d%n",
+                selectedPokemon.getNameWithNumber(),
+                xShift.getValue(),
+                yShift.getValue(),
+                height.getValue());
         }
     }
 
     private boolean shiftUpdated() {
         return !Objects.equals(originalXShift, selectedPokemon.getXShift())
-            || !Objects.equals(originalYShift, selectedPokemon.getYShift());
+            || !Objects.equals(originalYShift, selectedPokemon.getYShift())
+            || !Objects.equals(originalHeight, selectedPokemon.getHeight());
     }
 
     public static void main(final String[] args) {

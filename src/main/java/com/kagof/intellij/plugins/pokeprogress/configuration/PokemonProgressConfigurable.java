@@ -26,27 +26,32 @@ public class PokemonProgressConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
-        return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledNumberMap())
+        return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledIdMap())
             || !Objects.equals(state.theme, component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId())
+            || !Objects.equals(state.colorScheme,
+                component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId())
             || state.drawSprites != component.getDrawSprites().isSelected()
             || state.addToolTips != component.getAddToolTips().isSelected()
             || state.transparencyOnIndeterminate != component.getIndeterminateTransparency().isSelected()
             || state.transparencyOnDeterminate != component.getDeterminateTransparency().isSelected()
             || state.initialVelocity != component.getInitialVelocity().getValue() / 100f
-            || state.acceleration != component.getAcceleration().getValue() / 100f);
+            || state.acceleration != component.getAcceleration().getValue() / 100f
+            || state.isReplaceLoaderIcon() != component.getReplaceLoaderIcon().isSelected());
     }
 
     @Override
     public void apply() {
         final PokemonProgressState state = PokemonProgressState.getInstance();
-        state.pokemonNumbersEnabled = component.getEnabledNumberMap();
+        state.pokemonNumbersEnabled = component.getEnabledIdMap();
         state.theme = component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId();
+        state.colorScheme = component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId();
         state.drawSprites = component.getDrawSprites().isSelected();
         state.addToolTips = component.getAddToolTips().isSelected();
         state.transparencyOnIndeterminate = component.getIndeterminateTransparency().isSelected();
         state.transparencyOnDeterminate = component.getDeterminateTransparency().isSelected();
         state.initialVelocity = component.getInitialVelocity().getValue() / 100f;
         state.acceleration = component.getAcceleration().getValue() / 100f;
+        state.setReplaceLoaderIcon(component.getReplaceLoaderIcon().isSelected());
     }
 
     @Override

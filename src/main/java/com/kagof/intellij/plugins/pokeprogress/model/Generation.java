@@ -8,7 +8,8 @@ public enum Generation {
     V(494),
     VI(650),
     VII(722),
-    VIII(810);
+    VIII(810),
+    IX(906); // speculated start
 
     private final int start;
 

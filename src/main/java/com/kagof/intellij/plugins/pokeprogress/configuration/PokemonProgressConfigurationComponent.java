@@ -30,23 +30,30 @@ import com.google.common.collect.Multimap;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
+import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.roots.ScalableIconComponent;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.ThreeStateCheckBox;
 import com.intellij.util.ui.ThreeStateCheckBox.State;
+import com.kagof.intellij.plugins.pokeprogress.PokeballLoaderIconReplacer;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
-import com.kagof.intellij.plugins.pokeprogress.paint.PaintTheme;
-import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
     private final JComboBox<PaintTheme> theme = new ComboBox<>(PaintThemes.getAll());
+    private final JComboBox<ColorScheme> colorScheme = new ComboBox<>(ColorSchemes.getAll());
+    private final JBCheckBox replaceLoaderIcon = new JBCheckBox("Replace loader icon with Pokéball");
+    final JLabel loader = new JLabel(new AnimatedIcon.Default());
     private final JBCheckBox drawSprites = new JBCheckBox("Draw sprites");
     private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
@@ -71,7 +78,11 @@ public class PokemonProgressConfigurationComponent {
         formBuilder.addSeparator();
         formBuilder.addComponent(createIndeterminatePanel());
         formBuilder.addSeparator();
-        formBuilder.addLabeledComponent("Theme:", theme);
+        final JPanel themes = new JPanel();
+        themes.setLayout(new GridLayout(1, 2));
+        themes.add(LabeledComponent.create(theme, "Theme:"));
+        themes.add(LabeledComponent.create(colorScheme, "Color scheme:"));
+        formBuilder.addComponent(themes);
         formBuilder.addComponent(createCheckboxPanel());
 
         formBuilder.addSeparator();
@@ -122,7 +133,7 @@ public class PokemonProgressConfigurationComponent {
             });
 
             formBuilder.addLabeledComponent(new ScalableIconComponent(PokemonResourceLoader.getIcon(pokemon)), checkBox);
-            checkboxes.put(pokemon.getNumberString(), checkBox);
+            checkboxes.put(pokemon.getId(), checkBox);
             checkboxesByGen.put(gen, checkBox);
             numSelected.incrementAndGet();
         });
@@ -135,7 +146,7 @@ public class PokemonProgressConfigurationComponent {
     @NotNull
     private JPanel createCheckboxPanel() {
         final JPanel checkboxPanel = new JPanel();
-        checkboxPanel.setLayout(new GridLayout(2, 2));
+        checkboxPanel.setLayout(new GridLayout(3, 2));
 
         checkboxPanel.add(drawSprites);
         drawSprites.setToolTipText("Not actually drawing the Pokémon icons can make your IDE look more professional");
@@ -144,6 +155,14 @@ public class PokemonProgressConfigurationComponent {
         checkboxPanel.add(addToolTips);
         addToolTips.setToolTipText("Whether or not to add a Pokémon tool tip (hover text) on the progress bars");
         checkboxPanel.add(determinateTransparency);
+
+        replaceLoaderIcon.addActionListener(a -> {
+            if (a.getID() == ActionEvent.ACTION_PERFORMED) {
+                PokeballLoaderIconReplacer.updateSpinner(replaceLoaderIcon.isSelected());
+                loader.setIcon(new AnimatedIcon.Default());
+            }
+        });
+        checkboxPanel.add(replaceLoaderIcon);
         return checkboxPanel;
     }
 
@@ -152,15 +171,17 @@ public class PokemonProgressConfigurationComponent {
             initialVelocity.setValue((int) (state.initialVelocity * 100));
             acceleration.setValue((int) (state.acceleration * 100));
             theme.setSelectedItem(PaintThemes.getByIdOrDefault(state.theme));
+            colorScheme.setSelectedItem(ColorSchemes.getByIdOrDefault(state.colorScheme));
             drawSprites.setSelected(state.drawSprites);
             addToolTips.setSelected(state.addToolTips);
             indeterminateTransparency.setSelected(state.transparencyOnIndeterminate);
             determinateTransparency.setSelected(state.transparencyOnDeterminate);
             state.pokemonNumbersEnabled
-                .forEach((pokemon, enabled) -> checkboxes.computeIfPresent(pokemon, (p, check) -> {
+                .forEach((id, enabled) -> checkboxes.computeIfPresent(id, (p, check) -> {
                     check.setSelected(enabled);
                     return check;
                 }));
+            replaceLoaderIcon.setSelected(state.isReplaceLoaderIcon());
         }
     }
 
@@ -168,7 +189,7 @@ public class PokemonProgressConfigurationComponent {
         return mainPanel;
     }
 
-    public Map<String, Boolean> getEnabledNumberMap() {
+    public Map<String, Boolean> getEnabledIdMap() {
         return checkboxes.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().isSelected()));
     }
 
@@ -192,12 +213,20 @@ public class PokemonProgressConfigurationComponent {
         return theme;
     }
 
+    public JComboBox<ColorScheme> getColorScheme() {
+        return colorScheme;
+    }
+
     public JBCheckBox getIndeterminateTransparency() {
         return indeterminateTransparency;
     }
 
     public JBCheckBox getDeterminateTransparency() {
         return determinateTransparency;
+    }
+
+    public JBCheckBox getReplaceLoaderIcon() {
+        return replaceLoaderIcon;
     }
 
     private void refreshSelectAllButtons() {
@@ -244,6 +273,9 @@ public class PokemonProgressConfigurationComponent {
                 indeterminateProgressBar.setUI(createProgressBarUi());
             }
         });
+
+        loader.setToolTipText("loader/spinner icon");
+
         final GridBagConstraints buttonConstraints = new GridBagConstraints();
         buttonConstraints.gridx = 0;
         buttonConstraints.gridy = 0;
@@ -251,12 +283,19 @@ public class PokemonProgressConfigurationComponent {
         buttonConstraints.gridheight = 1;
         buttonConstraints.weightx = 0;
         panel.add(randomizeButton, buttonConstraints);
+        final GridBagConstraints loaderConstraints = new GridBagConstraints();
+        loaderConstraints.gridx = GridBagConstraints.RELATIVE;
+        loaderConstraints.gridy = 0;
+        loaderConstraints.gridwidth = 1;
+        loaderConstraints.gridheight = 1;
+        loaderConstraints.weightx = 0.1;
+        panel.add(LabeledComponent.create(loader, "Loader", BorderLayout.NORTH), loaderConstraints);
         final GridBagConstraints progressBarConstraints = new GridBagConstraints();
         progressBarConstraints.gridx = GridBagConstraints.RELATIVE;
         progressBarConstraints.gridy = 0;
         progressBarConstraints.gridwidth = 3;
         progressBarConstraints.gridheight = 1;
-        progressBarConstraints.weightx = 0.5;
+        progressBarConstraints.weightx = 0.45;
         progressBarConstraints.fill = GridBagConstraints.HORIZONTAL;
         panel.add(LabeledComponent.create(determinateProgressBar, "Determinate", BorderLayout.NORTH), progressBarConstraints);
         panel.add(LabeledComponent.create(indeterminateProgressBar, "Indeterminate", BorderLayout.NORTH), progressBarConstraints);
@@ -268,6 +307,7 @@ public class PokemonProgressConfigurationComponent {
             () -> initialVelocity.getValue() / 100f,
             () -> acceleration.getValue() / 100f,
             () -> theme.getItemAt(theme.getSelectedIndex()),
+            () -> colorScheme.getItemAt(colorScheme.getSelectedIndex()),
             indeterminateTransparency::isSelected,
             determinateTransparency::isSelected,
             drawSprites::isSelected,

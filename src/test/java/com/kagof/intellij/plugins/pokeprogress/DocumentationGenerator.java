@@ -13,14 +13,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
-
+import com.intellij.openapi.util.text.Strings;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
-import com.kagof.intellij.plugins.pokeprogress.paint.PaintThemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
+import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 import com.sksamuel.scrimage.ImmutableImage;
 import com.sksamuel.scrimage.nio.AnimatedGif;
 import com.sksamuel.scrimage.nio.AnimatedGifReader;
@@ -28,10 +33,19 @@ import com.sksamuel.scrimage.nio.ImageSource;
 import com.sksamuel.scrimage.nio.StreamingGifWriter;
 
 public class DocumentationGenerator {
+    private static final ColorScheme FAMILY_COLOR_SCHEME = ColorSchemes.getByIdOrDefault("1_Official");
+    private static final PaintTheme FAMILY_PAINT_THEME = PaintThemes.getByIdOrDefault("flat");
+
+    public static void main(final String[] args) throws Exception {
+        final DocumentationGenerator documentationGenerator = new DocumentationGenerator();
+        documentationGenerator.updateFamilyPicture();
+        documentationGenerator.updateReadme();
+        documentationGenerator.addNewReleaseNoteSection();
+    }
+
     /**
      * Updates the sprites in the README.md file.
      */
-    @Test
     public void updateReadme() throws IOException {
         final Path readme = new File("README.md").toPath();
         final String content = new String(Files.readAllBytes(readme), Charset.defaultCharset());
@@ -46,7 +60,6 @@ public class DocumentationGenerator {
     /**
      * Updates the sprites in the family picture.
      */
-    @Test
     public void updateFamilyPicture() throws Exception {
         final int lcm = getLcmNumFrames();
         final List<BufferedImage> images = new ArrayList<>();
@@ -55,19 +68,40 @@ public class DocumentationGenerator {
         }
 
         final StreamingGifWriter writer = new StreamingGifWriter(Duration.ofMillis(500), true);
-        try (final StreamingGifWriter.GifStream gif = writer.prepareStream("eg/family.gif", BufferedImage.TYPE_INT_ARGB)) {
+        try (final StreamingGifWriter.GifStream gif = writer.prepareStream("eg/family.gif",
+            BufferedImage.TYPE_INT_ARGB)) {
             for (final BufferedImage image : images) {
                 gif.writeFrame(ImmutableImage.fromAwt(image));
             }
         }
+        System.out.println("updated family photo");
     }
 
-    @Test
     public void addNewReleaseNoteSection() throws IOException {
-        final String version = "1.7.0";
+        final Path gradleFile = new File("gradle.properties").toPath();
+        final String gradleContents = Files.readString(gradleFile, Charset.defaultCharset());
+        final String version = gradleContents.lines()
+            .filter(l -> l.startsWith("version"))
+            .map(l -> {
+                final Matcher m = Pattern.compile("=.*").matcher(l);
+                if (m.find()) {
+                    return m.group();
+                }
+                return null;
+            })
+            .filter(Objects::nonNull)
+            .filter(Strings::isNotEmpty)
+            .findFirst()
+            .map(s -> s.replaceAll("\"", "").replaceAll("=", ""))
+            .orElseThrow(() -> new IllegalStateException("Gradle version not found"));
+        System.out.println("using version " + version);
 
         final Path changenotes = new File("changenotes.html").toPath();
-        final String content = new String(Files.readAllBytes(changenotes), Charset.defaultCharset());
+        final String content = Files.readString(changenotes, Charset.defaultCharset());
+        if (content.lines().anyMatch(l -> l.contains("<!--" + version + "-->"))) {
+            System.out.println("changenotes already includes this version");
+            return;
+        }
 
         final String newNotes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
             + version
@@ -90,7 +124,8 @@ public class DocumentationGenerator {
     }
 
     private String getReadmeString() {
-        final Map<Generation, Boolean> gens = Arrays.stream(Generation.values()).collect(Collectors.toMap(Function.identity(), __ -> false));
+        final Map<Generation, Boolean> gens = Arrays.stream(Generation.values())
+            .collect(Collectors.toMap(Function.identity(), __ -> false));
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("## Included Pokémon\n");
         for (final Pokemon pokemon : Pokemon.values()) {
@@ -138,21 +173,17 @@ public class DocumentationGenerator {
         return img;
     }
 
-    private void drawPokemon(final int frame, final int i, final int j, final Graphics2D g, final Pokemon pokemon) throws IOException {
+    private void drawPokemon(final int frame, final int i, final int j, final Graphics2D g, final Pokemon pokemon)
+        throws IOException {
         final int startX = i * 32;
         final int startY = j * 32;
-        final Paint typePaint = PaintThemes.getByIdOrDefault("flat").getPaint(pokemon.getTypes(), startY, 32);
+        final Paint typePaint = FAMILY_PAINT_THEME.getPaint(pokemon.getTypes(), FAMILY_COLOR_SCHEME, startY, 32);
         g.setPaint(typePaint);
         g.fillRect(startX, startY, 32, 32);
         final AnimatedGif gif = AnimatedGifReader.read(ImageSource.of(getClass().getClassLoader()
             .getResource(PokemonResourceLoader.getIconPath(pokemon))
             .openStream()));
-        if (pokemon == Pokemon.WAILORD) {
-            // the Wailord sprite is big
-            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX - 18, startY - 25, null);
-        } else {
-            g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX, startY, null);
-        }
+        g.drawImage(gif.getFrame(frame % gif.getFrameCount()).awt(), startX, startY, 32, 32, null);
     }
 
     private int getLcmNumFrames() {

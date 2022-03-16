@@ -57,7 +57,7 @@ Please make sure all feature requests are clear, concise, feasible, useful, and 
 
 We encourage pull requests for bugs or features, but please open an issue first and ensure it has been discussed & approved by the maintainer before beginning work. Your code will be reviewed as soon as possible; please be willing to accept feedback and change your pull request as needed.
 
-Also ensure that the extension still runs properly after your changes, by using the built in extension debugger in IntelliJ.
+Also ensure that the extension still runs properly after your changes, by using the built-in extension debugger in IntelliJ.
 
 Ideally, we'd like to work with a branch-per-issue policy, as well as a one-commit-per-issue policy. Feel free to make a separate commit when addressing code review comments, or to amend your existing commit. If new commits are made, the maintainer may squash them into the original before merging.
 
@@ -71,5 +71,5 @@ Preferably you should be using [signed commits](https://help.github.com/en/artic
 * if adding a new Pokémon:
     * please maintain numerical ordering in the [Readme](README.md), [plugin.xml](src/main/resources/META-INF/plugin.xml), and [Pokemon.java](src/main/java/com/kagof/intellij/plugins/pokeprogress/Pokemon.java). If regional variants are being used, they should be grouped with their generation, but maintain order within that generation.
     * [editSprite.sh](editSprite.sh) can be used to generate the required gifs from existing png images
-    * [DocumentGenerator.java](src/test/java/com/kagof/intellij/plugins/pokeprogress/DocumentationGenerator.java) can be used to generate the new lines in [`README.md`](README.md), and update the [family photo](eg/family.gif) used in both the README and [`description.html`](./description.html). Simply run the `updateReadme()` and `updateFamilyPicture()` tests to do so.
+    * [DocumentGenerator.java](src/test/java/com/kagof/intellij/plugins/pokeprogress/DocumentationGenerator.java) can be used to update the [README.md](README.md), update the [family photo](eg/family.gif), and update the [changenotes.html](changenotes.html). It can be run with `./gradlew genDocs`
     * [TestProgressBar.java](src/test/java/com/kagof/intellij/plugins/pokeprogress/TestProgressBar.java)) is very useful when tweaking sprite positioning & sizing (Thanks to @Paola351 for the initial implementation of this!)

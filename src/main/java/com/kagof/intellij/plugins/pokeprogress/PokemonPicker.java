@@ -10,11 +10,15 @@ import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressStat
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public class PokemonPicker {
+    private static final String TARGET_ENV_VAR = "POKEMON_PROGRESS_TARGET";
+
     private static final Random RANDOM = new Random();
 
-    @SuppressWarnings("ConstantConditions")
     public static Pokemon get() {
-
+        final String target = System.getenv().get(TARGET_ENV_VAR);
+        if (target != null) {
+            return Pokemon.getById(target);
+        }
         final List<String> enabledPokemonIds = Optional.ofNullable(PokemonProgressState.getInstance())
             .map(PokemonPicker::getEnabledPokemonNumbers)
             .orElse(null);

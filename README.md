@@ -1,15 +1,18 @@
 # IntelliJ Pokémon Progress Bar
 
-[![Build](https://img.shields.io/github/workflow/status/kagof/intellij-pokemon-progress/Java%20CI%20with%20Gradle/master)](https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3)
+[![Build](https://img.shields.io/github/workflow/status/kagof/intellij-pokemon-progress/Verify%20Plugin/master)](https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3)
 [![Version](https://img.shields.io/jetbrains/plugin/v/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions)
-[![Rating](https://img.shields.io/jetbrains/plugin/r/rating/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews)
+[![Rating](https://img.shields.io/jetbrains/plugin/r/stars/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress)
+[![Stars](https://img.shields.io/github/stars/kagof/intellij-pokemon-progress?style=social)](https://github.com/kagof/intellij-pokemon-progress)
 
-![](eg/example.gif)
+[![Example](eg/example.gif)](eg/example.gif)
 
-![All](eg/family.gif)
+[![All](eg/family.gif)](eg/family.gif)
 
 This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions) for [JetBrains IntelliJ IDEA](https://www.jetbrains.com/idea/) (And other compatible IDEs), which replaces your progress bars with a (random) Pokémon. The color of the progress bar fill is based on that Pokémon's type(s). Preferences are located under `Preferences > Appearance & Behaviour > Pokémon Progress`.
+
+If you like the plugin, please consider [rating it on the Marketplace](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews) or [starring it on Github](https://github.com/kagof/intellij-pokemon-progress)!
 
 ## Included Pokémon
 
@@ -98,6 +101,7 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon.gif) Empoleon (#395) ![Empoleon (#395)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/empoleon_r.gif)
 * ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon.gif) Leafeon (#470) ![Leafeon (#470)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/leafeon_r.gif)
 * ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon.gif) Glaceon (#471) ![Glaceon (#471)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/glaceon_r.gif)
+* ![Arceus (#493)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/arceus.gif) Arceus (#493) ![Arceus (#493)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/arceus_r.gif)
 
 ### Generation V
 
@@ -143,33 +147,39 @@ This is [a plugin](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/v
 * ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian.gif) Zacian (#888) ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian_r.gif)
 * ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta.gif) Zamazenta (#889) ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta_r.gif)
 
+### Generation IX
+
+* ![Sprigatito (#906)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sprigatito.gif) Sprigatito (#906) ![Sprigatito (#906)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sprigatito_r.gif)
+* ![Fuecoco (#909)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fuecoco.gif) Fuecoco (#909) ![Fuecoco (#909)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fuecoco_r.gif)
+* ![Quaxly (#912)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaxly.gif) Quaxly (#912) ![Quaxly (#912)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaxly_r.gif)
+
 [comment]: <> (end-included-pokemon)
 
 ## Contributing
 
-Contributions are very welcome on this project! Please see our [contributing guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md) to get started.
+Contributions are very welcome on this project! Contributions can take the form of bug reports, feature requests, pull requests, Pokémon requests or more! Please see our [contributing guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md) to get started.
 
 ## Acknowledgements
 
 ### Sprites
 
 * [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
-    * All Gen I-IV sprites unless otherwise noted
-    * MissingNo.
+  * All Gen I-IV sprites unless otherwise noted
+  * MissingNo.
 * [Kyle-Dove on DeviantArt](https://www.deviantart.com/kyle-dove/gallery)
-    * Snivy, Tepig, Oshawott
+  * Snivy, Tepig, Oshawott
 * [cSc-A7X on DeviantArt](https://www.deviantart.com/csc-a7x/gallery)
-    * Serperior, Emboar, Samurott
+  * Serperior, Emboar, Samurott
 * [princess-phoenix on DeviantArt](https://www.deviantart.com/princess-phoenix/art/Gen-6-Kalos-Pokemon-Overworld-Sprites-525954409)
-    * All Gen VI sprites unless otherwise noted
+  * All Gen VI sprites unless otherwise noted
 * [JuJoAura on DeviantArt](https://www.deviantart.com/jujoaura/art/Sylveon-Full-Sprite-379989482)
-    * Sylveon
+  * Sylveon
 * [Princess-Phoenix, Larryturbo, Kiddkatt, Zender1752, SageDeoxys, curated by Larryturbo](https://www.deviantart.com/larryturbo/art/Gen-7-Alola-Overworld-Sprites-805455576)
-    * All Gen VII sprites unless otherwise noted
-* [Bulbagarden Archives](https://archives.bulbagarden.net)
-    * Mimikyu (first frame)
+  * All Gen VII sprites unless otherwise noted
 * [SageDeoxys](https://www.pokecommunity.com/showthread.php?t=429414)
-    * All Gen VIII sprites unless otherwise noted
+  * All Gen VIII sprites unless otherwise noted
+* [DarkusShadow on DeviantArt](https://www.deviantart.com/darkusshadow)
+  * All Gen IX sprites unless otherwise noted
 
 ### Code
 
@@ -177,11 +187,16 @@ Contributions are very welcome on this project! Please see our [contributing gui
 * This plugin is of course heavily dependent on JetBrains' IntelliJ SDK
 * All the [contributors](https://github.com/kagof/intellij-pokemon-progress/graphs/contributors) who've helped build this plugin
 
+### Colours
+
+* Official scheme colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
+* Artemis251 scheme colours taken from [Artemis251's Pokémon Emerald Randomizer Type Color Guide](http://artemis251.fobby.net/downloads/emerald/)
+* Nyjee scheme colours taken from [Nyjee's Pokémon Type Colors on DeviantArt](https://www.deviantart.com/nyjee/art/pokemon-type-colors-807671821)
+
 ### Misc
 
 * Sprite Gif editing done with [ImageMagick](https://imagemagick.org/script/index.php) (using [this](./editSprite.sh) script)
 * Types, names, numbers, & info mainly gathered from [Bulbapedia](https://bulbapedia.bulbagarden.net)
-* Type colours taken from [Bulbapedia's Type color templates](https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates)
 * The idea for this plugin came from [KikiManjaro's Pokemon Trainer Progress Bar](https://plugins.jetbrains.com/plugin/14609-pokemon-trainer-progress-bar)
 * Family photo generated using [Scrimage](https://github.com/sksamuel/scrimage) for GIF reading & writing
 * The Pokémon Company, for creating Pokémon
