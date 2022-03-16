@@ -19,7 +19,7 @@ import com.kagof.intellij.plugins.pokeprogress.model.PokemonType;
  * Note that although the files are CSV files, escaping & quotes are not respected
  */
 public class ColorSchemes {
-    private static final String COLOR_RESOURCE_PATH = "/com/kagof/intellij/plugins/pokeprogress/colors/";
+    private static final String COLOR_RESOURCE_PATH = "com/kagof/intellij/plugins/pokeprogress/colors/";
     private static final String COLOR_INDEX = COLOR_RESOURCE_PATH + ".cscheme.index";
     private static final String OFFICIAL_THEME_ID = "1_Official";
     private static Map<String, ColorScheme> allSchemes;
