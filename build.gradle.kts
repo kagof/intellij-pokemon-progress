@@ -1,3 +1,4 @@
+import com.jetbrains.plugin.structure.intellij.version.IdeVersion
 import org.jetbrains.intellij.tasks.RunPluginVerifierTask.FailureLevel
 
 val name: String by project
@@ -26,6 +27,7 @@ intellij {
     version.set(ideaVersion)
     pluginName.set(name)
     downloadSources.set(true)
+    updateSinceUntilBuild.set(false)
 }
 
 java {
@@ -75,6 +77,11 @@ tasks {
 
     patchPluginXml {
         untilBuild.set(null as String?)
+        sinceBuild.convention(project.provider {
+            val ideVersion = IdeVersion.createIdeVersion(setupDependencies.get().idea.get().buildNumber)
+            "${ideVersion.baselineVersion}.${ideVersion.build}"
+        })
+
         File(changenotesFile).let {
             if (it.exists() && it.isFile && it.canRead()) changeNotes.set(it.readText())
             else throw IllegalStateException("unable to read $changenotesFile")
@@ -83,6 +90,10 @@ tasks {
             if (it.exists() && it.isFile && it.canRead()) pluginDescription.set(it.readText())
             else throw IllegalStateException("unable to read $descriptionFile")
         }
+    }
+
+    buildPlugin {
+        dependsOn(patchPluginXml)
     }
 
     runPluginVerifier {

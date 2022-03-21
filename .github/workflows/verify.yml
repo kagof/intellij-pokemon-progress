@@ -53,6 +53,8 @@ jobs:
           IDE_VERSIONS="$(echo "$PROPERTIES" | grep "^pluginVerifierIdeVersions:" | md5sum)"
           echo "::set-output name=ideVersions::$IDE_VERSIONS"
           echo "::set-output name=pluginVerifierHomeDir::~/.pluginVerifier"
+          touch results-${GITHUB_SHA}.txt
+          echo "output file results-${GITHUB_SHA}.txt"
 
       - name: Setup Plugin Verifier IDEs Cache
         uses: actions/cache@v2.1.6
@@ -63,27 +65,28 @@ jobs:
       - name: Gradle check
         run: |
           cmd="./gradlew check --console=plain"
-          echo $cmd >> ~/.${{ env.GITHUB_SHA }}.txt  
-          eval $cmd | tee -a ~/.${{ env.GITHUB_SHA }}.txt
-          echo '============================================' >> ~/.${{ env.GITHUB_SHA }}.txt  
-          echo >> ~/.${{ env.GITHUB_SHA }}.txt
+          echo $cmd >> results-${GITHUB_SHA}.txt  
+          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          echo '============================================' >> results-${GITHUB_SHA}.txt  
+          echo >> results-${GITHUB_SHA}.txt
 
       - name: Verify Plugin
         run: |
           cmd="./gradlew verifyPlugin --console=plain"
-          echo $cmd >> ~/.${{ env.GITHUB_SHA }}.txt  
-          eval $cmd | tee -a ~/.${{ env.GITHUB_SHA }}.txt
-          echo '============================================' >> ~/.${{ env.GITHUB_SHA }}.txt
-          echo >> ~/.${{ env.GITHUB_SHA }}.txt
+          echo $cmd >> results-${GITHUB_SHA}.txt  
+          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          echo '============================================' >> results-${GITHUB_SHA}.txt
+          echo >> results-${GITHUB_SHA}.txt
 
       - name: Verify IntelliJ Compatibility
         id: verify
         run: |
           cmd="./gradlew runPluginVerifier --console=plain -Pplugin.verifier.home.dir=${{ steps.properties.outputs.pluginVerifierHomeDir }}"
-          echo $cmd >> ~/.${{ env.GITHUB_SHA }}.txt  
-          eval $cmd | tee -a ~/.${{ env.GITHUB_SHA }}.txt
-          echo '============================================' >> ~/.${{ env.GITHUB_SHA }}.txt
-          echo >> ~/.${{ env.GITHUB_SHA }}.txt
+          echo $cmd >> results-${GITHUB_SHA}.txt  
+          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          echo '============================================' >> results-${GITHUB_SHA}.txt
+          echo >> results-${GITHUB_SHA}.txt
+          echo "::set-output name=results-file-name::results-${GITHUB_SHA}.txt"
 
       - name: Sync master branch verification results to gist
         id: sync
@@ -94,4 +97,4 @@ jobs:
           gist_url: https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3
           gist_title: IntelliJ Pokémon Progress Bar Verification Results
           gist_description: Latest intellij-pokemon-progress master branch test results ${{ github.run_number }} (${{ github.sha }})
-          github_file: ~/.${{ env.GITHUB_SHA }}.txt
+          github_file: ${{ steps.verify.outputs.results-file-name }}
