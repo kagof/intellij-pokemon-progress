@@ -50,6 +50,10 @@ import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
+    final JProgressBar determinateProgressBar = new JProgressBar(0, 2);
+    final JProgressBar indeterminateProgressBar = new JProgressBar();
+    private PokemonProgressBarUi determinateUi;
+    private PokemonProgressBarUi indeterminateUi;
     private final JComboBox<PaintTheme> theme = new ComboBox<>(PaintThemes.getAll());
     private final JComboBox<ColorScheme> colorScheme = new ComboBox<>(ColorSchemes.getAll());
     private final JBCheckBox replaceLoaderIcon = new JBCheckBox("Replace loader icon with Pokéball");
@@ -67,6 +71,10 @@ public class PokemonProgressConfigurationComponent {
     private final AtomicInteger numSelected = new AtomicInteger(0);
     private final JSlider initialVelocity = new JSlider(1, 500, 100);
     private final JSlider acceleration = new JSlider(1, 500, 40);
+    private final JBCheckBox restrictMaxHeight = new JBCheckBox("Restrict max height");
+    private final JSlider maxHeight = new JSlider(8, 64, 20);
+    private final JBCheckBox restrictMinHeight = new JBCheckBox("Restrict min height");
+    private final JSlider minHeight = new JSlider(8, 64, 20);
 
     public PokemonProgressConfigurationComponent() {
         createUi();
@@ -74,7 +82,8 @@ public class PokemonProgressConfigurationComponent {
 
     void createUi() {
         final FormBuilder formBuilder = FormBuilder.createFormBuilder();
-        formBuilder.addLabeledComponent("Preview", createPreviewPanel(), true);
+        final JPanel previewPanel = createPreviewPanel();
+        formBuilder.addLabeledComponent("Preview", previewPanel, true);
         formBuilder.addSeparator();
         formBuilder.addComponent(createIndeterminatePanel());
         formBuilder.addSeparator();
@@ -84,6 +93,7 @@ public class PokemonProgressConfigurationComponent {
         themes.add(LabeledComponent.create(colorScheme, "Color scheme:"));
         formBuilder.addComponent(themes);
         formBuilder.addComponent(createCheckboxPanel());
+        formBuilder.addComponent(createHeightPanel());
 
         formBuilder.addSeparator();
         formBuilder.addVerticalGap(5);
@@ -143,6 +153,62 @@ public class PokemonProgressConfigurationComponent {
         mainPanel = formBuilder.getPanel();
     }
 
+    private JPanel createHeightPanel() {
+        final JPanel heightPanel = new JPanel();
+        heightPanel.setLayout(new GridLayout(2, 2));
+        heightPanel.add(restrictMaxHeight);
+        heightPanel.add(restrictMinHeight);
+        heightPanel.add(maxHeight);
+        heightPanel.add(minHeight);
+        setupHeightConfig(restrictMaxHeight, maxHeight, "Restrict max height");
+        setupHeightConfig(restrictMinHeight, minHeight, "Restrict min height");
+        maxHeight.addChangeListener(c -> {
+            if (maxHeight.getValue() < minHeight.getValue()) {
+                minHeight.setValue(maxHeight.getValue());
+            }
+        });
+        minHeight.addChangeListener(c -> {
+            if (minHeight.getValue() > maxHeight.getValue()) {
+                maxHeight.setValue(minHeight.getValue());
+            }
+        });
+        return heightPanel;
+    }
+
+    private void setupHeightConfig(final JBCheckBox checkbox, final JSlider slider, final String text) {
+        checkbox.addItemListener(c -> {
+            if (c.getStateChange() == ItemEvent.SELECTED) {
+                slider.setEnabled(true);
+                checkbox.setText(text + ": " + slider.getValue() + "px");
+                if (determinateUi != null) {
+                    determinateUi.computeScaledIcons();
+                }
+                if (indeterminateUi != null) {
+                    indeterminateUi.computeScaledIcons();
+                }
+            } else if (c.getStateChange() == ItemEvent.DESELECTED) {
+                slider.setEnabled(false);
+                checkbox.setText(text);
+            }
+            determinateProgressBar.setUI(determinateUi);
+            indeterminateProgressBar.setUI(indeterminateUi);
+        });
+        slider.setEnabled(false);
+        slider.addChangeListener(c -> {
+            if (slider.isEnabled()) {
+                checkbox.setText(text + ": " + slider.getValue() + "px");
+            }
+            if (determinateUi != null) {
+                determinateUi.computeScaledIcons();
+                determinateProgressBar.setUI(determinateUi);
+            }
+            if (indeterminateUi != null) {
+                indeterminateUi.computeScaledIcons();
+                indeterminateProgressBar.setUI(indeterminateUi);
+            }
+        });
+    }
+
     @NotNull
     private JPanel createCheckboxPanel() {
         final JPanel checkboxPanel = new JPanel();
@@ -182,6 +248,10 @@ public class PokemonProgressConfigurationComponent {
                     return check;
                 }));
             replaceLoaderIcon.setSelected(state.isReplaceLoaderIcon());
+            maxHeight.setValue(state.maximumHeight);
+            minHeight.setValue(state.minimumHeight);
+            restrictMaxHeight.setSelected(state.restrictMaximumHeight);
+            restrictMinHeight.setSelected(state.restrictMinimumHeight);
         }
     }
 
@@ -229,6 +299,22 @@ public class PokemonProgressConfigurationComponent {
         return replaceLoaderIcon;
     }
 
+    public JBCheckBox getRestrictMaxHeight() {
+        return restrictMaxHeight;
+    }
+
+    public JSlider getMaxHeight() {
+        return maxHeight;
+    }
+
+    public JBCheckBox getRestrictMinHeight() {
+        return restrictMinHeight;
+    }
+
+    public JSlider getMinHeight() {
+        return minHeight;
+    }
+
     private void refreshSelectAllButtons() {
         final int i = numSelected.get();
         final int size = checkboxes.size();
@@ -256,21 +342,23 @@ public class PokemonProgressConfigurationComponent {
         final JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
-        final JProgressBar determinateProgressBar = new JProgressBar(0, 2);
         determinateProgressBar.setIndeterminate(false);
         determinateProgressBar.setValue(1);
-        determinateProgressBar.setUI(createProgressBarUi());
+        determinateUi = createProgressBarUi();
+        determinateProgressBar.setUI(determinateUi);
 
-        final JProgressBar indeterminateProgressBar = new JProgressBar();
         indeterminateProgressBar.setIndeterminate(true);
-        indeterminateProgressBar.setUI(createProgressBarUi());
+        indeterminateUi = createProgressBarUi();
+        indeterminateProgressBar.setUI(indeterminateUi);
 
         final JButton randomizeButton = new JButton(AllIcons.Actions.Refresh);
         randomizeButton.setToolTipText("Randomize");
         randomizeButton.addActionListener(a -> {
             if (a.getID() == ActionEvent.ACTION_PERFORMED) {
-                determinateProgressBar.setUI(createProgressBarUi());
-                indeterminateProgressBar.setUI(createProgressBarUi());
+                determinateUi = createProgressBarUi();
+                indeterminateUi = createProgressBarUi();
+                determinateProgressBar.setUI(determinateUi);
+                indeterminateProgressBar.setUI(indeterminateUi);
             }
         });
 
@@ -311,7 +399,11 @@ public class PokemonProgressConfigurationComponent {
             indeterminateTransparency::isSelected,
             determinateTransparency::isSelected,
             drawSprites::isSelected,
-            addToolTips::isSelected);
+            addToolTips::isSelected,
+            restrictMaxHeight::isSelected,
+            maxHeight::getValue,
+            restrictMinHeight::isSelected,
+            minHeight::getValue);
     }
 
     private JPanel createIndeterminatePanel() {
