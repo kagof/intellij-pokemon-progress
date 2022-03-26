@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import com.google.common.cache.Cache;
@@ -15,7 +14,7 @@ import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 public final class PokemonResourceLoader {
     private static final String SPRITE_RESOURCE_PATH = "com/kagof/intellij/plugins/pokeprogress/sprites/";
 
-    private static final Cache<String, Icon> cache = CacheBuilder
+    private static final Cache<String, ImageIcon> cache = CacheBuilder
         .newBuilder()
         .maximumSize(100L)
         .build();
@@ -23,11 +22,11 @@ public final class PokemonResourceLoader {
     private PokemonResourceLoader() {
     }
 
-    public static Icon getIcon(final Pokemon pokemon) {
+    public static ImageIcon getIcon(final Pokemon pokemon) {
         return getIconInternal(getIconPath(pokemon));
     }
 
-    public static Icon getReversedIcon(final Pokemon pokemon) {
+    public static ImageIcon getReversedIcon(final Pokemon pokemon) {
         return getIconInternal(getReversedIconPath(pokemon));
     }
 
@@ -56,7 +55,7 @@ public final class PokemonResourceLoader {
                     resourceName.startsWith("/") ? resourceName.replaceFirst("/", "") : "/" + resourceName)));
     }
 
-    private static Icon getIconInternal(final String resourceName) {
+    private static ImageIcon getIconInternal(final String resourceName) {
         try {
             return cache.get(resourceName,
                 () -> getResource(resourceName)

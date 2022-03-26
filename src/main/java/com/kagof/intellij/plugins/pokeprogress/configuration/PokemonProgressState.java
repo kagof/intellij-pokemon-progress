@@ -33,6 +33,11 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public String colorScheme;
     private boolean replaceLoaderIcon = true;
 
+    public boolean restrictMaximumHeight = false;
+    public int maximumHeight = 20;
+    public boolean restrictMinimumHeight = false;
+    public int minimumHeight = 20;
+
     public void setReplaceLoaderIcon(final boolean updated) {
         this.replaceLoaderIcon = updated;
         PokeballLoaderIconReplacer.updateSpinner(updated);
@@ -40,6 +45,16 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
 
     public boolean isReplaceLoaderIcon() {
         return replaceLoaderIcon;
+    }
+
+    public void setHeightLimits(final int newMaxHeight, final int newMinHeight) {
+        if (newMinHeight > newMaxHeight) {
+            minimumHeight = newMaxHeight;
+            maximumHeight = newMaxHeight;
+        } else {
+            minimumHeight = newMinHeight;
+            maximumHeight = newMaxHeight;
+        }
     }
 
     public static PokemonProgressState getInstance() {
