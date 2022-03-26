@@ -37,6 +37,7 @@ public class PokemonProgressConfigurable implements Configurable {
             || state.initialVelocity != component.getInitialVelocity().getValue() / 100f
             || state.acceleration != component.getAcceleration().getValue() / 100f
             || state.isReplaceLoaderIcon() != component.getReplaceLoaderIcon().isSelected()
+            || state.showUpdateNotification != component.getShowUpdateNotification().isSelected()
             || state.restrictMaximumHeight != component.getRestrictMaxHeight().isSelected()
             || state.maximumHeight != component.getMaxHeight().getValue()
             || state.restrictMinimumHeight != component.getRestrictMinHeight().isSelected()
@@ -56,6 +57,7 @@ public class PokemonProgressConfigurable implements Configurable {
         state.initialVelocity = component.getInitialVelocity().getValue() / 100f;
         state.acceleration = component.getAcceleration().getValue() / 100f;
         state.setReplaceLoaderIcon(component.getReplaceLoaderIcon().isSelected());
+        state.showUpdateNotification = component.getShowUpdateNotification().isSelected();
         state.restrictMaximumHeight = component.getRestrictMaxHeight().isSelected();
         state.restrictMinimumHeight = component.getRestrictMinHeight().isSelected();
         state.setHeightLimits(component.getMaxHeight().getValue(), component.getMinHeight().getValue());

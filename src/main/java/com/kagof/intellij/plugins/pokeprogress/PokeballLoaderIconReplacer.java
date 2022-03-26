@@ -7,11 +7,10 @@ import java.util.List;
 import javax.swing.Icon;
 
 import com.intellij.ui.AnimatedIcon;
-import com.intellij.ui.IconManager;
-import com.intellij.util.containers.ContainerUtil;
+
+import icons.PokeIcons;
 
 public class PokeballLoaderIconReplacer {
-    private static final String SPINNER_ICON_PATH = "com/kagof/intellij/plugins/pokeprogress/icons/";
     private static List<Icon> originalIcons = null;
     private static AnimatedIcon originalInstance = null;
     private static List<Icon> pokeballIcons = null;
@@ -56,23 +55,7 @@ public class PokeballLoaderIconReplacer {
 
     private static List<Icon> getPokeballIcons() {
         if (pokeballIcons == null) {
-            pokeballIcons = ContainerUtil.immutableList(
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_1.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_2.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_3.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_4.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_5.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_6.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_7.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_8.png",
-                    PokemonResourceLoader.class));
+            pokeballIcons = PokeIcons.getPokeballIcons();
         }
         return pokeballIcons;
     }

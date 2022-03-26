@@ -1,6 +1,7 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,6 +12,7 @@ import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -31,6 +33,7 @@ import com.intellij.icons.AllIcons;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.ui.AnimatedIcon;
+import com.intellij.ui.components.DefaultLinkButtonUI;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.roots.ScalableIconComponent;
 import com.intellij.uiDesigner.core.Spacer;
@@ -40,7 +43,9 @@ import com.intellij.util.ui.ThreeStateCheckBox.State;
 import com.kagof.intellij.plugins.pokeprogress.PokeballLoaderIconReplacer;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
+import com.kagof.intellij.plugins.pokeprogress.PokemonProgressChangenotesDialog;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
+import com.kagof.intellij.plugins.pokeprogress.UpdateNotificationActivity;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
@@ -50,6 +55,7 @@ import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
+    final JLabel title = new JLabel("Pok\u00E9mon Progress");
     final JProgressBar determinateProgressBar = new JProgressBar(0, 2);
     final JProgressBar indeterminateProgressBar = new JProgressBar();
     private PokemonProgressBarUi determinateUi;
@@ -62,6 +68,7 @@ public class PokemonProgressConfigurationComponent {
     private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
     private final JBCheckBox determinateTransparency = new JBCheckBox("Transparency on determinate");
+    private final JBCheckBox showUpdateNotification = new JBCheckBox("Show update notification");
     private final Map<String, JBCheckBox> checkboxes = new HashMap<>();
     private final Multimap<Generation, JCheckBox> checkboxesByGen = ArrayListMultimap.create();
     private final Map<Generation, ThreeStateCheckBox> genToggleCheckBoxes = new EnumMap<>(Generation.class);
@@ -82,8 +89,9 @@ public class PokemonProgressConfigurationComponent {
 
     void createUi() {
         final FormBuilder formBuilder = FormBuilder.createFormBuilder();
-        final JPanel previewPanel = createPreviewPanel();
-        formBuilder.addLabeledComponent("Preview", previewPanel, true);
+        formBuilder.addComponent(createTitlePanel());
+        formBuilder.addVerticalGap(5);
+        formBuilder.addLabeledComponent("Preview", createPreviewPanel(), true);
         formBuilder.addSeparator();
         formBuilder.addComponent(createIndeterminatePanel());
         formBuilder.addSeparator();
@@ -153,6 +161,24 @@ public class PokemonProgressConfigurationComponent {
         mainPanel = formBuilder.getPanel();
     }
 
+    private JPanel createTitlePanel() {
+        final JButton changenotes = new JButton("Changenotes");
+        changenotes.setUI(DefaultLinkButtonUI.createUI(changenotes));
+        changenotes.addActionListener(a -> new PokemonProgressChangenotesDialog(null).show());
+        final JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new GridBagLayout());
+        final GridBagConstraints left = new GridBagConstraints();
+        left.anchor = GridBagConstraints.WEST;
+        left.weightx = 0.5;
+        title.setFont(title.getFont().deriveFont(Font.BOLD));
+        titlePanel.add(title, left);
+        final GridBagConstraints right = new GridBagConstraints();
+        right.anchor = GridBagConstraints.EAST;
+        right.weightx = 0.5;
+        titlePanel.add(changenotes, right);
+        return titlePanel;
+    }
+
     private JPanel createHeightPanel() {
         final JPanel heightPanel = new JPanel();
         heightPanel.setLayout(new GridLayout(2, 2));
@@ -215,7 +241,7 @@ public class PokemonProgressConfigurationComponent {
         checkboxPanel.setLayout(new GridLayout(3, 2));
 
         checkboxPanel.add(drawSprites);
-        drawSprites.setToolTipText("Not actually drawing the Pokémon icons can make your IDE look more professional");
+        drawSprites.setToolTipText("If disabled, progress bars will just show the type colors");
         checkboxPanel.add(indeterminateTransparency);
 
         checkboxPanel.add(addToolTips);
@@ -229,11 +255,17 @@ public class PokemonProgressConfigurationComponent {
             }
         });
         checkboxPanel.add(replaceLoaderIcon);
+
+        showUpdateNotification.setToolTipText("Turn on or off the notification when the plugin has been updated");
+        checkboxPanel.add(showUpdateNotification);
+
         return checkboxPanel;
     }
 
     void updateUi(final PokemonProgressState state) {
         if (state != null) {
+            Optional.ofNullable(UpdateNotificationActivity.getPluginDescriptor())
+                .ifPresent(desc -> title.setText("Pok\u00E9mon Progress " + desc.getVersion()));
             initialVelocity.setValue((int) (state.initialVelocity * 100));
             acceleration.setValue((int) (state.acceleration * 100));
             theme.setSelectedItem(PaintThemes.getByIdOrDefault(state.theme));
@@ -248,6 +280,7 @@ public class PokemonProgressConfigurationComponent {
                     return check;
                 }));
             replaceLoaderIcon.setSelected(state.isReplaceLoaderIcon());
+            showUpdateNotification.setSelected(state.showUpdateNotification);
             maxHeight.setValue(state.maximumHeight);
             minHeight.setValue(state.minimumHeight);
             restrictMaxHeight.setSelected(state.restrictMaximumHeight);
@@ -297,6 +330,10 @@ public class PokemonProgressConfigurationComponent {
 
     public JBCheckBox getReplaceLoaderIcon() {
         return replaceLoaderIcon;
+    }
+
+    public JBCheckBox getShowUpdateNotification() {
+        return showUpdateNotification;
     }
 
     public JBCheckBox getRestrictMaxHeight() {

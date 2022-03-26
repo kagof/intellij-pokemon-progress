@@ -48,7 +48,7 @@ public class DocumentationGenerator {
      */
     public void updateReadme() throws IOException {
         final Path readme = new File("README.md").toPath();
-        final String content = new String(Files.readAllBytes(readme), Charset.defaultCharset());
+        final String content = Files.readString(readme, Charset.defaultCharset());
         final int start = content.lastIndexOf("## Included Pokémon");
         final int end = content.lastIndexOf("[comment]: <> (end-included-pokemon)") + 36;
         final String substring = content.substring(start, end);
@@ -103,11 +103,16 @@ public class DocumentationGenerator {
             return;
         }
 
-        final String newNotes = "    <li><b><a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
+        final String newNotes = "    <li>\n"
+            + "        <b>\n"
+            + "            <a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
             + version
-            + "\">"
+            + "\">\n"
+            + "                "
             + version
-            + "</a></b>\n"
+            + "\n"
+            + "            </a>\n"
+            + "        </b>\n"
             + "        <!--"
             + version
             + "-->\n"
@@ -118,7 +123,10 @@ public class DocumentationGenerator {
             + version
             + "-->\n"
             + "    </li>\n";
-        final String newContent = content.replaceFirst("<ul>\n", "<ul>\n" + newNotes);
+
+        final String newContent = content
+            .replace("<details open>", "<details>")
+            .replaceFirst("<ul>\n", "<ul>\n" + newNotes);
         Files.write(changenotes, newContent.getBytes(Charset.defaultCharset()));
         System.out.println("added " + version + " section to changenotes.html");
     }
