@@ -19,6 +19,8 @@ import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
     storages = {@Storage("PokemonProgress.xml")}
 )
 public class PokemonProgressState implements PersistentStateComponent<PokemonProgressState> {
+    public String version;
+
     public float initialVelocity = 1.0f;
     public float acceleration = 0.4f;
 
@@ -32,6 +34,12 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public boolean transparencyOnDeterminate = false;
     public String colorScheme;
     private boolean replaceLoaderIcon = true;
+    public boolean showUpdateNotification = true;
+
+    public boolean restrictMaximumHeight = false;
+    public int maximumHeight = 20;
+    public boolean restrictMinimumHeight = false;
+    public int minimumHeight = 20;
 
     public void setReplaceLoaderIcon(final boolean updated) {
         this.replaceLoaderIcon = updated;
@@ -40,6 +48,16 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
 
     public boolean isReplaceLoaderIcon() {
         return replaceLoaderIcon;
+    }
+
+    public void setHeightLimits(final int newMaxHeight, final int newMinHeight) {
+        if (newMinHeight > newMaxHeight) {
+            minimumHeight = newMaxHeight;
+            maximumHeight = newMaxHeight;
+        } else {
+            minimumHeight = newMinHeight;
+            maximumHeight = newMaxHeight;
+        }
     }
 
     public static PokemonProgressState getInstance() {
@@ -54,7 +72,5 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     @Override
     public void loadState(@NotNull final PokemonProgressState state) {
         XmlSerializerUtil.copyBean(state, this);
-        System.out.print("loading state: ");
-        System.out.println(this);
     }
 }

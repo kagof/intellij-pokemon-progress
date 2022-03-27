@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.LinearGradientPaint;
 import java.awt.Paint;
@@ -14,9 +15,11 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
 import java.util.function.BooleanSupplier;
+import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.ComponentUI;
@@ -41,8 +44,10 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static final String DEBUGGING_ENV_VAR = "POKEMON_PROGRESS_DEBUG";
 
     private final Pokemon pokemon;
-    private final Icon iconForward;
-    private final Icon iconReversed;
+    private final ImageIcon iconForward;
+    private final ImageIcon iconReversed;
+    private ImageIcon iconForwardScaled = null;
+    private ImageIcon iconReversedScaled = null;
     private final Supplier<Float> initialVelocity;
     private final Supplier<Float> acceleration;
     private final Supplier<PaintTheme> theme;
@@ -51,6 +56,10 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private final BooleanSupplier transparencyOnDeterminate;
     private final BooleanSupplier drawSprites;
     private final BooleanSupplier addToolTips;
+    private final BooleanSupplier restrictMaxHeight;
+    private final IntSupplier maxHeight;
+    private final BooleanSupplier restrictMinHeight;
+    private final IntSupplier minHeight;
 
     private volatile int pos = 0;
     private volatile float velocity = 0;
@@ -64,7 +73,11 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
             () -> PokemonProgressState.getInstance().transparencyOnIndeterminate,
             () -> PokemonProgressState.getInstance().transparencyOnDeterminate,
             () -> PokemonProgressState.getInstance().drawSprites,
-            () -> PokemonProgressState.getInstance().addToolTips);
+            () -> PokemonProgressState.getInstance().addToolTips,
+            () -> PokemonProgressState.getInstance().restrictMaximumHeight,
+            () -> PokemonProgressState.getInstance().maximumHeight,
+            () -> PokemonProgressState.getInstance().restrictMinimumHeight,
+            () -> PokemonProgressState.getInstance().minimumHeight);
     }
 
     public PokemonProgressBarUi(final Pokemon pokemon,
@@ -75,11 +88,13 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final BooleanSupplier transparencyOnIndeterminate,
         final BooleanSupplier transparencyOnDeterminate,
         final BooleanSupplier drawSprites,
-        final BooleanSupplier addToolTips) {
+        final BooleanSupplier addToolTips,
+        final BooleanSupplier restrictMaxHeight,
+        final IntSupplier maxHeight,
+        final BooleanSupplier restrictMinHeight,
+        final IntSupplier minHeight) {
         super();
         this.pokemon = pokemon;
-        iconForward = PokemonResourceLoader.getIcon(pokemon);
-        iconReversed = PokemonResourceLoader.getReversedIcon(pokemon);
         this.initialVelocity = initialVelocity;
         this.acceleration = acceleration;
         this.theme = theme;
@@ -88,7 +103,17 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         this.transparencyOnDeterminate = transparencyOnDeterminate;
         this.drawSprites = drawSprites;
         this.addToolTips = addToolTips;
+        this.restrictMaxHeight = restrictMaxHeight;
+        this.maxHeight = maxHeight;
+        this.restrictMinHeight = restrictMinHeight;
+        this.minHeight = minHeight;
         velocity = initialVelocity.get();
+
+        iconForward = PokemonResourceLoader.getIcon(pokemon);
+        iconReversed = PokemonResourceLoader.getReversedIcon(pokemon);
+        if (restrictMaxHeight.getAsBoolean() || restrictMinHeight.getAsBoolean()) {
+            computeScaledIcons();
+        }
     }
 
     @SuppressWarnings({"MethodOverridesStaticMethodOfSuperclass", "UnusedDeclaration"})
@@ -104,7 +129,10 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
 
     @Override
     public Dimension getPreferredSize(final JComponent c) {
-        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(pokemon.getHeight()));
+        int height = restrictMaxHeight.getAsBoolean() ? Math.min(maxHeight.getAsInt(), pokemon.getHeight())
+            : pokemon.getHeight();
+        height = restrictMinHeight.getAsBoolean() ? Math.max(minHeight.getAsInt(), height) : height;
+        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(height));
     }
 
     @Override
@@ -117,6 +145,13 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     protected void paintDeterminate(final Graphics g, final JComponent c) {
         resetPositionAndVelocity();
         paint(g, c, true);
+    }
+
+    public void computeScaledIcons() {
+        iconForwardScaled = new ImageIcon(iconForward.getImage()
+            .getScaledInstance(-1, scaleToHeightRestrictions(iconForward.getIconHeight()), Image.SCALE_DEFAULT));
+        iconReversedScaled = new ImageIcon(iconReversed.getImage()
+            .getScaledInstance(-1, scaleToHeightRestrictions(iconReversed.getIconHeight()), Image.SCALE_DEFAULT));
     }
 
     private void paint(final Graphics g, final JComponent c, final boolean determinate) {
@@ -251,13 +286,19 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final Shape previousClip = graphics2D.getClip();
 
         graphics2D.setClip(clip);
-        final Icon icon = velocity >= 0 ? iconForward : iconReversed;
-        icon.paintIcon(progressBar,
-            graphics2D,
-            amountFull + (velocity >= 0 ? JBUI.scale(pokemon.getXShift())
-                : JBUI.scale(-icon.getIconWidth() - pokemon.getXShift())),
-            JBUI.scale(pokemon.getYShift()));
-
+        final Icon icon;
+        if (restrictMaxHeight.getAsBoolean() || restrictMinHeight.getAsBoolean()) {
+            icon = velocity >= 0 ? iconForwardScaled : iconReversedScaled;
+        } else {
+            icon = velocity >= 0 ? iconForward : iconReversed;
+        }
+        if (icon != null) {
+            icon.paintIcon(progressBar,
+                graphics2D,
+                amountFull + (velocity >= 0 ? JBUI.scale(scaleToHeightRestrictions(pokemon.getXShift()))
+                    : JBUI.scale(-icon.getIconWidth() - scaleToHeightRestrictions(pokemon.getXShift()))),
+                JBUI.scale(scaleToHeightRestrictions(pokemon.getYShift())));
+        }
         graphics2D.setClip(previousClip);
     }
 
@@ -286,6 +327,16 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
                 velocity = v + acceleration.get();
             }
         }
+    }
+
+    private int scaleToHeightRestrictions(final int value) {
+        if (restrictMaxHeight.getAsBoolean() && pokemon.getHeight() > maxHeight.getAsInt()) {
+            return Math.round(((float) maxHeight.getAsInt() / pokemon.getHeight()) * value);
+        }
+        if (restrictMinHeight.getAsBoolean() && pokemon.getHeight() < minHeight.getAsInt()) {
+            return Math.round(((float) minHeight.getAsInt() / pokemon.getHeight()) * value);
+        }
+        return value;
     }
 
     private void resetPositionAndVelocity() {

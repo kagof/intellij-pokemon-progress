@@ -3,18 +3,22 @@ package com.kagof.intellij.plugins.pokeprogress;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.Icon;
 
+import org.jetbrains.annotations.NotNull;
+
+import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.ui.AnimatedIcon;
-import com.intellij.ui.IconManager;
-import com.intellij.util.containers.ContainerUtil;
+
+import icons.PokeIcons;
 
 public class PokeballLoaderIconReplacer {
-    private static final String SPINNER_ICON_PATH = "com/kagof/intellij/plugins/pokeprogress/icons/";
     private static List<Icon> originalIcons = null;
     private static AnimatedIcon originalInstance = null;
     private static List<Icon> pokeballIcons = null;
+    private static AnimatedIcon.Frame[] originalFrames = null;
 
     private static boolean replaced = false;
     private static boolean reflectionFailed = false;
@@ -28,7 +32,11 @@ public class PokeballLoaderIconReplacer {
             final Class<AnimatedIcon.Default> defaultClass = AnimatedIcon.Default.class;
             final Field iconsField = defaultClass.getDeclaredField("ICONS");
             final Field instanceField = defaultClass.getDeclaredField("INSTANCE");
-            makeFieldNonFinal(iconsField, instanceField);
+            Field defaultFramesField = null;
+            if (ideaVersionOver2022()) {
+                defaultFramesField = defaultClass.getDeclaredField("DEFAULT_FRAMES");
+            }
+            makeFieldNonFinal(iconsField, instanceField, defaultFramesField);
             iconsField.setAccessible(true);
             instanceField.setAccessible(true);
             if (originalIcons == null) {
@@ -39,6 +47,14 @@ public class PokeballLoaderIconReplacer {
             }
             iconsField.set(null, usePokeball ? getPokeballIcons() : originalIcons);
             instanceField.set(null, usePokeball ? new AnimatedIcon.Default() : originalInstance);
+            if (ideaVersionOver2022()) {
+                Objects.requireNonNull(defaultFramesField).setAccessible(true);
+                if (originalFrames == null) {
+                    originalFrames = (AnimatedIcon.Frame[]) defaultFramesField.get(null);
+                }
+                defaultFramesField.set(null,
+                    usePokeball ? getFrames(125, getPokeballIcons().toArray(Icon[]::new)) : originalFrames);
+            }
             replaced = usePokeball;
         } catch (IllegalAccessException | NoSuchFieldException e) {
             reflectionFailed = true;
@@ -46,34 +62,47 @@ public class PokeballLoaderIconReplacer {
         }
     }
 
+    private static boolean ideaVersionOver2022() {
+        return ApplicationInfo.getInstance().getMajorVersion().compareTo("2022") >= 0;
+    }
+
     private static void makeFieldNonFinal(final Field... fields) throws NoSuchFieldException, IllegalAccessException {
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
         for (final Field field : fields) {
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            if (field != null) {
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            }
         }
     }
 
     private static List<Icon> getPokeballIcons() {
         if (pokeballIcons == null) {
-            pokeballIcons = ContainerUtil.immutableList(
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_1.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_2.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_3.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_4.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_5.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_6.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_7.png",
-                    PokemonResourceLoader.class),
-                IconManager.getInstance().getIcon(SPINNER_ICON_PATH + "pokeball_step_8.png",
-                    PokemonResourceLoader.class));
+            pokeballIcons = PokeIcons.getPokeballIcons();
         }
         return pokeballIcons;
+    }
+
+    private static AnimatedIcon.Frame[] getFrames(int delay, Icon @NotNull... icons) {
+        int length = icons.length;
+        assert length > 0 : "empty array";
+        AnimatedIcon.Frame[] frames = new AnimatedIcon.Frame[length];
+        for (int i = 0; i < length; i++) {
+            Icon icon = icons[i];
+            assert icon != null : "null icon";
+            frames[i] = new AnimatedIcon.Frame() {
+                @NotNull
+                @Override
+                public Icon getIcon() {
+                    return icon;
+                }
+
+                @Override
+                public int getDelay() {
+                    return delay;
+                }
+            };
+        }
+        return frames;
     }
 }
