@@ -1,6 +1,6 @@
 # IntelliJ Pokémon Progress Bar
 
-[![Build](https://img.shields.io/github/workflow/status/kagof/intellij-pokemon-progress/Verify%20Plugin/master)](https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3)
+[![Build](https://img.shields.io/github/actions/workflow/status/kagof/intellij-pokemon-progress/verify.yml?branch=master)](https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3)
 [![Version](https://img.shields.io/jetbrains/plugin/v/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/versions)
 [![Rating](https://img.shields.io/jetbrains/plugin/r/stars/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress/reviews)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/15090-pokemon-progress)](https://plugins.jetbrains.com/plugin/15090-pokemon-progress)
