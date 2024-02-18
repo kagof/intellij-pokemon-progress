@@ -18,7 +18,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      COMMIT_MSG: ${{ github.event.head_commit.message }}
     steps:
       - name: Checkout the branch
         uses: actions/checkout@v2
@@ -62,6 +63,12 @@ jobs:
           path: ${{ steps.properties.outputs.pluginVerifierHomeDir }}/ides
           key: ${{ runner.os }}-plugin-verifier-${{ steps.properties.outputs.ideVersions }}
 
+      - name: Results file header
+        run: |
+          echo "Run date: `date`" >> results-${GITHUB_SHA}.txt
+          echo "on commit \"${{ env.COMMIT_MSG }}\" (${GITHUB_SHA})" >> results-${GITHUB_SHA}.txt
+          echo >> results-${GITHUB_SHA}.txt
+
       - name: Gradle check
         run: |
           cmd="./gradlew check --console=plain"
@@ -90,7 +97,7 @@ jobs:
 
       - name: Sync master branch verification results to gist
         id: sync
-        uses: Popsiclestick/gist-sync-action@v1.1
+        uses: Popsiclestick/gist-sync-action@v1.2.0
         if: github.ref == 'refs/heads/master'
         with:
           auth: ${{ secrets.GIST_TOKEN }}
