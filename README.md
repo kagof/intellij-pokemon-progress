@@ -144,6 +144,7 @@ If you like the plugin, please consider [rating it on the Marketplace](https://p
 * ![Sobble (#816)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sobble.gif) Sobble (#816) ![Sobble (#816)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sobble_r.gif)
 * ![Intelleon (#818)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/intelleon.gif) Intelleon (#818) ![Intelleon (#818)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/intelleon_r.gif)
 * ![Wooloo (#831)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wooloo.gif) Wooloo (#831) ![Wooloo (#831)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wooloo_r.gif)
+* ![Cramorant (#845)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/cramorant.gif) Cramorant (#845) ![Cramorant (#845)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/cramorant_r.gif)
 * ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian.gif) Zacian (#888) ![Zacian (#888)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zacian_r.gif)
 * ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta.gif) Zamazenta (#889) ![Zamazenta (#889)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/zamazenta_r.gif)
 
