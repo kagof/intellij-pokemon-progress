@@ -36,7 +36,8 @@ import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
 /**
  * must add <code>--add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=java.desktop/javax.swing=ALL-UNNAMED</code>
- * to JVM args. A run configuration exists for this in <code>.run/TestProgressBar.run.xml</code>
+ * to JVM args. An IntelliJ run configuration exists for this in <code>.run/TestProgressBar.run.xml</code>, and a Gradle
+ * task also exists as <code>./gradlew testProgressBar</code>.
  */
 public class TestProgressBar {
     private static final int MAX_SHIFT_VALUE = 900;
