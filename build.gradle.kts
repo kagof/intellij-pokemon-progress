@@ -1,15 +1,13 @@
 import com.jetbrains.plugin.structure.intellij.version.IdeVersion
 import org.jetbrains.intellij.tasks.RunPluginVerifierTask.FailureLevel
 
-val name: String by project
 val changenotesFile: String by project
 val descriptionFile: String by project
 val ideaVersion: String by project
-val javaVersion: String by project
 val pluginVerifierIdeVersions: String by project
 
 plugins {
-    id("org.jetbrains.intellij") version "1.4.0"
+    id("org.jetbrains.intellij") version "1.17.3" // Use the latest version
     java
 }
 
@@ -31,8 +29,8 @@ intellij {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks {
@@ -58,9 +56,9 @@ tasks {
                 if (dir.exists() && dir.isDirectory && dir.canRead()) {
                     val strb = StringBuilder()
                     dir.listFiles()
-                            ?.filter { it.isFile }
-                            ?.filter { it.name.endsWith(".csv") }
-                            ?.forEach { strb.append(it.name).append("\n") }
+                        ?.filter { it.isFile }
+                        ?.filter { it.name.endsWith(".csv") }
+                        ?.forEach { strb.append(it.name).append("\n") }
                     val index = File(dir, ".cscheme.index")
                     index.delete()
                     index.createNewFile()
@@ -99,7 +97,7 @@ tasks {
     runPluginVerifier {
         ideVersions.set(pluginVerifierIdeVersions.split(",").map { it.trim() }.toList())
         failureLevel.set(listOf(FailureLevel.COMPATIBILITY_PROBLEMS,
-                FailureLevel.NOT_DYNAMIC))
+            FailureLevel.NOT_DYNAMIC))
     }
 
     signPlugin {

@@ -11,6 +11,9 @@ import com.intellij.ide.plugins.DynamicPluginListener;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.startup.StartupActivity;
 import com.intellij.openapi.extensions.PluginId;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
 
@@ -19,10 +22,18 @@ public class PokemonProgressListener implements LafManagerListener, DynamicPlugi
     private static final String POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME = PokemonProgressBarUi.class.getName();
     private volatile static Object previousProgressBar = null;
     private volatile static PluginId pluginId = null;
+    private static boolean initialized = false;
 
     public PokemonProgressListener() {
-        updateProgressBarUi();
-        pluginId = PluginId.getId("com.kagof.pokeprogress");
+        initializePlugin();
+    }
+
+    private void initializePlugin() {
+        if (!initialized) {
+            updateProgressBarUi();
+            pluginId = PluginId.getId("com.kagof.pokeprogress");
+            initialized = true;
+        }
     }
 
     @Override
@@ -45,18 +56,32 @@ public class PokemonProgressListener implements LafManagerListener, DynamicPlugi
     }
 
     static void updateProgressBarUi() {
-        final Object prev = UIManager.get(PROGRESS_BAR_UI_KEY);
-        if (!Objects.equals(POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME, prev)) {
-            previousProgressBar = prev;
-        }
-        Optional.ofNullable(PokemonProgressState.getInstance())
-            .ifPresent(s -> PokeballLoaderIconReplacer.updateSpinner(s.isReplaceLoaderIcon()));
-        UIManager.put(PROGRESS_BAR_UI_KEY, POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME);
-        UIManager.getDefaults().put(POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME, PokemonProgressBarUi.class);
+        ApplicationManager.getApplication().invokeLater(() -> {
+            final Object prev = UIManager.get(PROGRESS_BAR_UI_KEY);
+            if (!Objects.equals(POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME, prev)) {
+                previousProgressBar = prev;
+            }
+            Optional.ofNullable(PokemonProgressState.getInstance())
+                    .ifPresent(s -> PokeballLoaderIconReplacer.updateSpinner(s.isReplaceLoaderIcon()));
+            UIManager.put(PROGRESS_BAR_UI_KEY, POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME);
+            UIManager.getDefaults().put(POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME, PokemonProgressBarUi.class);
+        });
     }
 
     static void resetProgressBarUi() {
-        UIManager.put(PROGRESS_BAR_UI_KEY, previousProgressBar);
-        PokeballLoaderIconReplacer.updateSpinner(false);
+        ApplicationManager.getApplication().invokeLater(() -> {
+            UIManager.put(PROGRESS_BAR_UI_KEY, previousProgressBar);
+            PokeballLoaderIconReplacer.updateSpinner(false);
+        });
+    }
+
+    /**
+     * StartupActivity to ensure the plugin is properly initialized after IDE startup
+     */
+    public static class PokemonProgressStartupActivity implements StartupActivity.DumbAware {
+        @Override
+        public void runActivity(@NotNull Project project) {
+            updateProgressBarUi();
+        }
     }
 }

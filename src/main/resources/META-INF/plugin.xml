@@ -8,20 +8,22 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable parentId="appearance"
-                                 instance="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressConfigurable"
-                                 id="org.intellij.sdk.settings.AppSettingsConfigurable"
-                                 dynamic="true"
-                                 displayName="Pokémon Progress" />
+        <applicationConfigurable displayName="Pokémon Progress"
+            dynamic="true"
+            id="org.intellij.sdk.settings.AppSettingsConfigurable" instance="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressConfigurable"
+            parentId="appearance" />
         <applicationService
-                serviceImplementation="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState" />
-        <postStartupActivity implementation="com.kagof.intellij.plugins.pokeprogress.UpdateNotificationActivity" />
-        <notificationGroup id="Pokemon Progress Update" displayType="STICKY_BALLOON" icon="PokeIcons.SpinningPokeball" />
+            serviceImplementation="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState" />
+        <postStartupActivity
+            implementation="com.kagof.intellij.plugins.pokeprogress.UpdateNotificationActivity" />
+        <postStartupActivity
+            implementation="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener$PokemonProgressStartupActivity" />
+        <notificationGroup displayType="STICKY_BALLOON" id="Pokemon Progress Update" />
     </extensions>
     <applicationListeners>
         <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
-                  topic="com.intellij.ide.ui.LafManagerListener" />
+            topic="com.intellij.ide.ui.LafManagerListener" />
         <listener class="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener"
-                  topic="com.intellij.ide.plugins.DynamicPluginListener" />
+            topic="com.intellij.ide.plugins.DynamicPluginListener" />
     </applicationListeners>
 </idea-plugin>
