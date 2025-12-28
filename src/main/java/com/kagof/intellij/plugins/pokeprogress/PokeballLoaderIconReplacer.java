@@ -1,5 +1,8 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
+import com.intellij.openapi.diagnostic.Logger;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
@@ -9,12 +12,12 @@ import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.ui.AnimatedIcon;
 
 import icons.PokeIcons;
 
 public class PokeballLoaderIconReplacer {
+    private static final Logger LOG = Logger.getInstance(PokeballLoaderIconReplacer.class);
     private static List<Icon> originalIcons = null;
     private static AnimatedIcon originalInstance = null;
     private static List<Icon> pokeballIcons = null;
@@ -33,9 +36,7 @@ public class PokeballLoaderIconReplacer {
             final Field iconsField = defaultClass.getDeclaredField("ICONS");
             final Field instanceField = defaultClass.getDeclaredField("INSTANCE");
             Field defaultFramesField = null;
-            if (ideaVersionOver2022()) {
-                defaultFramesField = defaultClass.getDeclaredField("DEFAULT_FRAMES");
-            }
+            defaultFramesField = defaultClass.getDeclaredField("DEFAULT_FRAMES");
             makeFieldNonFinal(iconsField, instanceField, defaultFramesField);
             iconsField.setAccessible(true);
             instanceField.setAccessible(true);
@@ -47,31 +48,25 @@ public class PokeballLoaderIconReplacer {
             }
             iconsField.set(null, usePokeball ? getPokeballIcons() : originalIcons);
             instanceField.set(null, usePokeball ? new AnimatedIcon.Default() : originalInstance);
-            if (ideaVersionOver2022()) {
-                Objects.requireNonNull(defaultFramesField).setAccessible(true);
-                if (originalFrames == null) {
-                    originalFrames = (AnimatedIcon.Frame[]) defaultFramesField.get(null);
-                }
-                defaultFramesField.set(null,
-                    usePokeball ? getFrames(125, getPokeballIcons().toArray(Icon[]::new)) : originalFrames);
+            Objects.requireNonNull(defaultFramesField).setAccessible(true);
+            if (originalFrames == null) {
+                originalFrames = (AnimatedIcon.Frame[]) defaultFramesField.get(null);
             }
+            defaultFramesField.set(null,
+                usePokeball ? getFrames(125, getPokeballIcons().toArray(Icon[]::new)) : originalFrames);
             replaced = usePokeball;
         } catch (IllegalAccessException | NoSuchFieldException e) {
             reflectionFailed = true;
-            e.printStackTrace();
+            LOG.warn("failed to reflectively modify spinner icon", e);
         }
     }
 
-    private static boolean ideaVersionOver2022() {
-        return ApplicationInfo.getInstance().getMajorVersion().compareTo("2022") >= 0;
-    }
-
     private static void makeFieldNonFinal(final Field... fields) throws NoSuchFieldException, IllegalAccessException {
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
+        final MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
+        final VarHandle modifiers = lookup.findVarHandle(Field.class, "modifiers", int.class);
         for (final Field field : fields) {
             if (field != null) {
-                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+                modifiers.set(field, field.getModifiers() & ~Modifier.FINAL);
             }
         }
     }
