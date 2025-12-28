@@ -65,7 +65,7 @@ Preferably you should be using [signed commits](https://help.github.com/en/artic
 
 ### Additional PR Information
 
-* This plugin is written using Java 11 and the IntelliJ SDK.
+* This plugin is written using Java 17 and the IntelliJ SDK.
 * Please also do your best to follow the existing code style. You may be asked to refactor your code if it does not match the existing style, in the interest of consistency.
 * please branch off of [develop](https://github.com/kagof/intellij-pokemon-progress/tree/develop), and open pull requests to that branch as well, unless doing an "urgent" bugfix (to be decided by the maintainer), in which case PRs should be based off of [master](https://github.com/kagof/intellij-pokemon-progress/tree/master).
 * if adding a new Pokémon:

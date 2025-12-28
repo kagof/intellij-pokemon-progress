@@ -1,5 +1,6 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
+import com.intellij.ui.scale.JBUIScale;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -33,6 +34,10 @@ import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
 
+/**
+ * must add <code>--add-opens=java.desktop/java.awt=ALL-UNNAMED --add-opens=java.desktop/javax.swing=ALL-UNNAMED</code>
+ * to JVM args. A run configuration exists for this in <code>.run/TestProgressBar.run.xml</code>
+ */
 public class TestProgressBar {
     private static final int MAX_SHIFT_VALUE = 900;
     private PokemonProgressState state;
@@ -57,7 +62,6 @@ public class TestProgressBar {
     @SuppressWarnings("ConstantConditions")
     public TestProgressBar() {
         setUpMockApplication();
-        setLookAndFeel();
         updateSelectedPokemon(Optional.ofNullable(target).orElseGet(PokemonPicker::get));
         initializeFrame();
         addShutdownHook();
@@ -71,18 +75,8 @@ public class TestProgressBar {
         final MockApplication application = MockApplication.setUp(parent);
         application.registerService(PokemonProgressState.class, state);
         ApplicationManager.setApplication(application, parent);
-    }
-
-    private void setLookAndFeel() {
-        if (useDarkMode) {
-            final DarculaLaf darkMode = new DarculaLaf();
-            try {
-                UIManager.setLookAndFeel(darkMode);
-            } catch (Exception e) {
-                System.out.println("unable to set look and feel");
-                e.printStackTrace();
-            }
-        }
+        //noinspection UnstableApiUsage
+        JBUIScale.DEBUG_USER_SCALE_FACTOR.setValue(1.0f);
     }
 
     private void initializeFrame() {
@@ -182,7 +176,10 @@ public class TestProgressBar {
         buttonPanel.setLayout(new GridLayout(1, 2));
 
         final JButton updateButton = new JButton("Update");
-        updateButton.addActionListener(this::updatePositionAndUI);
+        updateButton.addActionListener(e -> {
+            printIfShiftUpdated();
+            updatePositionAndUI(e);
+        });
 
         final JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(e -> {
@@ -241,7 +238,7 @@ public class TestProgressBar {
         try {
             field.validateContent();
         } catch (final ConfigurationException ex) {
-            field.setToolTipText(ex.getMessage());
+            field.setToolTipText(ex.getMessageHtml().toString());
             return;
         }
         field.setToolTipText(null);

@@ -6,8 +6,6 @@ import java.awt.Paint;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import org.apache.commons.lang.ArrayUtils;
-
 import com.intellij.ui.scale.JBUIScale;
 import com.kagof.intellij.plugins.pokeprogress.model.PokemonType;
 
@@ -39,7 +37,7 @@ public class SmoothTheme extends PaintTheme {
             0,
             (float) startY + (float) height - JBUIScale.scale(2f),
             new float[] {0f, ONE_HALF, 1f},
-            new Color[] {typeColor.getColorLight(), typeColor.getColor(), typeColor.getColorDark()});
+            new Color[] {typeColor.colorLight(), typeColor.color(), typeColor.colorDark()});
     }
 
     private static Paint getPaintMultiType(final List<PokemonType> types, final ColorScheme colorScheme,
@@ -51,8 +49,15 @@ public class SmoothTheme extends PaintTheme {
             (float) startY + JBUIScale.scale(2f),
             0,
             (float) startY + (float) height - JBUIScale.scale(2f),
-            ArrayUtils.toPrimitive(
-                IntStream.range(0, numColors).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
-            types.stream().map(colorScheme::get).map(TypeColor::getColor).toArray(Color[]::new));
+            toPrimitive(IntStream.range(0, numColors).mapToObj(i -> numColorsReciprocal * i).toArray(Float[]::new)),
+            types.stream().map(colorScheme::get).map(TypeColor::color).toArray(Color[]::new));
+    }
+
+    private static float[] toPrimitive(final Float[] arr) {
+        final float[] out = new float[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            out[i] = arr[i];
+        }
+        return out;
     }
 }

@@ -7,7 +7,7 @@ val ideaVersion: String by project
 val pluginVerifierIdeVersions: String by project
 
 plugins {
-    id("org.jetbrains.intellij") version "1.17.3" // Use the latest version
+    id("org.jetbrains.intellij") version "1.17.4"
     java
 }
 
@@ -16,8 +16,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation("junit", "junit", "4.12")
-    testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.0.22")
+    testImplementation(platform("org.junit:junit-bom:6.0.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.3.5")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/

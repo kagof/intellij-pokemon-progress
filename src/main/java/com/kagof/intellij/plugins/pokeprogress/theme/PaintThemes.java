@@ -16,9 +16,9 @@ public final class PaintThemes {
 
         final PaintTheme[] themes = {
             defaultTheme,
-            new FlatTheme("flat", "Flat", TypeColor::getColor),
-            new FlatTheme("flat_light", "Flat (Light)", TypeColor::getColorLight),
-            new FlatTheme("flat_dark", "Flat (Dark)", TypeColor::getColorDark),
+            new FlatTheme("flat", "Flat", TypeColor::color),
+            new FlatTheme("flat_light", "Flat (Light)", TypeColor::colorLight),
+            new FlatTheme("flat_dark", "Flat (Dark)", TypeColor::colorDark),
         };
 
         allThemes = Arrays.stream(themes).collect(toImmutableMap(PaintTheme::getId, identity()));

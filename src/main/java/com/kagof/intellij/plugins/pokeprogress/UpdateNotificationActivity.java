@@ -8,7 +8,6 @@ import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationGroupManager;
-import com.intellij.notification.NotificationListener;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.extensions.PluginId;
@@ -45,10 +44,9 @@ public class UpdateNotificationActivity implements StartupActivity.DumbAware {
         final Notification n = NotificationGroupManager.getInstance().getNotificationGroup(NOTIFICATION_GROUP)
             .createNotification("You're now using version "
                 + version
-                + " of <a href=\"https://github.com/kagof/intellij-pokemon-progress\">Pok\u00E9mon Progress</a>! \uD83C\uDF89",
+                + " of Pok\u00E9mon Progress! \uD83C\uDF89",
                 NotificationType.INFORMATION);
         n.setIcon(PokeIcons.SpinningPokeball);
-        n.setListener(new NotificationListener.UrlOpeningListener(false));
         n.addAction(new DumbAwareAction("Configuration...") {
             @Override
             public void actionPerformed(@NotNull final AnActionEvent e) {

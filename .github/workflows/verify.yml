@@ -1,6 +1,3 @@
-# This workflow will build a Java project with Gradle
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
-
 name: Verify Plugin
 
 on:
@@ -22,22 +19,22 @@ jobs:
       COMMIT_MSG: ${{ github.event.head_commit.message }}
     steps:
       - name: Checkout the branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6.0.1
 
-      - name: Set up OpenJDK 11
-        uses: actions/setup-java@v3.0.0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5.1.0
         with:
-          java-version: 11
-          distribution: 'adopt'
+          java-version: 17
+          distribution: 'temurin'
 
       - name: Setup Gradle Dependencies Cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v5.0.1
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-caches-${{ hashFiles('**/*.gradle', '**/*.gradle.kts') }}
 
       - name: Setup Gradle Wrapper Cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v5.0.1
         with:
           path: ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
@@ -58,7 +55,7 @@ jobs:
           echo "output file results-${GITHUB_SHA}.txt"
 
       - name: Setup Plugin Verifier IDEs Cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v5.0.1
         with:
           path: ${{ steps.properties.outputs.pluginVerifierHomeDir }}/ides
           key: ${{ runner.os }}-plugin-verifier-${{ steps.properties.outputs.ideVersions }}

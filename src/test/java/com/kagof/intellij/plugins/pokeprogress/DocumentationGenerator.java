@@ -31,6 +31,7 @@ import com.sksamuel.scrimage.nio.AnimatedGif;
 import com.sksamuel.scrimage.nio.AnimatedGifReader;
 import com.sksamuel.scrimage.nio.ImageSource;
 import com.sksamuel.scrimage.nio.StreamingGifWriter;
+import org.jetbrains.annotations.NotNull;
 
 public class DocumentationGenerator {
     private static final ColorScheme FAMILY_COLOR_SCHEME = ColorSchemes.getByIdOrDefault("1_Official");
@@ -53,7 +54,7 @@ public class DocumentationGenerator {
         final int end = content.lastIndexOf("[comment]: <> (end-included-pokemon)") + 36;
         final String substring = content.substring(start, end);
         final String newContent = content.replace(substring, getReadmeString());
-        Files.write(readme, newContent.getBytes(Charset.defaultCharset()));
+        Files.writeString(readme, newContent, Charset.defaultCharset());
         System.out.println("replaced content of README.md");
     }
 
@@ -67,7 +68,7 @@ public class DocumentationGenerator {
             images.add(drawFrame(frame));
         }
 
-        final StreamingGifWriter writer = new StreamingGifWriter(Duration.ofMillis(500), true);
+        final StreamingGifWriter writer = new StreamingGifWriter(Duration.ofMillis(500), true, false);
         try (final StreamingGifWriter.GifStream gif = writer.prepareStream("eg/family.gif",
             BufferedImage.TYPE_INT_ARGB)) {
             for (final BufferedImage image : images) {
@@ -103,6 +104,12 @@ public class DocumentationGenerator {
             return;
         }
 
+        final String newContent = getNewContent(version, content);
+        Files.writeString(changenotes, newContent, Charset.defaultCharset());
+        System.out.println("added " + version + " section to changenotes.html");
+    }
+
+    private static @NotNull String getNewContent(final String version, final String content) {
         final String newNotes = "    <li>\n"
             + "        <b>\n"
             + "            <a href=\"https://github.com/kagof/intellij-pokemon-progress/releases/tag/"
@@ -124,11 +131,9 @@ public class DocumentationGenerator {
             + "-->\n"
             + "    </li>\n";
 
-        final String newContent = content
+        return content
             .replace("<details open>", "<details>")
             .replaceFirst("<ul>\n", "<ul>\n" + newNotes);
-        Files.write(changenotes, newContent.getBytes(Charset.defaultCharset()));
-        System.out.println("added " + version + " section to changenotes.html");
     }
 
     private String getReadmeString() {
