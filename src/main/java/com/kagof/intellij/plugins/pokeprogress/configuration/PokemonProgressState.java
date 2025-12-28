@@ -30,6 +30,7 @@ public class PokemonProgressState implements PersistentStateComponent<PokemonPro
     public String theme;
     public boolean drawSprites = true;
     public boolean addToolTips = true;
+    public boolean addIconToToolTips = true;
     public boolean transparencyOnIndeterminate = true;
     public boolean transparencyOnDeterminate = false;
     public String colorScheme;

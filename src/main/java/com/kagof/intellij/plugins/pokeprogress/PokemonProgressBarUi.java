@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.RoundRectangle2D;
+import java.net.URL;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -56,6 +57,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private final Supplier<Boolean> transparencyOnDeterminate;
     private final Supplier<Boolean> drawSprites;
     private final Supplier<Boolean> addToolTips;
+    private final Supplier<Boolean> addIconToToolTips;
     private final Supplier<Boolean> restrictMaxHeight;
     private final Supplier<Integer> maxHeight;
     private final Supplier<Boolean> restrictMinHeight;
@@ -74,6 +76,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
             safeGetFromState(s -> s.transparencyOnDeterminate, false),
             safeGetFromState(s -> s.drawSprites, true),
             safeGetFromState(s -> s.addToolTips, true),
+            safeGetFromState(s -> s.addIconToToolTips, true),
             safeGetFromState(s -> s.restrictMaximumHeight, false),
             safeGetFromState(s -> s.maximumHeight, 20),
             safeGetFromState(s -> s.restrictMinimumHeight, false),
@@ -89,6 +92,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final Supplier<Boolean> transparencyOnDeterminate,
         final Supplier<Boolean> drawSprites,
         final Supplier<Boolean> addToolTips,
+        final Supplier<Boolean> addIconToToolTips,
         final Supplier<Boolean> restrictMaxHeight,
         final Supplier<Integer> maxHeight,
         final Supplier<Boolean> restrictMinHeight,
@@ -103,6 +107,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         this.transparencyOnDeterminate = transparencyOnDeterminate;
         this.drawSprites = drawSprites;
         this.addToolTips = addToolTips;
+        this.addIconToToolTips = addIconToToolTips;
         this.restrictMaxHeight = restrictMaxHeight;
         this.maxHeight = maxHeight;
         this.restrictMinHeight = restrictMinHeight;
@@ -263,6 +268,13 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
 
     private void setToolTipText() {
         if (addToolTips.get()) {
+            if (addIconToToolTips.get()) {
+                final Optional<URL> urlOpt = PokemonResourceLoader.getResource(PokemonResourceLoader.getIconPath(pokemon));
+                if (urlOpt.isPresent()) {
+                    progressBar.setToolTipText("<html><body><img src=\"" + urlOpt.get() + "\"></img>" + pokemon.getNameWithNumber() + "</body></html>");
+                    return;
+                }
+            }
             progressBar.setToolTipText(pokemon.getNameWithNumber());
         }
     }

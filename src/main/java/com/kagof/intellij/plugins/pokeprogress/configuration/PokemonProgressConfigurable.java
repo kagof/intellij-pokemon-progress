@@ -32,6 +32,7 @@ public class PokemonProgressConfigurable implements Configurable {
                 component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId())
             || state.drawSprites != component.getDrawSprites().isSelected()
             || state.addToolTips != component.getAddToolTips().isSelected()
+            || state.addIconToToolTips != component.getAddIconToToolTips().isSelected()
             || state.transparencyOnIndeterminate != component.getIndeterminateTransparency().isSelected()
             || state.transparencyOnDeterminate != component.getDeterminateTransparency().isSelected()
             || state.initialVelocity != component.getInitialVelocity().getValue() / 100f
@@ -52,6 +53,7 @@ public class PokemonProgressConfigurable implements Configurable {
         state.colorScheme = component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId();
         state.drawSprites = component.getDrawSprites().isSelected();
         state.addToolTips = component.getAddToolTips().isSelected();
+        state.addIconToToolTips = component.getAddIconToToolTips().isSelected();
         state.transparencyOnIndeterminate = component.getIndeterminateTransparency().isSelected();
         state.transparencyOnDeterminate = component.getDeterminateTransparency().isSelected();
         state.initialVelocity = component.getInitialVelocity().getValue() / 100f;

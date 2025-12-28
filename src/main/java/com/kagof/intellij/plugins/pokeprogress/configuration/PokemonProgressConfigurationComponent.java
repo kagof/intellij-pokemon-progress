@@ -66,6 +66,7 @@ public class PokemonProgressConfigurationComponent {
     final JLabel loader = new JLabel(new AnimatedIcon.Default());
     private final JBCheckBox drawSprites = new JBCheckBox("Draw sprites");
     private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
+    private final JBCheckBox addIconToToolTips = new JBCheckBox("Add icons to tool tips");
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
     private final JBCheckBox determinateTransparency = new JBCheckBox("Transparency on determinate");
     private final JBCheckBox showUpdateNotification = new JBCheckBox("Show update notification");
@@ -238,15 +239,22 @@ public class PokemonProgressConfigurationComponent {
     @NotNull
     private JPanel createCheckboxPanel() {
         final JPanel checkboxPanel = new JPanel();
-        checkboxPanel.setLayout(new GridLayout(3, 2));
+        checkboxPanel.setLayout(new GridLayout(3, 3));
 
         checkboxPanel.add(drawSprites);
         drawSprites.setToolTipText("If disabled, progress bars will just show the type colors");
         checkboxPanel.add(indeterminateTransparency);
 
+        checkboxPanel.add(determinateTransparency);
         checkboxPanel.add(addToolTips);
         addToolTips.setToolTipText("Whether or not to add a Pokémon tool tip (hover text) on the progress bars");
-        checkboxPanel.add(determinateTransparency);
+        addToolTips.addActionListener(a -> {
+            if (a.getID() == ActionEvent.ACTION_PERFORMED) {
+                addIconToToolTips.setEnabled(addToolTips.isSelected());
+            }
+        });
+        checkboxPanel.add(addIconToToolTips);
+
 
         replaceLoaderIcon.addActionListener(a -> {
             if (a.getID() == ActionEvent.ACTION_PERFORMED) {
@@ -272,6 +280,8 @@ public class PokemonProgressConfigurationComponent {
             colorScheme.setSelectedItem(ColorSchemes.getByIdOrDefault(state.colorScheme));
             drawSprites.setSelected(state.drawSprites);
             addToolTips.setSelected(state.addToolTips);
+            addIconToToolTips.setSelected(state.addIconToToolTips);
+            addIconToToolTips.setEnabled(addToolTips.isSelected());
             indeterminateTransparency.setSelected(state.transparencyOnIndeterminate);
             determinateTransparency.setSelected(state.transparencyOnDeterminate);
             state.pokemonNumbersEnabled
@@ -302,6 +312,10 @@ public class PokemonProgressConfigurationComponent {
 
     public JBCheckBox getAddToolTips() {
         return addToolTips;
+    }
+
+    public JBCheckBox getAddIconToToolTips() {
+        return addIconToToolTips;
     }
 
     public JSlider getInitialVelocity() {
@@ -437,6 +451,7 @@ public class PokemonProgressConfigurationComponent {
             determinateTransparency::isSelected,
             drawSprites::isSelected,
             addToolTips::isSelected,
+            addIconToToolTips::isSelected,
             restrictMaxHeight::isSelected,
             maxHeight::getValue,
             restrictMinHeight::isSelected,
