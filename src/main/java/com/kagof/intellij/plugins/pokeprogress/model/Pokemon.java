@@ -127,7 +127,7 @@ public enum Pokemon {
     SOBBLE(816, "sobble", -16, -5, 22, PokemonType.WATER),
     INTELLEON(818, "intelleon", -17, -3, 28, PokemonType.WATER),
     WOOLOO(831, "wooloo", -12, -5, 20, PokemonType.NORMAL),
-    CRAMORANT(845, "cramorant", -10, 2, 28, PokemonType.FLYING, PokemonType.WATER),
+    CRAMORANT(845, "cramorant", -17, -8, 25, PokemonType.FLYING, PokemonType.WATER),
     ZACIAN(888, "zacian", -10, -2, 26, PokemonType.FAIRY, PokemonType.STEEL),
     ZAMAZENTA(889, "zamazenta", -17, 0, 28, PokemonType.FIGHTING, PokemonType.STEEL),
     // Gen IX (numbers in this gen are speculation for now)
