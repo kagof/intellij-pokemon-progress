@@ -11,9 +11,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.1
+      # Free GitHub Actions Environment Disk Space
+      - name: Maximize Build Space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          large-packages: false
+      - uses: actions/checkout@v6
       - name: Set up JDK 17
-        uses: actions/setup-java@v5.1.0
+        uses: actions/setup-java@v5
         with:
           java-version: 17
           distribution: 'temurin'

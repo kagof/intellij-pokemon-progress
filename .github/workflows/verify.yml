@@ -14,16 +14,21 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     env:
       COMMIT_MSG: ${{ github.event.head_commit.message }}
     steps:
+      # Free GitHub Actions Environment Disk Space
+      - name: Maximize Build Space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          large-packages: false
       - name: Checkout the branch
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@v6
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v5.1.0
+        uses: actions/setup-java@v5
         with:
           java-version: 17
           distribution: 'temurin'
@@ -43,29 +48,15 @@ jobs:
       - name: Grant execute permission for Gradle Wrapper
         run: chmod +x gradlew
 
-      - name: Export Properties
-        id: properties
-        shell: bash
+      - name: Results file header
+        id: resultsFileSetup
         run: |
-          PROPERTIES="$(./gradlew properties --no-daemon --console=plain -q)"
-          which md5sum > /dev/null || alias md5sum=md5
-          IDE_VERSIONS="$(echo "$PROPERTIES" | grep "^pluginVerifierIdeVersions:" | md5sum)"
-          echo "::set-output name=ideVersions::$IDE_VERSIONS"
-          echo "::set-output name=pluginVerifierHomeDir::~/.pluginVerifier"
           touch results-${GITHUB_SHA}.txt
           echo "output file results-${GITHUB_SHA}.txt"
-
-      - name: Setup Plugin Verifier IDEs Cache
-        uses: actions/cache@v5.0.1
-        with:
-          path: ${{ steps.properties.outputs.pluginVerifierHomeDir }}/ides
-          key: ${{ runner.os }}-plugin-verifier-${{ steps.properties.outputs.ideVersions }}
-
-      - name: Results file header
-        run: |
           echo "Run date: `date`" >> results-${GITHUB_SHA}.txt
           echo "on commit \"${{ env.COMMIT_MSG }}\" (${GITHUB_SHA})" >> results-${GITHUB_SHA}.txt
           echo >> results-${GITHUB_SHA}.txt
+          echo "RESULTS_FILE_NAME=results-${GITHUB_SHA}.txt" >> "$GITHUB_OUTPUT"
 
       - name: Gradle check
         run: |
@@ -75,23 +66,29 @@ jobs:
           echo '============================================' >> results-${GITHUB_SHA}.txt  
           echo >> results-${GITHUB_SHA}.txt
 
-      - name: Verify Plugin
+      - name: Gradle verifyPluginProjectConfiguration
+        run: |
+          cmd="./gradlew verifyPluginProjectConfiguration --console=plain"
+          echo $cmd >> results-${GITHUB_SHA}.txt  
+          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          echo '============================================' >> results-${GITHUB_SHA}.txt
+          echo >> results-${GITHUB_SHA}.txt
+
+      - name: Gradle verifyPluginStructure
+        run: |
+          cmd="./gradlew verifyPluginStructure --console=plain"
+          echo $cmd >> results-${GITHUB_SHA}.txt  
+          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          echo '============================================' >> results-${GITHUB_SHA}.txt
+          echo >> results-${GITHUB_SHA}.txt
+
+      - name: Gradle verifyPlugin
         run: |
           cmd="./gradlew verifyPlugin --console=plain"
           echo $cmd >> results-${GITHUB_SHA}.txt  
           eval $cmd | tee -a results-${GITHUB_SHA}.txt
           echo '============================================' >> results-${GITHUB_SHA}.txt
           echo >> results-${GITHUB_SHA}.txt
-
-      - name: Verify IntelliJ Compatibility
-        id: verify
-        run: |
-          cmd="./gradlew runPluginVerifier --console=plain -Pplugin.verifier.home.dir=${{ steps.properties.outputs.pluginVerifierHomeDir }}"
-          echo $cmd >> results-${GITHUB_SHA}.txt  
-          eval $cmd | tee -a results-${GITHUB_SHA}.txt
-          echo '============================================' >> results-${GITHUB_SHA}.txt
-          echo >> results-${GITHUB_SHA}.txt
-          echo "::set-output name=results-file-name::results-${GITHUB_SHA}.txt"
 
       - name: Sync master branch verification results to gist
         id: sync
@@ -102,4 +99,4 @@ jobs:
           gist_url: https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3
           gist_title: IntelliJ Pokémon Progress Bar Verification Results
           gist_description: Latest intellij-pokemon-progress master branch test results ${{ github.run_number }} (${{ github.sha }})
-          github_file: ${{ steps.verify.outputs.results-file-name }}
+          github_file: ${{ steps.resultsFileSetup.outputs.RESULTS_FILE_NAME }}

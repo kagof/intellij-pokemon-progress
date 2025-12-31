@@ -84,8 +84,9 @@ public class PokemonProgressConfigurationComponent {
     private final JBCheckBox restrictMinHeight = new JBCheckBox("Restrict min height");
     private final JSlider minHeight = new JSlider(8, 64, 20);
 
-    public PokemonProgressConfigurationComponent() {
+    public PokemonProgressConfigurationComponent(final PokemonProgressState state) {
         createUi();
+        updateUi(state);
     }
 
     void createUi() {
@@ -290,6 +291,8 @@ public class PokemonProgressConfigurationComponent {
                     return check;
                 }));
             replaceLoaderIcon.setSelected(state.isReplaceLoaderIcon());
+            PokeballLoaderIconReplacer.updateSpinner(state.isReplaceLoaderIcon());
+            loader.setIcon(new AnimatedIcon.Default());
             showUpdateNotification.setSelected(state.showUpdateNotification);
             maxHeight.setValue(state.maximumHeight);
             minHeight.setValue(state.minimumHeight);

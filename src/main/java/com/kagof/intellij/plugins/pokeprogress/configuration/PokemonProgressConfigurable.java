@@ -19,7 +19,8 @@ public class PokemonProgressConfigurable implements Configurable {
 
     @Override
     public JComponent createComponent() {
-        component = new PokemonProgressConfigurationComponent();
+        final PokemonProgressState state = PokemonProgressState.getInstance();
+        component = new PokemonProgressConfigurationComponent(state);
         return component.getPanel();
     }
 

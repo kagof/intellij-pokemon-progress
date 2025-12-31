@@ -27,7 +27,7 @@ public class PokeballLoaderIconReplacer {
     private static boolean reflectionFailed = false;
 
     @SuppressWarnings("unchecked")
-    public static void updateSpinner(final boolean usePokeball) {
+    public synchronized static void updateSpinner(final boolean usePokeball) {
         if (reflectionFailed || usePokeball == replaced) {
             return;
         }
@@ -55,18 +55,18 @@ public class PokeballLoaderIconReplacer {
             defaultFramesField.set(null,
                 usePokeball ? getFrames(125, getPokeballIcons().toArray(Icon[]::new)) : originalFrames);
             replaced = usePokeball;
-        } catch (IllegalAccessException | NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException | NoSuchMethodError e) {
             reflectionFailed = true;
             LOG.warn("failed to reflectively modify spinner icon", e);
         }
     }
 
-    private static void makeFieldNonFinal(final Field... fields) throws NoSuchFieldException, IllegalAccessException {
+    private static void makeFieldNonFinal(final Field... fields) throws NoSuchMethodError, NoSuchFieldException, IllegalAccessException {
         final MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
         final VarHandle modifiers = lookup.findVarHandle(Field.class, "modifiers", int.class);
         for (final Field field : fields) {
             if (field != null) {
-                modifiers.set(field, field.getModifiers() & ~Modifier.FINAL);
+                modifiers.compareAndSet((Object) field, field.getModifiers(), field.getModifiers() & ~Modifier.FINAL);
             }
         }
     }

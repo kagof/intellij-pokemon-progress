@@ -157,3 +157,4 @@ src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/*.png
 .DS_Store
 *.cscheme.index
 /local.properties
+.intellijPlatform
