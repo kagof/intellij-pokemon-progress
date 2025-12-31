@@ -1,11 +1,11 @@
 import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 
-
 fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
     id("org.jetbrains.intellij.platform") version "2.10.5"
     java
+    kotlin("jvm")
 }
 
 group = properties("pluginGroup")
@@ -28,6 +28,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.3.5")
+    testImplementation(kotlin("test"))
 }
 
 intellijPlatform {
@@ -66,7 +67,6 @@ intellijPlatform {
     pluginVerification {
         ides {
            properties("pluginVerifierIdeVersions")
-               .also { print("verifying plugin against IDEs $it") }
                .split(",")
                .map { it.trim() }
                .map { it.split("-", limit = 2) }
@@ -82,6 +82,10 @@ intellijPlatform {
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 tasks {

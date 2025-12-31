@@ -1,5 +1,6 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
+import com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -45,7 +46,7 @@ import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressChangenotesDialog;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
-import com.kagof.intellij.plugins.pokeprogress.UpdateNotificationActivity;
+import com.kagof.intellij.plugins.pokeprogress.UpdateNotificationSender;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
@@ -273,7 +274,7 @@ public class PokemonProgressConfigurationComponent {
 
     void updateUi(final PokemonProgressState state) {
         if (state != null) {
-            Optional.ofNullable(UpdateNotificationActivity.getPluginDescriptor())
+            Optional.ofNullable(PokemonProgressListener.getPluginDescriptor())
                 .ifPresent(desc -> title.setText("Pok\u00E9mon Progress " + desc.getVersion()));
             initialVelocity.setValue((int) (state.initialVelocity * 100));
             acceleration.setValue((int) (state.acceleration * 100));
