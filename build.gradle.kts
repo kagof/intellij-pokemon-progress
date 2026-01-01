@@ -1,3 +1,4 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 
 fun properties(key: String) = project.findProperty(key).toString()
@@ -23,10 +24,9 @@ dependencies {
         create(properties("pluginIdeaType"), properties("pluginIdeaVersion"))
         zipSigner()
         pluginVerifier(properties("pluginVerifierVersion"))
+        testFramework(TestFrameworkType.Platform)
     }
-    testImplementation(platform("org.junit:junit-bom:6.0.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("junit:junit:4.13.1")
     testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.3.5")
     testImplementation(kotlin("test"))
 }
@@ -89,21 +89,6 @@ kotlin {
 }
 
 tasks {
-    register("genDocs", JavaExec::class) {
-        group = "pokemon-progress"
-        description = "generate documentation"
-        classpath = java.sourceSets["test"].runtimeClasspath
-        mainClass.set("com.kagof.intellij.plugins.pokeprogress.DocumentationGenerator")
-    }
-
-    register("testProgressBar", JavaExec::class) {
-        jvmArgs("--add-opens=java.desktop/java.awt=ALL-UNNAMED", "--add-opens=java.desktop/javax.swing=ALL-UNNAMED")
-        group = "pokemon-progress"
-        description = "test progress bar"
-        classpath = java.sourceSets["test"].runtimeClasspath
-        mainClass.set("com.kagof.intellij.plugins.pokeprogress.TestProgressBar")
-    }
-
     register("indexColors", DefaultTask::class) {
         group = "pokemon-progress"
         description = "create index file for color schemes"
