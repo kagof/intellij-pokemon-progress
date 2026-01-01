@@ -66,16 +66,19 @@ intellijPlatform {
     }
     pluginVerification {
         ides {
-           properties("pluginVerifierIdeVersions")
-               .split(",")
-               .map { it.trim() }
-               .map { it.split("-", limit = 2) }
-               .filter { it.size == 2 }
-               .forEach { create(it[0], it[1]) }
+            properties("pluginVerifierIdeVersions")
+                .split(",")
+                .map { it.trim() }
+                .map { it.split("-", limit = 2) }
+                .filter { it.size == 2 }
+                .forEach { create(it[0], it[1]) }
         }
-        failureLevel.set(listOf(
-            VerifyPluginTask.FailureLevel.COMPATIBILITY_PROBLEMS,
-            VerifyPluginTask.FailureLevel.NOT_DYNAMIC))
+        failureLevel.set(
+            listOf(
+                VerifyPluginTask.FailureLevel.COMPATIBILITY_PROBLEMS,
+                VerifyPluginTask.FailureLevel.NOT_DYNAMIC
+            )
+        )
     }
 }
 
