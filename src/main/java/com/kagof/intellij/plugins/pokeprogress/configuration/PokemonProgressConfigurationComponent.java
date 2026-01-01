@@ -1,32 +1,5 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JSlider;
-
-import org.jetbrains.annotations.NotNull;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.intellij.icons.AllIcons;
@@ -44,14 +17,34 @@ import com.kagof.intellij.plugins.pokeprogress.PokeballLoaderIconReplacer;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressChangenotesDialog;
+import com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
-import com.kagof.intellij.plugins.pokeprogress.UpdateNotificationActivity;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JSlider;
+import org.jetbrains.annotations.NotNull;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;
@@ -66,6 +59,7 @@ public class PokemonProgressConfigurationComponent {
     final JLabel loader = new JLabel(new AnimatedIcon.Default());
     private final JBCheckBox drawSprites = new JBCheckBox("Draw sprites");
     private final JBCheckBox addToolTips = new JBCheckBox("Add tool tips");
+    private final JBCheckBox addIconToToolTips = new JBCheckBox("Add icons to tool tips");
     private final JBCheckBox indeterminateTransparency = new JBCheckBox("Transparency on indeterminate");
     private final JBCheckBox determinateTransparency = new JBCheckBox("Transparency on determinate");
     private final JBCheckBox showUpdateNotification = new JBCheckBox("Show update notification");
@@ -83,8 +77,9 @@ public class PokemonProgressConfigurationComponent {
     private final JBCheckBox restrictMinHeight = new JBCheckBox("Restrict min height");
     private final JSlider minHeight = new JSlider(8, 64, 20);
 
-    public PokemonProgressConfigurationComponent() {
+    public PokemonProgressConfigurationComponent(final PokemonProgressState state) {
         createUi();
+        updateUi(state);
     }
 
     void createUi() {
@@ -238,15 +233,22 @@ public class PokemonProgressConfigurationComponent {
     @NotNull
     private JPanel createCheckboxPanel() {
         final JPanel checkboxPanel = new JPanel();
-        checkboxPanel.setLayout(new GridLayout(3, 2));
+        checkboxPanel.setLayout(new GridLayout(3, 3));
 
         checkboxPanel.add(drawSprites);
         drawSprites.setToolTipText("If disabled, progress bars will just show the type colors");
         checkboxPanel.add(indeterminateTransparency);
 
+        checkboxPanel.add(determinateTransparency);
         checkboxPanel.add(addToolTips);
         addToolTips.setToolTipText("Whether or not to add a Pokémon tool tip (hover text) on the progress bars");
-        checkboxPanel.add(determinateTransparency);
+        addToolTips.addActionListener(a -> {
+            if (a.getID() == ActionEvent.ACTION_PERFORMED) {
+                addIconToToolTips.setEnabled(addToolTips.isSelected());
+            }
+        });
+        checkboxPanel.add(addIconToToolTips);
+
 
         replaceLoaderIcon.addActionListener(a -> {
             if (a.getID() == ActionEvent.ACTION_PERFORMED) {
@@ -264,7 +266,7 @@ public class PokemonProgressConfigurationComponent {
 
     void updateUi(final PokemonProgressState state) {
         if (state != null) {
-            Optional.ofNullable(UpdateNotificationActivity.getPluginDescriptor())
+            Optional.ofNullable(PokemonProgressListener.getPluginDescriptor())
                 .ifPresent(desc -> title.setText("Pok\u00E9mon Progress " + desc.getVersion()));
             initialVelocity.setValue((int) (state.initialVelocity * 100));
             acceleration.setValue((int) (state.acceleration * 100));
@@ -272,6 +274,8 @@ public class PokemonProgressConfigurationComponent {
             colorScheme.setSelectedItem(ColorSchemes.getByIdOrDefault(state.colorScheme));
             drawSprites.setSelected(state.drawSprites);
             addToolTips.setSelected(state.addToolTips);
+            addIconToToolTips.setSelected(state.addIconToToolTips);
+            addIconToToolTips.setEnabled(addToolTips.isSelected());
             indeterminateTransparency.setSelected(state.transparencyOnIndeterminate);
             determinateTransparency.setSelected(state.transparencyOnDeterminate);
             state.pokemonNumbersEnabled
@@ -280,6 +284,8 @@ public class PokemonProgressConfigurationComponent {
                     return check;
                 }));
             replaceLoaderIcon.setSelected(state.isReplaceLoaderIcon());
+            PokeballLoaderIconReplacer.updateSpinner(state.isReplaceLoaderIcon());
+            loader.setIcon(new AnimatedIcon.Default());
             showUpdateNotification.setSelected(state.showUpdateNotification);
             maxHeight.setValue(state.maximumHeight);
             minHeight.setValue(state.minimumHeight);
@@ -302,6 +308,10 @@ public class PokemonProgressConfigurationComponent {
 
     public JBCheckBox getAddToolTips() {
         return addToolTips;
+    }
+
+    public JBCheckBox getAddIconToToolTips() {
+        return addIconToToolTips;
     }
 
     public JSlider getInitialVelocity() {
@@ -437,6 +447,7 @@ public class PokemonProgressConfigurationComponent {
             determinateTransparency::isSelected,
             drawSprites::isSelected,
             addToolTips::isSelected,
+            addIconToToolTips::isSelected,
             restrictMaxHeight::isSelected,
             maxHeight::getValue,
             restrictMinHeight::isSelected,

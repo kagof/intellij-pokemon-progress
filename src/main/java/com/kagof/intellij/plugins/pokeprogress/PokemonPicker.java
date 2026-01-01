@@ -1,13 +1,12 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
+import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
-import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public class PokemonPicker {
     private static final String TARGET_ENV_VAR = "POKEMON_PROGRESS_TARGET";

@@ -1,31 +1,85 @@
-import com.jetbrains.plugin.structure.intellij.version.IdeVersion
-import org.jetbrains.intellij.tasks.RunPluginVerifierTask.FailureLevel
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask
 
-val changenotesFile: String by project
-val descriptionFile: String by project
-val ideaVersion: String by project
-val pluginVerifierIdeVersions: String by project
+fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
-    id("org.jetbrains.intellij") version "1.17.3" // Use the latest version
+    id("org.jetbrains.intellij.platform") version "2.10.5"
     java
+    kotlin("jvm")
 }
+
+group = properties("pluginGroup")
+version = properties("pluginVersion")
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 dependencies {
-    testImplementation("junit", "junit", "4.12")
-    testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.0.22")
+    intellijPlatform {
+        create(properties("pluginIdeaType"), properties("pluginIdeaVersion"))
+        zipSigner()
+        pluginVerifier(properties("pluginVerifierVersion"))
+        testFramework(TestFrameworkType.Platform)
+    }
+    testImplementation("junit:junit:4.13.1")
+    testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.3.5")
+    testImplementation(kotlin("test"))
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
-intellij {
-    version.set(ideaVersion)
-    pluginName.set(name)
-    downloadSources.set(true)
-    updateSinceUntilBuild.set(false)
+intellijPlatform {
+    buildSearchableOptions = true
+    instrumentCode = true
+    autoReload = true
+    projectName = project.name
+    pluginConfiguration {
+        name = properties("pluginName")
+        version = properties("pluginVersion")
+        id = properties("pluginId")
+        File(properties("changenotesFile")).let {
+            if (it.exists() && it.isFile && it.canRead()) changeNotes.set(it.readText())
+            else throw IllegalStateException("unable to read ${it.name}")
+        }
+        File(properties("descriptionFile")).let {
+            if (it.exists() && it.isFile && it.canRead()) description.set(it.readText())
+            else throw IllegalStateException("unable to read ${it.name}")
+        }
+        ideaVersion {
+            sinceBuild = properties("pluginSinceBuild")
+            untilBuild = provider { null }
+        }
+    }
+    publishing {
+        System.getenv("JETBRAINS_REPO_TOKEN")?.let { token.set(it) }
+        System.getenv("PLUGIN_DEPLOYMENT_CHANNELS")
+            ?.let { channels.set(it.split(",").map { s -> s.trim() }.toList()) }
+            ?: channels.set(listOf("default"))
+    }
+    signing {
+        System.getenv("JETBRAINS_REPO_SIGNING_KEY")?.let { privateKey.set(it) }
+        System.getenv("JETBRAINS_REPO_SIGNING_KEY_PASSWORD")?.let { password.set(it) }
+        System.getenv("JETBRAINS_REPO_CERTIFICATE_CHAIN")?.let { certificateChain.set(it) }
+    }
+    pluginVerification {
+        ides {
+            properties("pluginVerifierIdeVersions")
+                .split(",")
+                .map { it.trim() }
+                .map { it.split("-", limit = 2) }
+                .filter { it.size == 2 }
+                .forEach { create(it[0], it[1]) }
+        }
+        failureLevel.set(
+            listOf(
+                VerifyPluginTask.FailureLevel.COMPATIBILITY_PROBLEMS,
+                VerifyPluginTask.FailureLevel.NOT_DYNAMIC
+            )
+        )
+    }
 }
 
 java {
@@ -33,21 +87,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 tasks {
-    register("genDocs", JavaExec::class) {
-        group = "pokemon-progress"
-        description = "generate documentation"
-        classpath = java.sourceSets["test"].runtimeClasspath
-        mainClass.set("com.kagof.intellij.plugins.pokeprogress.DocumentationGenerator")
-    }
-
-    register("testProgressBar", JavaExec::class) {
-        group = "pokemon-progress"
-        description = "test progress bar"
-        classpath = java.sourceSets["test"].runtimeClasspath
-        mainClass.set("com.kagof.intellij.plugins.pokeprogress.TestProgressBar")
-    }
-
     register("indexColors", DefaultTask::class) {
         group = "pokemon-progress"
         description = "create index file for color schemes"
@@ -73,41 +117,4 @@ tasks {
         dependsOn("indexColors")
     }
 
-    patchPluginXml {
-        untilBuild.set(null as String?)
-        sinceBuild.convention(project.provider {
-            val ideVersion = IdeVersion.createIdeVersion(setupDependencies.get().idea.get().buildNumber)
-            "${ideVersion.baselineVersion}.${ideVersion.build}"
-        })
-
-        File(changenotesFile).let {
-            if (it.exists() && it.isFile && it.canRead()) changeNotes.set(it.readText())
-            else throw IllegalStateException("unable to read $changenotesFile")
-        }
-        File(descriptionFile).let {
-            if (it.exists() && it.isFile && it.canRead()) pluginDescription.set(it.readText())
-            else throw IllegalStateException("unable to read $descriptionFile")
-        }
-    }
-
-    buildPlugin {
-        dependsOn(patchPluginXml)
-    }
-
-    runPluginVerifier {
-        ideVersions.set(pluginVerifierIdeVersions.split(",").map { it.trim() }.toList())
-        failureLevel.set(listOf(FailureLevel.COMPATIBILITY_PROBLEMS,
-            FailureLevel.NOT_DYNAMIC))
-    }
-
-    signPlugin {
-        System.getenv("JETBRAINS_REPO_SIGNING_KEY")?.let { privateKey.set(it) }
-        System.getenv("JETBRAINS_REPO_SIGNING_KEY_PASSWORD")?.let { password.set(it) }
-        System.getenv("JETBRAINS_REPO_CERTIFICATE_CHAIN")?.let { certificateChain.set(it) }
-    }
-
-    publishPlugin {
-        System.getenv("JETBRAINS_REPO_TOKEN")?.let { token.set(it) }
-        System.getenv("PLUGIN_DEPLOYMENT_CHANNELS")?.let { channels.set(it.split(",").map { s -> s.trim() }.toList()) }
-    }
 }

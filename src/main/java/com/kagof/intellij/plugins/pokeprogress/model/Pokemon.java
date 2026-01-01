@@ -1,14 +1,13 @@
 package com.kagof.intellij.plugins.pokeprogress.model;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.intellij.openapi.util.text.StringUtil;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.intellij.openapi.util.text.StringUtil;
 
 public enum Pokemon {
     // Gen I
@@ -34,7 +33,7 @@ public enum Pokemon {
     MAGNEMITE(81, "magnemite", -17, -13, 18, PokemonType.ELECTRIC, PokemonType.STEEL),
     GENGAR(94, "gengar", -16, -7, 24, PokemonType.GHOST, PokemonType.POISON),
     KOFFING(109, "koffing", -16, -8, 21, PokemonType.POISON),
-    SCYTHER(123, "scyther", -17, -5, 25, PokemonType.BUG, PokemonType.FLYING),
+    SCYTHER(123, "scyther", -15, -6, 25, PokemonType.BUG, PokemonType.FLYING),
     GYARADOS(130, "gyarados", -16, -1, 30, PokemonType.WATER, PokemonType.FLYING),
     EEVEE(133, "eevee", -15, -12, 20, PokemonType.NORMAL),
     VAPOREON(134, "vaporeon", -19, -8, 24, PokemonType.WATER),
@@ -58,6 +57,7 @@ public enum Pokemon {
     ESPEON(196, "espeon", -17, -9, 22, PokemonType.PSYCHIC),
     UMBREON(197, "umbreon", -18, -9, 22, PokemonType.DARK),
     WOBBUFFET(202, "wobbuffet", -18, -8, 24, PokemonType.PSYCHIC),
+    SCIZOR(212, "scizor", -13, -5, 26, PokemonType.BUG, PokemonType.STEEL),
     RAIKOU(243, "raikou", -18, -7, 24, PokemonType.ELECTRIC),
     ENTEI(244, "entei", -18, -7, 24, PokemonType.FIRE),
     SUICUNE(245, "suicune", -20, -8, 24, PokemonType.WATER),
@@ -127,12 +127,16 @@ public enum Pokemon {
     SOBBLE(816, "sobble", -16, -5, 22, PokemonType.WATER),
     INTELLEON(818, "intelleon", -17, -3, 28, PokemonType.WATER),
     WOOLOO(831, "wooloo", -12, -5, 20, PokemonType.NORMAL),
+    CRAMORANT(845, "cramorant", -17, -8, 25, PokemonType.FLYING, PokemonType.WATER),
     ZACIAN(888, "zacian", -10, -2, 26, PokemonType.FAIRY, PokemonType.STEEL),
     ZAMAZENTA(889, "zamazenta", -17, 0, 28, PokemonType.FIGHTING, PokemonType.STEEL),
     // Gen IX (numbers in this gen are speculation for now)
     SPRIGATITO(906, "sprigatito", -18, -11, 22, PokemonType.GRASS),
+    MEOWSCARADA(908, "meowscarada", -15, -3, 28, PokemonType.GRASS, PokemonType.DARK),
     FUECOCO(909, "fuecoco", -15, -9, 22, PokemonType.FIRE),
+    SKELEDIRGE(911, "skeledirge", -15, -10, 20, PokemonType.FIRE, PokemonType.GHOST),
     QUAXLY(912, "quaxly", -15, -11, 22, PokemonType.WATER),
+    QUAQUAVAL(914, "quaquaval", -17, -1, 28, PokemonType.WATER, PokemonType.FIGHTING),
     // Secret
     MISSINGNO(-1, "missingNo.", -20, 0, 35, true, null, null, PokemonType.NORMAL);
 
@@ -159,12 +163,12 @@ public enum Pokemon {
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final int height,
-        final PokemonType... types) {
+            final PokemonType... types) {
         this(number, name, xShift, yShift, height, null, types);
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final int height,
-        final RegionalVariant regionalVariant, final PokemonType... types) {
+            final RegionalVariant regionalVariant, final PokemonType... types) {
         this(number,
             name,
             xShift,
@@ -177,7 +181,7 @@ public enum Pokemon {
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final int height,
-        final boolean secret, final String idModifier, final Generation gen, final PokemonType... types) {
+            final boolean secret, final String idModifier, final Generation gen, final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
         }

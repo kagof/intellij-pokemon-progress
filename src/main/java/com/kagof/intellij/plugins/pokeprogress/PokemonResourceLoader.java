@@ -1,15 +1,13 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-
 import javax.swing.ImageIcon;
-
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 
 public final class PokemonResourceLoader {
     private static final String SPRITE_RESOURCE_PATH = "com/kagof/intellij/plugins/pokeprogress/sprites/";
@@ -59,8 +57,8 @@ public final class PokemonResourceLoader {
         try {
             return cache.get(resourceName,
                 () -> getResource(resourceName)
-                .map(ImageIcon::new)
-                .orElseGet(ImageIcon::new));
+                    .map(ImageIcon::new)
+                    .orElseGet(ImageIcon::new));
         } catch (final ExecutionException e) {
             return new ImageIcon();
         }

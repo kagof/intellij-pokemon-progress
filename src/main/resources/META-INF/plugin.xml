@@ -15,9 +15,7 @@
         <applicationService
             serviceImplementation="com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState" />
         <postStartupActivity
-            implementation="com.kagof.intellij.plugins.pokeprogress.UpdateNotificationActivity" />
-        <postStartupActivity
-            implementation="com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener$PokemonProgressStartupActivity" />
+            implementation="com.kagof.intellij.plugins.pokeprogress.ProjectStartupActivity" />
         <notificationGroup displayType="STICKY_BALLOON" id="Pokemon Progress Update" />
     </extensions>
     <applicationListeners>

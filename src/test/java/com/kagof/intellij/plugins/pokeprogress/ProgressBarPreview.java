@@ -1,21 +1,5 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.lang.reflect.Field;
-import java.util.Objects;
-import java.util.Optional;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-
 import com.intellij.ide.ui.laf.darcula.DarculaLaf;
 import com.intellij.ide.ui.laf.darcula.ui.DarculaTextBorder;
 import com.intellij.mock.MockApplication;
@@ -25,6 +9,7 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.ui.components.fields.IntegerField;
+import com.intellij.ui.scale.JBUIScale;
 import com.intellij.util.ReflectionUtil;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
@@ -32,9 +17,31 @@ import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
+import java.util.Optional;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import org.junit.Assume;
+import org.junit.Test;
 
-public class TestProgressBar {
+/**
+ * Used to find & adjust the best positioning of sprites.
+ * <p>
+ * Use the "Progress Bar Preview" or "Progress Bar Preview (dark mode)" run configuration.
+ */
+public class ProgressBarPreview {
     private static final int MAX_SHIFT_VALUE = 900;
+    private static volatile boolean exited = false;
     private PokemonProgressState state;
 
     private JFrame frame;
@@ -48,19 +55,17 @@ public class TestProgressBar {
     private int originalYShift = 0;
     private int originalHeight = 20;
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final boolean useDarkMode = true;
+    private final boolean useDarkMode = System.getenv().containsKey("KGIJ_PBP_DARK_MODE");
 
     @SuppressWarnings("FieldCanBeLocal")
     private final Pokemon target = null;
 
     @SuppressWarnings("ConstantConditions")
-    public TestProgressBar() {
+    public ProgressBarPreview() {
         setUpMockApplication();
-        setLookAndFeel();
         updateSelectedPokemon(Optional.ofNullable(target).orElseGet(PokemonPicker::get));
+        setLookAndFeel();
         initializeFrame();
-        addShutdownHook();
     }
 
     private void setUpMockApplication() {
@@ -71,14 +76,17 @@ public class TestProgressBar {
         final MockApplication application = MockApplication.setUp(parent);
         application.registerService(PokemonProgressState.class, state);
         ApplicationManager.setApplication(application, parent);
+        //noinspection UnstableApiUsage
+        JBUIScale.DEBUG_USER_SCALE_FACTOR.setValue(1.0f);
     }
 
     private void setLookAndFeel() {
         if (useDarkMode) {
             final DarculaLaf darkMode = new DarculaLaf();
             try {
+                UIManager.put("label.font", Font.getFont(Font.SANS_SERIF));
                 UIManager.setLookAndFeel(darkMode);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 System.out.println("unable to set look and feel");
                 e.printStackTrace();
             }
@@ -93,7 +101,15 @@ public class TestProgressBar {
         frame.setSize(contentPanel.getPreferredSize());
         frame.setResizable(false);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(final WindowEvent e) {
+                printIfShiftUpdated();
+                exited = true;
+                super.windowClosing(e);
+
+            }
+        });
         frame.pack();
     }
 
@@ -182,7 +198,10 @@ public class TestProgressBar {
         buttonPanel.setLayout(new GridLayout(1, 2));
 
         final JButton updateButton = new JButton("Update");
-        updateButton.addActionListener(this::updatePositionAndUI);
+        updateButton.addActionListener(e -> {
+            printIfShiftUpdated();
+            updatePositionAndUI(e);
+        });
 
         final JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(e -> {
@@ -194,16 +213,6 @@ public class TestProgressBar {
         buttonPanel.add(resetButton);
 
         return buttonPanel;
-    }
-
-    private void addShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                printIfShiftUpdated();
-                super.run();
-            }
-        });
     }
 
     private void updateSelectedPokemon(final Pokemon newPokemon) {
@@ -241,7 +250,7 @@ public class TestProgressBar {
         try {
             field.validateContent();
         } catch (final ConfigurationException ex) {
-            field.setToolTipText(ex.getMessage());
+            field.setToolTipText(ex.getMessageHtml().toString());
             return;
         }
         field.setToolTipText(null);
@@ -277,7 +286,18 @@ public class TestProgressBar {
             || !Objects.equals(originalHeight, selectedPokemon.getHeight());
     }
 
-    public static void main(final String[] args) {
-        SwingUtilities.invokeLater(TestProgressBar::new);
+    // deliberately not following naming convention so doesn't run automatically
+    @SuppressWarnings("NewClassNamingConvention")
+    public static class ProgressBarPreviewRunner {
+        @Test
+        public void startTestProgressBarApplication() throws InterruptedException, InvocationTargetException {
+            Assume.assumeTrue(System.getenv().containsKey("KGIJ_PBP_ENABLED"));
+            SwingUtilities.invokeAndWait(ProgressBarPreview::new);
+            while (!exited) {
+                //noinspection BusyWait
+                Thread.sleep(1000);
+            }
+        }
+
     }
 }

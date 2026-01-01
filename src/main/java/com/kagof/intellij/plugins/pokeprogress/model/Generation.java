@@ -9,9 +9,13 @@ public enum Generation {
     VI(650),
     VII(722),
     VIII(810),
-    IX(906); // speculated start
+    IX(906);
 
     private final int start;
+
+    public int getStart() {
+        return start;
+    }
 
     Generation(final int start) {
         this.start = start;
