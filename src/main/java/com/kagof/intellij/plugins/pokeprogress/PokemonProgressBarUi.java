@@ -1,33 +1,5 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.LinearGradientPaint;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.RoundRectangle2D;
-import java.net.URL;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicProgressBarUI;
-
-import org.jetbrains.annotations.NotNull;
-
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.scale.JBUIScale;
@@ -40,6 +12,19 @@ import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
+import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+import java.net.URL;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.SwingConstants;
+import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.basic.BasicProgressBarUI;
+import org.jetbrains.annotations.NotNull;
 
 public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static final String DEBUGGING_ENV_VAR = "POKEMON_PROGRESS_DEBUG";
@@ -206,7 +191,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         final RoundRectangle2D rectangle = getRoundRectangle(width, height);
 
         drawTypePaint(width, height, amountFull, graphics2D, rectangle);
-        drawPokemonIcon(amountFull, graphics2D, rectangle);
+        drawPokemonIcon(amountFull, graphics2D, config, rectangle);
         drawBorder(rectangle, graphics2D);
         // Deal with possible text painting
         if (progressBar.isStringPainted()) {
@@ -291,12 +276,12 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
         graphics2D.setStroke(stroke);
     }
 
-    private void drawPokemonIcon(final int amountFull, final Graphics2D graphics2D, final Shape clip) {
+    private void drawPokemonIcon(final int amountFull, final Graphics2D graphics2D, final GraphicsConfig graphicsConfig, final Shape clip) {
         if (!drawSprites.get()) {
             return;
         }
+        graphicsConfig.setAntialiasing(false);
         final Shape previousClip = graphics2D.getClip();
-
         graphics2D.setClip(clip);
         final Icon icon;
         if (restrictMaxHeight.get() || restrictMinHeight.get()) {
@@ -312,6 +297,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
                 JBUI.scale(scaleToHeightRestrictions(pokemon.getYShift())));
         }
         graphics2D.setClip(previousClip);
+        graphicsConfig.setAntialiasing(true);
     }
 
     private boolean isUnsupported(final Graphics g, final JComponent c) {
