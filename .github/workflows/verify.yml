@@ -33,17 +33,8 @@ jobs:
           java-version: 17
           distribution: 'temurin'
 
-      - name: Setup Gradle Dependencies Cache
-        uses: actions/cache@v5.0.1
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('**/*.gradle', '**/*.gradle.kts') }}
-
-      - name: Setup Gradle Wrapper Cache
-        uses: actions/cache@v5.0.1
-        with:
-          path: ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
 
       - name: Grant execute permission for Gradle Wrapper
         run: chmod +x gradlew
@@ -60,43 +51,43 @@ jobs:
 
       - name: Gradle check
         run: |
+          set -o pipefail
           cmd="./gradlew check --console=plain"
           echo $cmd >> results-${GITHUB_SHA}.txt  
-          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          eval "$cmd" 2>&1 | tee -a results-${GITHUB_SHA}.txt
           echo '============================================' >> results-${GITHUB_SHA}.txt  
           echo >> results-${GITHUB_SHA}.txt
 
       - name: Gradle verifyPluginProjectConfiguration
         run: |
+          set -o pipefail
           cmd="./gradlew verifyPluginProjectConfiguration --console=plain"
           echo $cmd >> results-${GITHUB_SHA}.txt  
-          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          eval "$cmd" 2>&1 | tee -a results-${GITHUB_SHA}.txt
           echo '============================================' >> results-${GITHUB_SHA}.txt
           echo >> results-${GITHUB_SHA}.txt
 
       - name: Gradle verifyPluginStructure
         run: |
+          set -o pipefail
           cmd="./gradlew verifyPluginStructure --console=plain"
           echo $cmd >> results-${GITHUB_SHA}.txt  
-          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          eval "$cmd" 2>&1 | tee -a results-${GITHUB_SHA}.txt
           echo '============================================' >> results-${GITHUB_SHA}.txt
           echo >> results-${GITHUB_SHA}.txt
 
       - name: Gradle verifyPlugin
         run: |
+          set -o pipefail
           cmd="./gradlew verifyPlugin --console=plain"
           echo $cmd >> results-${GITHUB_SHA}.txt  
-          eval $cmd | tee -a results-${GITHUB_SHA}.txt
+          eval "$cmd" 2>&1 | tee -a results-${GITHUB_SHA}.txt
           echo '============================================' >> results-${GITHUB_SHA}.txt
           echo >> results-${GITHUB_SHA}.txt
 
       - name: Sync master branch verification results to gist
         id: sync
-        uses: Popsiclestick/gist-sync-action@v1.2.0
         if: github.ref == 'refs/heads/master'
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gist_url: https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3
-          gist_title: IntelliJ Pokémon Progress Bar Verification Results
-          gist_description: Latest intellij-pokemon-progress master branch test results ${{ github.run_number }} (${{ github.sha }})
-          github_file: ${{ steps.resultsFileSetup.outputs.RESULTS_FILE_NAME }}
+        run: |
+          chmod +x ./syncGist.sh
+          ./syncGist.sh ${{ secrets.GIST_TOKEN }} https://gist.github.com/kagof/63edd71468e771dcde77ff87f251f8a3 "IntelliJ Pokémon Progress Bar Verification Results" "Latest intellij-pokemon-progress master branch test results ${{ github.run_number }} (${{ github.sha }})" ${{ steps.resultsFileSetup.outputs.RESULTS_FILE_NAME }}  
