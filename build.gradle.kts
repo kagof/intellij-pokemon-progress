@@ -26,7 +26,7 @@ dependencies {
         pluginVerifier(properties("pluginVerifierVersion"))
         testFramework(TestFrameworkType.Platform)
     }
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("junit:junit:4.13.2")
     testImplementation("com.sksamuel.scrimage", "scrimage-core", "4.3.5")
     testImplementation(kotlin("test"))
 }
