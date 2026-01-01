@@ -1,14 +1,13 @@
 package com.kagof.intellij.plugins.pokeprogress.model;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.intellij.openapi.util.text.StringUtil;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.intellij.openapi.util.text.StringUtil;
 
 public enum Pokemon {
     // Gen I
@@ -34,7 +33,7 @@ public enum Pokemon {
     MAGNEMITE(81, "magnemite", -17, -13, 18, PokemonType.ELECTRIC, PokemonType.STEEL),
     GENGAR(94, "gengar", -16, -7, 24, PokemonType.GHOST, PokemonType.POISON),
     KOFFING(109, "koffing", -16, -8, 21, PokemonType.POISON),
-    SCYTHER(123, "scyther", -17, -5, 25, PokemonType.BUG, PokemonType.FLYING),
+    SCYTHER(123, "scyther", -15, -6, 25, PokemonType.BUG, PokemonType.FLYING),
     GYARADOS(130, "gyarados", -16, -1, 30, PokemonType.WATER, PokemonType.FLYING),
     EEVEE(133, "eevee", -15, -12, 20, PokemonType.NORMAL),
     VAPOREON(134, "vaporeon", -19, -8, 24, PokemonType.WATER),
@@ -58,6 +57,7 @@ public enum Pokemon {
     ESPEON(196, "espeon", -17, -9, 22, PokemonType.PSYCHIC),
     UMBREON(197, "umbreon", -18, -9, 22, PokemonType.DARK),
     WOBBUFFET(202, "wobbuffet", -18, -8, 24, PokemonType.PSYCHIC),
+    SCIZOR(212, "scizor", -13, -5, 26, PokemonType.BUG, PokemonType.STEEL),
     RAIKOU(243, "raikou", -18, -7, 24, PokemonType.ELECTRIC),
     ENTEI(244, "entei", -18, -7, 24, PokemonType.FIRE),
     SUICUNE(245, "suicune", -20, -8, 24, PokemonType.WATER),

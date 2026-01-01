@@ -66,6 +66,7 @@ If you like the plugin, please consider [rating it on the Marketplace](https://p
 * ![Espeon (#196)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/espeon.gif) Espeon (#196) ![Espeon (#196)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/espeon_r.gif)
 * ![Umbreon (#197)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/umbreon.gif) Umbreon (#197) ![Umbreon (#197)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/umbreon_r.gif)
 * ![Wobbuffet (#202)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wobbuffet.gif) Wobbuffet (#202) ![Wobbuffet (#202)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/wobbuffet_r.gif)
+* ![Scizor (#212)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/scizor.gif) Scizor (#212) ![Scizor (#212)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/scizor_r.gif)
 * ![Raikou (#243)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/raikou.gif) Raikou (#243) ![Raikou (#243)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/raikou_r.gif)
 * ![Entei (#244)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/entei.gif) Entei (#244) ![Entei (#244)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/entei_r.gif)
 * ![Suicune (#245)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/suicune.gif) Suicune (#245) ![Suicune (#245)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/suicune_r.gif)
@@ -164,8 +165,10 @@ Contributions are very welcome on this project! Contributions can take the form 
 
 ### Sprites
 
-* [Pokencyclopedia SpriteDex - Heart Gold & Soul Silver](https://www.pokencyclopedia.info/en/index.php?id=sprites/overworlds/o-r_hgss)
-  * All Gen I-IV sprites unless otherwise noted
+* [DragoonForstr on The Spriters Resource - HeartGold & SoulSilver overworld sprites](https://www.spriters-resource.com/profile/dragoon/)
+  * All Gen I-IV sprites added from 2026 onward
+* Pokencyclopedia.info SpriteDex - HeartGold & SoulSilver (note: website no longer available)
+  * All Gen I-IV sprites added prior to 2026 (Bulbasaur, Venusaur, Charmander, Charizard, Squirtle, Blastoise, Butterfree, Pikachu, Nidoqueen, Nidoking, Jigglypuff, Diglett, Dugtrio, Meowth, Psyduck, Golduck, Alakazam, Machamp, Slowpoke, Magnemite, Gengar, Koffing, Scyther, Gyarados, Eevee, Vaporeon, Jolteon, Flareon, Snorlax, Articuno, Galarian articuno, Zapdos, Galarian zapdos, Moltres, Galarian moltres, Dragonite, Mewtwo, Mew, Chikorita, Meganium, Cyndaquil, Typhlosion, Totodile, Feraligatr, Togepi, Espeon, Umbreon, Wobbuffet, Raikou, Entei, Suicune, Lugia, Ho-Oh, Celebi, Treecko, Sceptile, Torchic, Blaziken, Mudkip, Swampert, Wailmer, Wailord, Latias, Latios, Kyogre, Groudon, Rayquaza, Jirachi, Deoxys, Turtwig, Torterra, Chimchar, Infernape, Piplup, Empoleon, Leafeon, Glaceon, Arceus)
   * MissingNo.
 * [Kyle-Dove on DeviantArt](https://www.deviantart.com/kyle-dove/gallery)
   * Snivy, Tepig, Oshawott

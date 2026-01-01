@@ -13,6 +13,10 @@ public enum Generation {
 
     private final int start;
 
+    public int getStart() {
+        return start;
+    }
+
     Generation(final int start) {
         this.start = start;
     }
