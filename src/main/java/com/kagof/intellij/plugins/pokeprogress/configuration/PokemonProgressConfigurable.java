@@ -1,12 +1,9 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
-import java.util.Objects;
-
-import javax.swing.JComponent;
-
-import org.jetbrains.annotations.Nls;
-
 import com.intellij.openapi.options.Configurable;
+import java.util.Objects;
+import javax.swing.JComponent;
+import org.jetbrains.annotations.Nls;
 
 public class PokemonProgressConfigurable implements Configurable {
     private PokemonProgressConfigurationComponent component;
@@ -30,7 +27,7 @@ public class PokemonProgressConfigurable implements Configurable {
         return component != null && (!state.pokemonNumbersEnabled.equals(component.getEnabledIdMap())
             || !Objects.equals(state.theme, component.getTheme().getItemAt(component.getTheme().getSelectedIndex()).getId())
             || !Objects.equals(state.colorScheme,
-                component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId())
+            component.getColorScheme().getItemAt(component.getColorScheme().getSelectedIndex()).getId())
             || state.drawSprites != component.getDrawSprites().isSelected()
             || state.addToolTips != component.getAddToolTips().isSelected()
             || state.addIconToToolTips != component.getAddIconToToolTips().isSelected()

@@ -1,18 +1,15 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-
-import javax.swing.JComponent;
-
-import org.jetbrains.annotations.Nullable;
-
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBScrollPane;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import javax.swing.JComponent;
+import org.jetbrains.annotations.Nullable;
 
 public class PokemonProgressChangenotesDialog extends DialogWrapper {
     public static final String CHANGENOTES_URL = "https://raw.githubusercontent.com/kagof/intellij-pokemon-progress/master/changenotes.html";

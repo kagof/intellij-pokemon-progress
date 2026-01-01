@@ -163,12 +163,12 @@ public enum Pokemon {
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final int height,
-        final PokemonType... types) {
+            final PokemonType... types) {
         this(number, name, xShift, yShift, height, null, types);
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final int height,
-        final RegionalVariant regionalVariant, final PokemonType... types) {
+            final RegionalVariant regionalVariant, final PokemonType... types) {
         this(number,
             name,
             xShift,
@@ -181,7 +181,7 @@ public enum Pokemon {
     }
 
     Pokemon(final int number, final String name, final int xShift, final int yShift, final int height,
-        final boolean secret, final String idModifier, final Generation gen, final PokemonType... types) {
+            final boolean secret, final String idModifier, final Generation gen, final PokemonType... types) {
         if (types == null || types.length < 1) {
             throw new IllegalArgumentException("configuration for " + name + " invalid");
         }

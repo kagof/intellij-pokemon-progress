@@ -69,19 +69,19 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     public PokemonProgressBarUi(final Pokemon pokemon,
-        final Supplier<Float> initialVelocity,
-        final Supplier<Float> acceleration,
-        final Supplier<PaintTheme> theme,
-        final Supplier<ColorScheme> colorScheme,
-        final Supplier<Boolean> transparencyOnIndeterminate,
-        final Supplier<Boolean> transparencyOnDeterminate,
-        final Supplier<Boolean> drawSprites,
-        final Supplier<Boolean> addToolTips,
-        final Supplier<Boolean> addIconToToolTips,
-        final Supplier<Boolean> restrictMaxHeight,
-        final Supplier<Integer> maxHeight,
-        final Supplier<Boolean> restrictMinHeight,
-        final Supplier<Integer> minHeight) {
+                                final Supplier<Float> initialVelocity,
+                                final Supplier<Float> acceleration,
+                                final Supplier<PaintTheme> theme,
+                                final Supplier<ColorScheme> colorScheme,
+                                final Supplier<Boolean> transparencyOnIndeterminate,
+                                final Supplier<Boolean> transparencyOnDeterminate,
+                                final Supplier<Boolean> drawSprites,
+                                final Supplier<Boolean> addToolTips,
+                                final Supplier<Boolean> addIconToToolTips,
+                                final Supplier<Boolean> restrictMaxHeight,
+                                final Supplier<Integer> maxHeight,
+                                final Supplier<Boolean> restrictMinHeight,
+                                final Supplier<Integer> minHeight) {
         super();
         this.pokemon = pokemon;
         this.initialVelocity = initialVelocity;
@@ -222,7 +222,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private void drawTypePaint(final int width, final int height, final int progress, final Graphics2D graphics2D,
-        final RoundRectangle2D rectangle) {
+                               final RoundRectangle2D rectangle) {
         final Paint paint = graphics2D.getPaint();
         final Shape clip = graphics2D.getClip();
         final boolean movingRight = velocity >= 0;
@@ -247,8 +247,8 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     private static Paint getTransparencyPaint(final Color backgroundColor, final int width, final boolean movingRight) {
         final JBColor transparent = new JBColor(new Color(0, 0, 0, 0), new Color(0, 0, 0, 0));
         return new LinearGradientPaint(0, JBUIScale.scale(2f), width, JBUIScale.scale(2f),
-            new float[] {0, 1}, new Color[] {movingRight ? backgroundColor : transparent,
-                movingRight ? transparent : backgroundColor});
+            new float[]{0, 1}, new Color[]{movingRight ? backgroundColor : transparent,
+            movingRight ? transparent : backgroundColor});
     }
 
     private void setToolTipText() {
@@ -347,7 +347,7 @@ public class PokemonProgressBarUi extends BasicProgressBarUI {
     }
 
     private static <T> Supplier<T> safeGetFromState(final Function<PokemonProgressState, T> getter,
-        final T defaultIfStateNull) {
+                                                    final T defaultIfStateNull) {
         return () -> Optional.ofNullable(PokemonProgressState.getInstance())
             .map(getter)
             .orElse(defaultIfStateNull);

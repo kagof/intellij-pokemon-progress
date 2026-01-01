@@ -1,11 +1,5 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import org.jetbrains.annotations.NotNull;
-
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
@@ -13,6 +7,10 @@ import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.kagof.intellij.plugins.pokeprogress.PokeballLoaderIconReplacer;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import org.jetbrains.annotations.NotNull;
 
 @State(
     name = "com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState",

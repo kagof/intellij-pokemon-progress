@@ -1,20 +1,16 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.ui.AnimatedIcon;
+import icons.PokeIcons;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Objects;
-
 import javax.swing.Icon;
-
 import org.jetbrains.annotations.NotNull;
-
-import com.intellij.ui.AnimatedIcon;
-
-import icons.PokeIcons;
 
 public class PokeballLoaderIconReplacer {
     private static final Logger LOG = Logger.getInstance(PokeballLoaderIconReplacer.class);
@@ -78,7 +74,7 @@ public class PokeballLoaderIconReplacer {
         return pokeballIcons;
     }
 
-    private static AnimatedIcon.Frame[] getFrames(int delay, Icon @NotNull... icons) {
+    private static AnimatedIcon.Frame[] getFrames(int delay, Icon @NotNull ... icons) {
         int length = icons.length;
         assert length > 0 : "empty array";
         AnimatedIcon.Frame[] frames = new AnimatedIcon.Frame[length];

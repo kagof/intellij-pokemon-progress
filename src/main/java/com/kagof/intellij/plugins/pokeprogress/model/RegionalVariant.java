@@ -4,7 +4,7 @@ public enum RegionalVariant {
     ALOLAN(Generation.VII),
     GALARIAN(Generation.VIII),
     HISUIAN(Generation.VIII),
-    PALDEAN(Generation.IX) ;
+    PALDEAN(Generation.IX);
 
     private final Generation generation;
 

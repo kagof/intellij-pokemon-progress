@@ -1,11 +1,9 @@
 package icons;
 
-import java.util.List;
-
-import javax.swing.Icon;
-
 import com.intellij.ui.AnimatedIcon;
 import com.intellij.ui.IconManager;
+import java.util.List;
+import javax.swing.Icon;
 
 public interface PokeIcons {
     Icon PokeballStep1 = IconManager.getInstance()

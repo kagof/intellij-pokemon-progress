@@ -1,33 +1,5 @@
 package com.kagof.intellij.plugins.pokeprogress.configuration;
 
-import com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JSlider;
-
-import org.jetbrains.annotations.NotNull;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.intellij.icons.AllIcons;
@@ -45,14 +17,34 @@ import com.kagof.intellij.plugins.pokeprogress.PokeballLoaderIconReplacer;
 import com.kagof.intellij.plugins.pokeprogress.PokemonPicker;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressBarUi;
 import com.kagof.intellij.plugins.pokeprogress.PokemonProgressChangenotesDialog;
+import com.kagof.intellij.plugins.pokeprogress.PokemonProgressListener;
 import com.kagof.intellij.plugins.pokeprogress.PokemonResourceLoader;
-import com.kagof.intellij.plugins.pokeprogress.UpdateNotificationSender;
 import com.kagof.intellij.plugins.pokeprogress.model.Generation;
 import com.kagof.intellij.plugins.pokeprogress.model.Pokemon;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorScheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.ColorSchemes;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintTheme;
 import com.kagof.intellij.plugins.pokeprogress.theme.PaintThemes;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JSlider;
+import org.jetbrains.annotations.NotNull;
 
 public class PokemonProgressConfigurationComponent {
     private JPanel mainPanel;

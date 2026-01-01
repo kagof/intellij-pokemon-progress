@@ -1,23 +1,17 @@
 package com.kagof.intellij.plugins.pokeprogress;
 
-import com.intellij.ide.plugins.PluginManagerCore;
-import com.intellij.openapi.project.ProjectManager;
-import java.util.Objects;
-import java.util.Optional;
-
-import javax.swing.UIManager;
-
-import org.jetbrains.annotations.NotNull;
-
 import com.intellij.ide.plugins.DynamicPluginListener;
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
+import com.intellij.ide.plugins.PluginManagerCore;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.startup.StartupActivity;
 import com.intellij.openapi.extensions.PluginId;
 import com.kagof.intellij.plugins.pokeprogress.configuration.PokemonProgressState;
+import java.util.Objects;
+import java.util.Optional;
+import javax.swing.UIManager;
+import org.jetbrains.annotations.NotNull;
 
 public class PokemonProgressListener implements LafManagerListener, DynamicPluginListener {
     private static final String PLUGIN_ID_STRING = "com.kagof.pokeprogress";
@@ -65,7 +59,7 @@ public class PokemonProgressListener implements LafManagerListener, DynamicPlugi
                 previousProgressBar = prev;
             }
             Optional.ofNullable(PokemonProgressState.getInstance())
-                    .ifPresent(s -> PokeballLoaderIconReplacer.updateSpinner(s.isReplaceLoaderIcon()));
+                .ifPresent(s -> PokeballLoaderIconReplacer.updateSpinner(s.isReplaceLoaderIcon()));
             UIManager.put(PROGRESS_BAR_UI_KEY, POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME);
             UIManager.getDefaults().put(POKEMON_PROGRESS_BAR_UI_IMPLEMENTATION_NAME, PokemonProgressBarUi.class);
         });
