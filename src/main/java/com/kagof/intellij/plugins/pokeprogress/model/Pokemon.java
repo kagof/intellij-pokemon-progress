@@ -132,8 +132,11 @@ public enum Pokemon {
     ZAMAZENTA(889, "zamazenta", -17, 0, 28, PokemonType.FIGHTING, PokemonType.STEEL),
     // Gen IX (numbers in this gen are speculation for now)
     SPRIGATITO(906, "sprigatito", -18, -11, 22, PokemonType.GRASS),
+    MEOWSCARADA(908, "meowscarada", -15, -3, 28, PokemonType.GRASS, PokemonType.DARK),
     FUECOCO(909, "fuecoco", -15, -9, 22, PokemonType.FIRE),
+    SKELEDIRGE(911, "skeledirge", -15, -10, 20, PokemonType.FIRE, PokemonType.GHOST),
     QUAXLY(912, "quaxly", -15, -11, 22, PokemonType.WATER),
+    QUAQUAVAL(914, "quaquaval", -17, -1, 28, PokemonType.WATER, PokemonType.FIGHTING),
     // Secret
     MISSINGNO(-1, "missingNo.", -20, 0, 35, true, null, null, PokemonType.NORMAL);
 

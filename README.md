@@ -152,8 +152,11 @@ If you like the plugin, please consider [rating it on the Marketplace](https://p
 ### Generation IX
 
 * ![Sprigatito (#906)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sprigatito.gif) Sprigatito (#906) ![Sprigatito (#906)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/sprigatito_r.gif)
+* ![Meowscarada (#908)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meowscarada.gif) Meowscarada (#908) ![Meowscarada (#908)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/meowscarada_r.gif)
 * ![Fuecoco (#909)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fuecoco.gif) Fuecoco (#909) ![Fuecoco (#909)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/fuecoco_r.gif)
+* ![Skeledirge (#911)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/skeledirge.gif) Skeledirge (#911) ![Skeledirge (#911)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/skeledirge_r.gif)
 * ![Quaxly (#912)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaxly.gif) Quaxly (#912) ![Quaxly (#912)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaxly_r.gif)
+* ![Quaquaval (#914)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaquaval.gif) Quaquaval (#914) ![Quaquaval (#914)](src/main/resources/com/kagof/intellij/plugins/pokeprogress/sprites/quaquaval_r.gif)
 
 [comment]: <> (end-included-pokemon)
 
@@ -187,7 +190,7 @@ Contributions are very welcome on this project! Contributions can take the form 
 
 ### Code
 
-* The code for the progress bar itself was adapted from [Nyan Progess Bar](https://github.com/batya239/NyanProgressBar).
+* The code for the progress bar itself was initially adapted from [Nyan Progess Bar](https://github.com/batya239/NyanProgressBar).
 * This plugin is of course heavily dependent on JetBrains' IntelliJ SDK
 * All the [contributors](https://github.com/kagof/intellij-pokemon-progress/graphs/contributors) who've helped build this plugin
 
