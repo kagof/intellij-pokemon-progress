@@ -51,13 +51,13 @@ public class PokeballLoaderIconReplacer {
             defaultFramesField.set(null,
                 usePokeball ? getFrames(125, getPokeballIcons().toArray(Icon[]::new)) : originalFrames);
             replaced = usePokeball;
-        } catch (IllegalAccessException | NoSuchFieldException | NoSuchMethodError e) {
+        } catch (Exception e) {
             reflectionFailed = true;
             LOG.warn("failed to reflectively modify spinner icon", e);
         }
     }
 
-    private static void makeFieldNonFinal(final Field... fields) throws NoSuchMethodError, NoSuchFieldException, IllegalAccessException {
+    private static void makeFieldNonFinal(final Field... fields) throws NoSuchMethodError, NoSuchFieldException, IllegalAccessException, UnsupportedOperationException {
         final MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
         final VarHandle modifiers = lookup.findVarHandle(Field.class, "modifiers", int.class);
         for (final Field field : fields) {
