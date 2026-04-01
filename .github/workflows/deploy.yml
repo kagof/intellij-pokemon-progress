@@ -62,7 +62,7 @@ jobs:
           aws s3 cp ./build/distributions ${{ secrets.S3_BUCKET_NAME }}/dist --recursive
 
       - name: Create Release
-        uses: ncipollo/release-action@v1.20.0
+        uses: ncipollo/release-action@v1.21.0
         with:
           artifacts: "./build/distributions/*.zip"
           tag: "${{ env.PLUGIN_VERSION }}"
